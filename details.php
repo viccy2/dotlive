@@ -47,7 +47,7 @@ if (!isset($_GET['id'])) {
          <div class="col-lg-12 posts-list">
             <div class="single-post">
                <div class="feature-img">
-                  <img style="height: 1080px; height: 1080px;" class="img-fluid" src="upload/apartment/<?php echo $row['pix'] ?>" alt="DotLive">
+                  <img style="width: 100%; height: 700px;" class="img-fluid" src="upload/apartment/<?php echo $row['pix'] ?>" alt="DotLive">
                </div>
                <div class="blog_details">
                   <h2 style="color: #2d2d2d;"><?php echo $row['apartment'] ?>
@@ -73,7 +73,9 @@ if (!isset($_GET['id'])) {
                   <p style="font-size: 22px;" class="excert">
                      Power Source.: <?php echo $row['power'] ?><br><br>
                                    Water Type.: <?php echo $row['water'] ?> <br><br>
-                                   Location.: <?php echo $row['location'] ?><br><br>
+                                   Toilet Type.: <?php echo $row['toilet'] ?> <br><br>
+                                   Apartment Campus.: <?php echo $row['state'] ?> <br><br>
+                                   Apartment Location.: <?php echo $row['location'] ?><br><br>
                                    <span style="color: #ff0000">Price.: NGN <?php echo number_format($row['price']) ?>/yr</span>
                   </p>
                   <p style="font-size: 22px;">
@@ -82,10 +84,21 @@ if (!isset($_GET['id'])) {
                   
                </div>
             </div>
+            <?php
+            if (isset($_SESSION['Username'])) {
+            ?>
            <div class="form-group">
-               <a href="./aptpay?drt=<?php echo md5(rand()); ?>&id=<?php echo $row['price'] ?>&mla=<?php echo $_SESSION['Username'] ?>"><button type="submit" class="button button-contactForm btn_1 boxed-btn">Get Apartment</button></a>
+               <a href="./aptpaycat?drt=<?php echo md5(rand()); ?>&id=<?php echo $row['price'] ?>&mla=<?php echo $_SESSION['Username'] ?>"><button type="submit" class="button button-contactForm btn_1 boxed-btn">Get Apartment</button></a>
             </div> 
-      
+      <?php
+    } else {
+?>
+  <div class="form-group">
+               <a href="./signup"><button type="submit" class="button button-contactForm btn_1 boxed-btn">Get Apartment</button></a>
+            </div> 
+      <?php
+    }
+    ?>
       
       
    </div>

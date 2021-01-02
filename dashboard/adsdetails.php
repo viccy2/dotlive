@@ -11,12 +11,12 @@ $data = $_GET['id'];
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Apartment Details</h1>
+            <h1>Ads Details</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="./">Home</a></li>
-              <li class="breadcrumb-item active">Apartment Details</li>
+              <li class="breadcrumb-item active">Ads Details</li>
             </ol>
           </div>
         </div>
@@ -27,9 +27,10 @@ $data = $_GET['id'];
     <section class="content">
                </thead>
          <?php
- $sql="SELECT * FROM apartment WHERE `apt` ='$data'";
+ $sql="SELECT * FROM ads WHERE `ads_id` ='$data'";
  $result_set=query($sql);
  $row= mysqli_fetch_array($result_set);
+ $_SESSION['date'] = $row['date'];
   ?>        
       <!-- Default box -->
       <div class="card card-solid">
@@ -39,31 +40,30 @@ $data = $_GET['id'];
               
               <div class="col-12">
                 <?php echo '
-                <img src="../upload/apartment/'.$row['pix'].'" class="product-image" alt="Apartment Image">';
+                <img src="../upload/ads/'.$row['file'].'" class="product-image" alt="ads image">';
                 ?>
               </div>
               
             </div>
             <div class="col-12 col-sm-6">
-              <h3 class="my-3"><b>Suite No.:</b> <?php echo $row['apt']; ?></h3>
-              <p><b>Apartment Type:</b> <?php echo $row['apartment']; ?></p>
-              <p><b>Apartment Details:</b> <?php echo $row['description']; ?></p>
-              <p><b>Water Type:</b> <?php echo $row['water']; ?></p>
-              <p><b>Power Source:</b> <?php echo $row['power']; ?></p>
-              <p><b>Toilet Type:</b> <?php echo $row['toilet']; ?></p>
-              <p><b>Location:</b> <?php echo $row['location']; ?></p>
-              <p><b>Campus:</b> <?php echo $row['state']; ?></p>
-              <p><b>Price:</b> NGN <?php echo number_format($row['price']); ?></p>
+              <h3 class="my-3"><b>Ads ID.:</b> <?php echo $row['ads_id']; ?></h3>
+              <p><b>Tagline:</b> <?php echo $row['tagline']; ?></p>
+              <p><b>Ads Details:</b> <?php echo $row['descrip']; ?></p>
+              <p><b>Duration:</b> <?php echo $row['duration']; ?></p>
+              <p><b>Date Submitted:</b> <?php echo $row['date']; ?></p>
+              <p><b>Expiry Date:</b> <span id="demo"></span></p>
+              <p><b>Target:</b> <?php echo $row['target']; ?></p>
+              <p><b>Ads Price:</b> NGN <?php echo number_format($row['price']); ?></p>
               <hr>                
              
                 <button type="button" class="btn btn-default btn-lg btn-flat" data-toggle="modal" data-target="#modal-lg">
                   <i class="fas fa-trash fa-lg mr-2"></i> 
-                  Delete Apartment
+                  Delete Ad
                  </button>
 
-                 <a href="./edit?id=<?php echo $row['apt']; ?>"><button type="button" class="btn btn-primary btn-lg btn-flat">
+                 <a href="./editad?id=<?php echo $row['ads_id']; ?>"><button type="button" class="btn btn-primary btn-lg btn-flat">
                   <i class="fas fa-edit fa-lg mr-2"></i> 
-                  Edit Apartment
+                  Edit Ad
                  </button>
 
               </div>
@@ -94,17 +94,17 @@ $data = $_GET['id'];
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Delete Apartment?</h4>
+              <h4 class="modal-title">Delete Ad?</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              <p>Note that, once apartment is deleted, all details as regards the apartent are cleared off also and can`t be recovered. <br/><br/>Do you want to proceed deleting this product?</p>
+              <p>Note that, once ad is deleted, all details as regards the ad are cleared off also and can`t be recovered. <br/><br/>Do you want to proceed deleting this ad?</p>
             </div>
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <a href="./del?id=<?php echo $data; ?>"><button type="button" class="btn btn-danger">Continue</button></a>
+                <a href="./delads?id=<?php echo $data; ?>"><button type="button" class="btn btn-danger">Continue</button></a>
                               </thead>
          
             </div>
@@ -127,5 +127,35 @@ $data = $_GET['id'];
 <script src="dist/js/adminlte.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<script>
+// Set the date we're counting down to
+var countDownDate = new Date("<?php echo $_SESSION['date'] ?>").getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Display the result in the element with id="demo"
+  document.getElementById("demo").innerHTML = days + "days " + hours + "hours "
+  + minutes + "min " + seconds + "sec ";
+
+  // If the count down is finished, write some text
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("demo").innerHTML = "EXPIRED";
+  }
+})
+</script>
 </body>
 </html>

@@ -8,12 +8,12 @@ if(!isset($_GET['id'])) {
 
   $data   = $_GET['id'];
 
-  $sql    = "SELECT * FROM `apartment` WHERE `apt` = '$data'";
+  $sql    = "SELECT * FROM `ads` WHERE `ads_id` = '$data'";
   $res    = query($sql);
 
   $row    = mysqli_fetch_array($res);
 
-  $_SESSION['aptimg']  = $data;
+  $_SESSION['adsimg']  = $data;
 }
 
  ?>
@@ -24,12 +24,12 @@ if(!isset($_GET['id'])) {
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Edit Apartment Image</h1>
+            <h1>Upload Ads Image</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="./">Dashboard</a></li>
-              <li class="breadcrumb-item active">Edit Apartment Image</li>
+              <li class="breadcrumb-item active">Ads Image</li>
             </ol>
           </div>
         </div>
@@ -45,7 +45,7 @@ if(!isset($_GET['id'])) {
             <!-- general form elements disabled -->
             <div class="card card-warning">
               <div class="card-header">
-                <h3 class="card-title">Edit Apartment Image below;</h3>
+                <h3 class="card-title">Kindly upload ads image below;</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -55,13 +55,13 @@ if(!isset($_GET['id'])) {
                     <div class="col-sm-6">
                       <!-- text input -->
                       <div class="form-group">
-                        <label>Suite_No.:</label>
-                        <input type="text" value="<?php echo $row['apt'] ?>" class="form-control" disabled>
+                        <label>Ads_ID.:</label>
+                        <input type="text" value="<?php echo $row['ads_id'] ?>" class="form-control" disabled>
                       </div>
                     </div>
                     <div class="col-sm-6">
                       <div class="form-group">
-                        <label>Apartment Price</label>
+                        <label>Ads Price</label>
                         <input type="text" value="NGN <?php echo number_format($row['price']) ?>"  class="form-control" disabled>
                       </div>
                     </div>
@@ -70,8 +70,8 @@ if(!isset($_GET['id'])) {
                     <div class="col-sm-12">
                       <!-- textarea -->
                       <div class="form-group">
-                        <label>Apartment Details<small><span style="color: red;"></span></small></label>
-                        <textarea  class="form-control" rows="3" placeholder="<?php echo $row['description'] ?>" disabled></textarea>
+                        <label>Ads Details<small><span style="color: red;"></span></small></label>
+                        <textarea  class="form-control" rows="3" placeholder="<?php echo $row['descrip'] ?>" disabled></textarea>
                       </div>
                     </div>
                    
@@ -82,22 +82,21 @@ if(!isset($_GET['id'])) {
 
 
                   <div class="form-group">
-                     <label for="customFile">Upload Product Image</label> 
+                     <label for="customFile">Upload Ads Image</label> 
 
                    
                   </div>
                     <div class="col-12 mb-3">
-                     <input type="file" id="file" class="form-control" name="file" required>
+                     <input type="file" id="adsfile" class="form-control" name="file" required>
                    </div> 
 
 
                    <br/><br/>
                    <ul style="color: red;">
  <li>Please Kindly go back and recheck all details for any errors. DotLive shall not be responsible for any mistakes.</li>
- <li> Make sure that the picture you uploaded is the same as the apartment submitted else, your listing shall be disapproved.</li>
-                                       </ul>                      
-                  <input type="button" value="Submit" id="aprtUpl" class="btn btn-success float-right">
-                  <a href="./myapartments"><input type="button" value="Skip" class="btn btn-primary float-left"></a>
+                   </ul>                      
+                  <input type="button" value="Submit" id="adsfileUpl" class="btn btn-success float-right">
+                  <a href="./adscenter"><input type="button" value="Skip" class="btn btn-warning float-left"></a>
                 </form>
               </div>
               <!-- /.card-body -->

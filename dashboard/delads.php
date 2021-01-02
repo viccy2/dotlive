@@ -2,25 +2,25 @@
 include("../functions/init.php");
 if (!isset($_GET['id'])) {
 
-	redirect("./details");
+	redirect("./adsdetails");
 } else {
 	$data = $_GET['id'];
 
 
 	//get image
-	$sql2 = "SELECT * FROM apartment WHERE `apt` = '$data'";
+	$sql2 = "SELECT * FROM ads WHERE `ads_id` = '$data'";
 	$res2 = query($sql2);	
 	$row = mysqli_fetch_array($res2);
-	$pix = $row['pix'];
+	$pix = $row['file'];
 
 	//delete image from upload folder
-	$delpix = "../upload/apartment/$pix";
+	$delpix = "../upload/ads/$pix";
 	unlink($delpix);
 
 	//delete room details from db
-	$sql = "DELETE FROM apartment WHERE `apt` = '$data'";
+	$sql = "DELETE FROM ads WHERE `ads_id` = '$data'";
 	$res = query($sql);
 
-	redirect("./myapartments");
+	redirect("./adscenter");
 }
 ?>

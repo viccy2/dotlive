@@ -31,7 +31,21 @@ include("include/top.php");
             <div class="card card-primary card-outline">
               <div class="card-body box-profile">
                <div class="nav nav-pills">
-                 
+<?php
+$name = $_SESSION['Username'];
+$sql = "SELECT * FROM user WHERE `email` = '$name'";
+$result = query($sql);
+$row = mysqli_fetch_array($result);
+
+$category   = $row['category'];
+
+if ($category != "user") {
+  ?>     
+                <a href="./apartment" class="btn btn-primary btn-block"><b>Upload Apartment</b></a>
+
+ <?php
+ }
+ ?>               
                 <a href="#activity" data-toggle="tab" class="btn btn-primary btn-block"><b>All Apartment(s)<sup> <span class="badge badge-danger right"><?php echo $_SESSION['new'];?></span></sup></b></a>
 
  <?php

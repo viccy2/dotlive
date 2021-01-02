@@ -1,6 +1,6 @@
 <?php
 include("functions/top.php");
-if (!isset($_GET['apr']) && !isset($_GET['loc']) && !isset($_GET['prc'])) {
+if (!isset($_GET['apr']) && !isset($_GET['loc']) && !isset($_GET['prc']) && !isset($_GET['toi']) && !isset($_GET['wat'])) {
    
    redirect("./apartments");
 } else {
@@ -8,6 +8,8 @@ if (!isset($_GET['apr']) && !isset($_GET['loc']) && !isset($_GET['prc'])) {
     $apr  = $_GET['apr'];
     $loc  = $_GET['loc'];
     $prc  = $_GET['prc'];
+    $toi  = $_GET['toi'];
+    $wat  = $_GET['wat'];
 
 }
 ?>
@@ -40,125 +42,119 @@ if (!isset($_GET['apr']) && !isset($_GET['loc']) && !isset($_GET['prc'])) {
         <!-- Courses area start -->
         <div class="courses-area section-padding40 fix">
             <div class="container">
+               
                     <form class="form-contact contact_form" method="post" id="contactForm" novalidate="novalidate">
                         <div class="row">
-                            <div class="col-sm-3">
-                                 <label><b style="color: #ff0000; font-size: 18px;">Price Range.:</b></label>
+                            <div class="col-sm-2">
                                 <div class="form-group">
-                                <select name="price" id="price" class="form-control valid">
-                                    <option name="price" id="price"><?php echo $prc?></option>
-                                    <option name="price" id="price">All</option>
-                                    <option name="price" id="price">NGN 10,000 - 30,000</option>
-                                    <option name="price" id="price">NGN 40,000 - 60,000</option>
-                                    <option name="price" id="price">NGN 70,000 and above</option>
-                                </select>                         
+                                 <label><b style="color: #ff0000; font-size: 18px;">Price Range.:</b></label><br/>
+                                NGN <?php echo $prc ?>
+                                    <input id="price" type="range" id="a" name="a" step="1500" min="5000" max="300000" value="<?php echo $prc ?>" oninput="x.value=parseInt(a.value)">
+                                    <br>
+                                     NGN <output id="price" name="x" for="a"></output>              
                                                        
-                                </div>
+                               </div>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-2">
                                  <label><b style="color: #ff0000; font-size: 18px;">Campus.:</b></label>
                                 <div class="form-group">
                                 <select id="loc" name="loc" class="form-control" required>
-                                        <option id="loc" name="loc"><?php echo $loc?></option>
-                                        <option id="loc" name="loc">All</option>
-                                        <option id="loc" name="loc">Abuja</option>
-                                        <option id="loc" name="loc">Abia</option>
-                                        <option id="loc" name="loc">Adamawa</option>
-                                        <option id="loc" name="loc">Akwa Ibom</option>
-                                        <option id="loc" name="loc">Anambra</option>
-                                        <option id="loc" name="loc">Bauchi</option>
-                                        <option id="loc" name="loc">Bayelsa</option>
-                                        <option id="loc" name="loc">Benue</option>
-                                        <option id="loc" name="loc">Borno</option>
-                                        <option id="loc" name="loc">Cross River</option>
-                                        <option id="loc" name="loc">Delta</option>
-                                        <option id="loc" name="loc">Ebonyi</option>
-                                        <option id="loc" name="loc">Edo</option>
-                                        <option id="loc" name="loc">Ekiti</option>
-                                        <option id="loc" name="loc">Enugu</option>
-                                        <option id="loc" name="loc">Gombe</option>
-                                        <option id="loc" name="loc">Imo</option>
-                                        <option id="loc" name="loc">Jigawa</option>
-                                        <option id="loc" name="loc">Kaduna</option>
-                                        <option id="loc" name="loc">Kano</option>
-                                        <option id="loc" name="loc">Katsina</option>
-                                        <option id="loc" name="loc">Kebbi</option>
-                                        <option id="loc" name="loc">Kogi</option>
-                                        <option id="loc" name="loc">Kwara</option>
-                                        <option id="loc" name="loc">Lagos</option>
-                                        <option id="loc" name="loc">Nassarawa</option>
-                                        <option id="loc" name="loc">Niger</option>
-                                        <option id="loc" name="loc">Ogun</option>
-                                        <option id="loc" name="loc">Ondo</option>
-                                        <option id="loc" name="loc">Osun</option>
-                                        <option id="loc" name="loc">Oyo</option>
-                                        <option id="loc" name="loc">Plateau</option>
-                                        <option id="loc" name="loc">Rivers</option>
-                                        <option id="loc" name="loc">Sokoto</option>
-                                        <option id="loc" name="loc">Taraba</option>
-                                        <option id="loc" name="loc">Yobe</option>
-                                        <option id="loc" name="loc">Zamfara</option>
+                                        <option id="loc" name="loc"><?php echo $loc ?></option>
+                                         <?php
+                $sql = "SELECT * FROM apartment WHERE `status` = 'available' GROUP BY `state` ORDER BY RAND()";
+                $res = query($sql);
+
+               while($row = mysqli_fetch_array($res)) {
+                ?>
+                                        <option id="loc" name="loc"><?php echo $row['state'] ?></option>
+                                    <?php
+                                }
+                                    ?>
                         </select>                       
                                                        
                                 </div>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-2">
                                  <label><b style="color: #ff0000; font-size: 18px;">Apartment Type.:</b></label>
                                 <div class="form-group">
                                  <select name="aprmt" id="aprmt" class="form-control" required>
-                                        <option name="aprmt" id="aprmt"><?php echo $apr?></option>
-                                        <option name="aprmt" id="aprmt">All</option>
-                                        <option name="aprmt" id="aprmt">Self-Contain</option>
-                                        <option name="aprmt" id="aprmt">Room</option>
-                                        <option name="aprmt" id="aprmt">Family House</option>
-                                        <option name="aprmt" id="aprmt">Room & Parlour</option>
-                                        <option name="aprmt" id="aprmt">Boys Quarter</option>
+                                    <option name="aprmt" id="aprmt"><?php echo $apr ?></option>
+                                     <?php
+                $sql = "SELECT * FROM apartment WHERE `status` = 'available' GROUP BY `apartment` ORDER BY RAND()";
+                $res = query($sql);
+
+               while($row = mysqli_fetch_array($res)) {
+                ?>
+                                        
+                                        <option name="aprmt" id="aprmt"><?php echo $row['apartment'] ?></option>
+                                       
+                        <?php
+                                }
+                                    ?>
                         </select>                        
+                                                       
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-2">
+                                 <label><b style="color: #ff0000; font-size: 18px;">Water Type.:</b></label>
+                                <div class="form-group">
+                                 <select name="water" id="water" class="form-control" required>
+                                    <option name="water" id="water"><?php echo $wat ?></option>
+                                     <?php
+                $sql = "SELECT * FROM apartment WHERE `status` = 'available' GROUP BY `water` ORDER BY RAND()";
+                $res = query($sql);
+
+               while($row = mysqli_fetch_array($res)) {
+                ?>
+                                        
+                                        <option name="water" id="water"><?php echo $row['water'] ?></option>
+                                       
+                        <?php
+                                }
+                                    ?>
+                        </select>                        
+                                                       
+                                </div>
+                            </div>
+
+
+                             <div class="col-sm-2">
+                                 <label><b style="color: #ff0000; font-size: 18px;">Toilet Type.:</b></label>
+                                <div class="form-group">
+                                <select id="toi" class="form-control" required>
+                                        <option id="toi"><?php echo $toi ?></option>
+                            <?php
+                $sql = "SELECT * FROM apartment WHERE `status` = 'available' GROUP BY `toilet` ORDER BY RAND()";
+                $res = query($sql);
+
+               while($row = mysqli_fetch_array($res)) {
+                ?>
+                                        <option id="toi"><?php echo $row['toilet'] ?></option>
+                    <?php
+                                }
+                                    ?>
+                        </select>                  
                                                        
                                 </div>
                             </div>
                            
                      
-                          <div class="form-group mt-5 pl-5 col-lg-3">
-                            <button type="button" onclick="filterApt();" class="button button-contactForm boxed-btn">Apply Filter</button>                            
+                          <div class="form-group mt-5 pl-5 col-lg-2">
+                            <button type="button" onclick="filterApt();" class="button button-contactForm boxed-btn">Apply</button>                            
                         </div>
                         </div>
                     </form>
 
                 <div class="row mt-5">
                     <?php
-    if ($prc == "NGN 10,000 - 30,000") {
-        $prc = "30000";
-
-    $sql = "SELECT * FROM apartment WHERE `apartment` = '$apr' AND `state` = '$loc' AND `price` <= '$prc' AND `status` = 'available' ORDER BY RAND() desc";
+     $sql = "SELECT * FROM apartment WHERE `status` = 'available' AND `apartment` = '$apr' AND `state` = '$loc' AND `toilet` = '$toi' AND `price` <= '$prc' ORDER BY RAND() desc";
      $res = query($sql);
-    } else {
-    if ($prc == "NGN 40,000 - 60,000") {        
-        $prc = "60000";
-
-    $sql = "SELECT * FROM apartment WHERE `apartment` = '$apr' AND `state` = '$loc' AND `price` <= '$prc' AND `status` = 'available' ORDER BY RAND() desc";
-    $res = query($sql);
-    } else {
-
-    if ($prc == "NGN 70,000 and above") {
-     $prc = ">=373382";
-
-    $sql = "SELECT * FROM apartment WHERE `apartment` = '$apr' AND `state` = '$loc' AND `price` = '$prc' AND `status` = 'available' ORDER BY RAND() desc";
-    $res = query($sql);
-     while($row = mysqli_fetch_array($res)) {
-
-        $uploader = $row['uploader'];
-        echo $uploader;
-    }
-    }
-    }
-    }
-     /*$sql = "SELECT * FROM apartment WHERE `apartment` = '$apr' AND `location` = '$loc' AND `price` >= '$prc' AND `status` = 'available' ORDER BY RAND() desc";
-     $res = query($sql);*/
 
      if (row_count($res) == 0) {
          
-         echo '';
+         echo '<h3 class="text-center text-danger"> Opps, we don`t have any aparment matching your filter</h3>';
      } else {
 
      while($row = mysqli_fetch_array($res)) {
@@ -169,13 +165,14 @@ if (!isset($_GET['apr']) && !isset($_GET['loc']) && !isset($_GET['prc'])) {
                         <div class="properties properties2 mb-30">
                             <div class="properties__card">
                                 <div class="properties__img overlay1">
-                                    <a href="#"><img src="upload/apartment/<?php echo $row['pix'] ?>" alt="DotLive"></a>
+                                    <a href="#"><img style="width: 100%; height: 315px;" src="upload/apartment/<?php echo $row['pix'] ?>" alt="DotLive"></a>
                                 </div>
                                 <div class="properties__caption">
                                     <p><?php echo $row['apt'] ?></p>
                                 <h3><a href="#"><?php echo $row['apartment'] ?></a></h3>
                                 <p>Power Source.: <?php echo $row['power'] ?><br>
                                    Water Type.: <?php echo $row['water'] ?> <br>
+                                   Toilet Type.: <?php echo $row['toilet'] ?><br>
                                    Location.: <?php echo $row['location'] ?>
 
                                 </p>
@@ -198,7 +195,7 @@ if (!isset($_GET['apr']) && !isset($_GET['loc']) && !isset($_GET['prc'])) {
                                          if ($row2['nin'] == "verified" || $row2['agtbiz'] == "Dot Housing") {
                                         ?>
                                         <div class="rating">
-                                            <i class="fas fa-star">Verified</i>
+                                            <i style="color: red;" class="fas fa-check-circle"> Verified</i>
                                         </div>
                                         <?php
                                     } else {
@@ -212,7 +209,7 @@ if (!isset($_GET['apr']) && !isset($_GET['loc']) && !isset($_GET['prc'])) {
                                         <p><?php echo $name ?></p>
                                     </div>
                                     <div class="price">
-                                        <span class="text-danger">NGN <?php echo number_format($row['price']) ?></span>
+                                        <span class="text-danger">NGN <?php echo number_format($row['price']) ?>/yr</span>
                                     </div>
                                 </div>
                                     <a href="./details?id=<?php echo $row['apt'] ?>" class="border-btn border-btn2">View More Details</a>
@@ -225,17 +222,12 @@ if (!isset($_GET['apr']) && !isset($_GET['loc']) && !isset($_GET['prc'])) {
                 }
                 ?>
                 </div>
-                <div class="row justify-content-center">
-                    <div class="col-xl-7 col-lg-8">
-                        <div class="section-tittle text-center mt-40">
-                            <a href="./apartments" class="border-btn">Load More</a>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
         <!-- Courses area End -->
          <?php include("includes/footer.php"); ?>
+
+
     <!-- JS here -->
     <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
     <!-- Jquery, Popper, Bootstrap -->
@@ -274,9 +266,10 @@ if (!isset($_GET['apr']) && !isset($_GET['loc']) && !isset($_GET['prc'])) {
     <script src="./assets/js/mail-script.js"></script>
     <script src="./assets/js/jquery.ajaxchimp.min.js"></script>
     
-    <!-- Jquery Plugins, main Jquery -->	
+    <!-- Jquery Plugins, main Jquery -->    
     <script src="./assets/js/plugins.js"></script>
     <script src="./assets/js/main.js"></script>
     <script src="ajax.js"></script>
+
 </body>
 </html>

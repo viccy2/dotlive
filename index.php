@@ -86,14 +86,16 @@ include("functions/top.php");
                     <div class="properties pb-20">
                         <div class="properties__card">
                             <div class="properties__img overlay1">
-                                <a href="#"><img src="upload/apartment/<?php echo $row['pix'] ?>" alt="DotLive"></a>
+                                <a href="#"><img style="width: 100%; height: 315px;" src="upload/apartment/<?php echo $row['pix'] ?>" alt="DotLive"></a>
                             </div>
                             <div class="properties__caption">
                                 <p><?php echo $row['apt'] ?></p>
                                 <h3><a href="#"><?php echo $row['apartment'] ?></a></h3>
                                 <p>Power Source.: <?php echo $row['power'] ?><br>
                                    Water Type.: <?php echo $row['water'] ?> <br>
-                                   Location.: <?php echo $row['location'] ?>
+                                   Toilet Type.: <?php echo $row['toilet'] ?><br>
+                                   Apartment Campus.: <?php echo $row['state'] ?><br>
+                                   Apartment Location.: <?php echo $row['location'] ?>
 
                                 </p>
                                 <div class="properties__footer d-flex justify-content-between align-items-center">
@@ -129,7 +131,7 @@ include("functions/top.php");
                                         <p><?php echo $name ?></p>
                                     </div>
                                     <div class="price">
-                                        <span class="text-danger">NGN <?php echo number_format($row['price']) ?></span>
+                                        <span class="text-danger">₦<?php echo number_format($row['price']) ?></span>
                                     </div>
                                 </div>
                                 <a href="./details?id=<?php echo $row['apt'] ?>" class="border-btn border-btn2">View More Details</a>
@@ -204,7 +206,7 @@ include("functions/top.php");
                             <img src="assets/img/gallery/Great.png" alt="">
                         </div>
                         <div class="cat-cap">
-                            <h5><a href="services.html">Abolade Greatness</a></h5>
+                            <h5><a href="#">Abolade Greatness</a></h5>
                             <p>Team Lead</p>
                         </div>
                     </div>
@@ -213,8 +215,8 @@ include("functions/top.php");
                             <img src="assets/img/gallery/frank.png" alt="">
                         </div>
                         <div class="cat-cap">
-                            <h5><a href="services.html">Akintomide Franklin</a></h5>
-                            <p>Customer Support</p>
+                            <h5><a href="#">Akintomide Franklin</a></h5>
+                            <p>Human Relations</p>
                         </div>
                     </div>
                     <div class="single-cat text-center">
@@ -222,7 +224,7 @@ include("functions/top.php");
                             <img src="assets/img/gallery/sam.png" alt="">
                         </div>
                         <div class="cat-cap">
-                            <h5><a href="services.html">Aholu Samuel</a></h5>
+                            <h5><a href="#">Aholu Samuel</a></h5>
                             <p>Database Engineer</p>
                         </div>
                     </div>
@@ -231,7 +233,7 @@ include("functions/top.php");
                             <img src="assets/img/gallery/deji.png" alt="">
                         </div>
                         <div class="cat-cap">
-                            <h5><a href="services.html">Ayodeji Omojola</a></h5>
+                            <h5><a href="#">Ayodeji Omojola</a></h5>
                             <p>Web Developer</p>
                         </div>
                     </div>
@@ -240,8 +242,8 @@ include("functions/top.php");
                             <img src="assets/img/gallery/vic.png" alt="">
                         </div>
                         <div class="cat-cap">
-                            <h5><a href="services.html">Oluyitan Victor</a></h5>
-                            <p>User Designer and Experience</p>
+                            <h5><a href="#">Oluyitan Victor</a></h5>
+                            <p>Social Media Analyst</p>
                         </div>
                     </div>
                 </div>

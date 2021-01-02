@@ -1,15 +1,13 @@
 <?php
-include("functions/init.php");
-
     if (isset($_GET['txref'])) {
         $ref = $_GET['txref'];
+        $amount = ""; //Correct Amount from Server
+        $currency = ""; //Correct Currency from Server
 
         $query = array(
-            "SECKEY" => "FLWSECK_TEST-9a10d3f83fd853ee5df75fafcc9d62e0-X",
+            "SECKEY" => "Your Secret Key",
             "txref" => $ref
         );
-
-
 
         $data_string = json_encode($query);
                 
@@ -19,7 +17,6 @@ include("functions/init.php");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-
 
         $response = curl_exec($ch);
 
@@ -36,23 +33,17 @@ include("functions/init.php");
         $chargeAmount = $resp['data']['amount'];
         $chargeCurrency = $resp['data']['currency'];
 
-        if (($chargeResponsecode == "00" || $chargeResponsecode == "0")) {
+        if (($chargeResponsecode == "00" || $chargeResponsecode == "0") && ($chargeAmount == $amount)  && ($chargeCurrency == $currency)) {
           // transaction was successful...
              // please check other things like whether you already gave value for this ref
           // if the email matches the customer who owns the product etc
           //Give Value and return to Success page
-            
-
-            redirect("./payval?ref=$ref");
-
         } else {
-            
-            redirect("./payerror");
+            //Dont Give Value and return to Failure page
         }
     }
         else {
-           redirect("./payerror");
       die('No reference supplied');
     }
 
- ?>
+?>

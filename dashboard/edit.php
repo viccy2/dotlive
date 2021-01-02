@@ -151,6 +151,18 @@ $row = mysqli_fetch_array($res);
                       </div>
                     </div>
                     <div class="col-sm-6">
+                      <!-- select -->
+                      <div class="form-group">
+                        <label>Toilet Type.:</label>
+                        <select id="toi" class="form-control" required>
+                                        <option id="toi">Pit Toilet</option>
+                                        <option id="toi">Water Closet</option>
+                                        <option id="toi">Public Toilet</option>
+                                        <option id="toi">None</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-sm-12">
                       <div class="form-group">
                         <label>Apartment Price.:</label>
                         <input type="number" id="price" value="<?php echo $row['price'] ?>" class="form-control" placeholder="30000" required>
@@ -166,7 +178,7 @@ $row = mysqli_fetch_array($res);
                       <!-- textarea -->
                       <div class="form-group">
                         <label>Apartment Description<small><span style="color: red;"></span></small></label>
-                        <textarea id="desc" class="form-control" rows="3" placeholder="<?php echo $row['description'] ?>" required></textarea>
+                        <textarea id="desc" class="form-control" rows="3" placeholder="<?php echo $row['description'] ?>" required><?php echo $row['description'] ?></textarea>
                       </div>
                     </div>
                   </div>

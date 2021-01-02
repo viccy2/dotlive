@@ -46,7 +46,7 @@ $category   = $row['category'];
           <br/>
           <li class="nav-item has-treeview">
             <a href="./myapartments" class="nav-link">
-              <i class="nav-icon fa fa-mosque"></i>
+              <i class="nav-icon fa fa-school"></i>
               <p>
                My Apartment
                 <i class="fas fa-angle-right right"></i>
@@ -55,25 +55,7 @@ $category   = $row['category'];
             </a>
 
           </li>
-          <br/>
-          <?php
-          if ($category != "user") {
-          ?>
-          <li class="nav-item has-treeview">
-            <a href="./apartment" class="nav-link">
-              <i class="nav-icon fa fa-school"></i>
-              <p>
-               Upload Apartment
-                <i class="fas fa-angle-right right"></i>
-               
-              </p>
-            </a>
-
-          </li>
-          <br/>
-          <?php
-        }
-        ?>
+          <br/>          
           <li class="nav-item has-treeview">
             <a href="./comingsoon" class="nav-link">
               <i class="nav-icon fa fa-envelope"></i>
@@ -86,7 +68,7 @@ $category   = $row['category'];
           </li>
           <br/>
           <li class="nav-item has-treeview">
-            <a href="./comingsoon" class="nav-link">
+            <a href="./adscenter" class="nav-link">
               <i class="nav-icon fas fa-credit-card"></i>
               <p>
                Ads Center
@@ -130,6 +112,7 @@ $category   = $row['category'];
               </p>
             </a>            
           </li>
+          <br/>
           <li class="nav-item has-treeview">
             <a href="./profile" class="nav-link">
               <i class="nav-icon fas fa-user"></i>

@@ -11,16 +11,15 @@ $tranref = md5($_GET['drt']);
 $all     = $_GET['id']; 
 
 
-
-// Flutterwave RAVE Payment API
 $curl = curl_init();
 
-$customer_email = $email;
-$amount = $all;  
+$customer_email = "user@example.com";
+$amount = 3000;  
 $currency = "NGN";
-$txref = $tranref; // ensure you generate unique references per transaction.
-$PBFPubKey = "FLWPUBK_TEST-23d4ed37ff2442e1f1f1cdb645b45588-X"; //get your public key from the dashboard.
-$redirect_url = "https://dotlive.com.ng/./pay?txref=$txref";
+$txref = "rave-29933838"; // ensure you generate unique references per transaction.
+$PBFPubKey = "<YOUR PUBLIC KEY>"; // get your public key from the dashboard.
+$redirect_url = "https://your-website.com/urltoredirectto";
+$payment_plan = "pass the plan id"; // this is only required for recurring payments.
 
 
 curl_setopt_array($curl, array(
@@ -34,6 +33,7 @@ curl_setopt_array($curl, array(
     'txref'=>$txref,
     'PBFPubKey'=>$PBFPubKey,
     'redirect_url'=>$redirect_url,
+    'payment_plan'=>$payment_plan
   ]),
   CURLOPT_HTTPHEADER => [
     "content-type: application/json",
@@ -45,16 +45,13 @@ $response = curl_exec($curl);
 $err = curl_error($curl);
 
 if($err){
-    redirect("./payerror");
   // there was an error contacting the rave API
   die('Curl returned error: ' . $err);
-  
 }
 
 $transaction = json_decode($response);
 
 if(!$transaction->data && !$transaction->data->link){
-    redirect("./payerror");
   // there was an error from the API
   print_r('API returned error: ' . $transaction->message);
 }

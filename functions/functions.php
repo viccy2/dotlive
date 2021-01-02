@@ -467,7 +467,7 @@ if (isset($_POST['upword']) && isset($_POST['ucpword'])) {
 
 //--------------------------- dashboard ---------------------------------------------///
 
-if (isset($_POST['suite']) && isset($_POST['uapty']) && isset($_POST['waterty']) && isset($_POST['pwrsrc']) && isset($_POST['state']) && isset($_POST['ultel']) && isset($_POST['apmail']) && isset($_POST['price']) && isset($_POST['loc']) && isset($_POST['desc']) && isset($_POST['aptact']) && isset($_POST['aptbnk'])) {
+if (isset($_POST['suite']) && isset($_POST['uapty']) && isset($_POST['waterty']) && isset($_POST['pwrsrc']) && isset($_POST['state']) && isset($_POST['ultel']) && isset($_POST['apmail']) && isset($_POST['price']) && isset($_POST['loc']) && isset($_POST['desc']) && isset($_POST['aptact']) && isset($_POST['aptbnk']) && isset($_POST['toi'])) {
 	
 
 $suite 			= clean($_POST['suite']);
@@ -482,19 +482,20 @@ $loc            = clean($_POST['loc']);
 $desc  			= clean($_POST['desc']);
 $aptact			= clean($_POST['aptact']);
 $aptbnk			= clean($_POST['aptbnk']);
+$toi 			= clean($_POST['toi']);
 
 
 
 
-upload_apt($suite, $apty, $waterty, $pwrsrc, $state, $ultel, $apmail, $price, $loc, $desc, $aptact, $aptbnk);
+upload_apt($suite, $apty, $waterty, $pwrsrc, $state, $ultel, $apmail, $price, $loc, $desc, $aptact, $aptbnk, $toi);
 }
 
 
 //upload apartment
-function upload_apt($suite, $apty, $waterty, $pwrsrc, $state, $ultel, $apmail, $price, $loc, $desc, $aptact, $aptbnk) {
+function upload_apt($suite, $apty, $waterty, $pwrsrc, $state, $ultel, $apmail, $price, $loc, $desc, $aptact, $aptbnk, $toi) {
 
-$sql = "INSERT INTO apartment(`sn`, `apt`, `apartment`, `location`, `description`, `price`, `water`, `power`, `status`, `uploader`, `tel`, `acct`, `bank`, `state`)";
-$sql.= " VALUES('1' , '$suite', '$apty', '$loc', '$desc', '$price', '$waterty', '$pwrsrc', 'available', '$apmail', '$ultel', '$aptact', '$aptbnk', '$state')";
+$sql = "INSERT INTO apartment(`sn`, `apt`, `apartment`, `location`, `description`, `price`, `water`, `power`, `status`, `uploader`, `tel`, `acct`, `bank`, `state`, `toilet`)";
+$sql.= " VALUES('1' , '$suite', '$apty', '$loc', '$desc', '$price', '$waterty', '$pwrsrc', 'available', '$apmail', '$ultel', '$aptact', '$aptbnk', '$state', '$toi')";
 $result = query($sql);
 
 echo 'Loading... Please wait!';
@@ -628,7 +629,7 @@ redirect("./sent");
 }	
 
 //--------------- edit apartment --------------//
-if (isset($_POST['edsuite']) && isset($_POST['eduapty']) && isset($_POST['edwaterty']) && isset($_POST['edpwrsrc']) && isset($_POST['edstate']) && isset($_POST['edultel']) && isset($_POST['edapmail']) && isset($_POST['edprice']) && isset($_POST['edloc']) && isset($_POST['eddesc']) && isset($_POST['edaptact']) && isset($_POST['edaptbnk'])) {
+if (isset($_POST['edsuite']) && isset($_POST['eduapty']) && isset($_POST['edwaterty']) && isset($_POST['edpwrsrc']) && isset($_POST['edstate']) && isset($_POST['edultel']) && isset($_POST['edapmail']) && isset($_POST['edprice']) && isset($_POST['edloc']) && isset($_POST['eddesc']) && isset($_POST['edaptact']) && isset($_POST['edaptbnk']) && isset($_POST['edtoi'])) {
 	
 
 $suite 			= clean($_POST['edsuite']);
@@ -643,21 +644,226 @@ $loc            = clean($_POST['edloc']);
 $desc  			= clean($_POST['eddesc']);
 $aptact			= clean($_POST['edaptact']);
 $aptbnk			= clean($_POST['edaptbnk']);
+$toi 			= clean($_POST['edtoi']);
 
 
 
 
-edupload_apt($suite, $apty, $waterty, $pwrsrc, $state, $ultel, $apmail, $price, $loc, $desc, $aptact, $aptbnk);
+edupload_apt($suite, $apty, $waterty, $pwrsrc, $state, $ultel, $apmail, $price, $loc, $desc, $aptact, $aptbnk, $toi);
 }
 
 
 //upload apartment
-function edupload_apt($suite, $apty, $waterty, $pwrsrc, $state, $ultel, $apmail, $price, $loc, $desc, $aptact, $aptbnk) {
+function edupload_apt($suite, $apty, $waterty, $pwrsrc, $state, $ultel, $apmail, $price, $loc, $desc, $aptact, $aptbnk, $toi) {
 
-$sql = "UPDATE apartment SET `sn` = '1', `apartment` = '$apty', `location` = '$loc', `description` = '$desc', `price` = '$price', `water` = '$waterty', `power` = '$pwrsrc', `status` = 'available', `uploader` = '$apmail', `tel` = '$ultel', `acct` = '$aptact', `bank` = '$aptbnk', `state` = '$state' WHERE `apt` = '$suite'";
+$sql = "UPDATE apartment SET `sn` = '1', `apartment` = '$apty', `location` = '$loc', `description` = '$desc', `price` = '$price', `water` = '$waterty', `power` = '$pwrsrc', `status` = 'available', `uploader` = '$apmail', `tel` = '$ultel', `acct` = '$aptact', `bank` = '$aptbnk', `state` = '$state', `toilet` = '$toi' WHERE `apt` = '$suite'";
 $result = query($sql);
 
 echo 'Loading... Please wait!';
 echo '<script>window.location.href ="./eduploadagreed?id='.$suite.'"</script>';
 	 }
+
+
+
+//-------------------- ads upload ------------------//
+if (isset($_POST['adsid']) && isset($_POST['tagl']) && isset($_POST['dura']) && isset($_POST['targ']) && isset($_POST['link']) && isset($_POST['descp'])) {
+	
+$adsid			= clean($_POST['adsid']);
+$tagl	 		= clean($_POST['tagl']);
+$dura   		= clean($_POST['dura']); 
+$targ   		= clean($_POST['targ']);
+$link   		= clean($_POST['link']);
+$descp    		= clean($_POST['descp']);
+
+$r 				= $_SESSION['Username'];
+
+
+//get ads pricing
+if ($dura == "A Day") {
+	
+	$price = 500;
+} else {
+
+if ($dura == "A Week") {
+	
+	$price = 3000;
+} else {
+
+if ($dura == "3 Days") {
+	
+	$price = 1000;
+} else {
+
+if ($dura == "A Month") {
+	
+	$price = 14000;
+} else {
+
+if ($dura == "A Year") {
+	
+	$price = 160000;
+}
+}
+}
+}
+}
+
+//check if user has enough funds
+$sql = "SELECT * FROM user WHERE `email` = '$r'";
+$res = query($sql);
+$row = mysqli_fetch_array($res);
+
+$avlamt = $row['wallet'];
+$tel    = $row['tel'];
+
+if ($avlamt >= $price) {
+	
+	activateads($adsid, $tagl, $dura, $targ, $link, $descp, $price, $tel, $r);
+} else {
+
+	echo "You don`t have enough funds in your wallet to run this advert.<br/> Kindly fund your wallet with an amount greater than NGN".number_format($price)." to run this ad.";
+}
+}
+
+
+function activateads($adsid, $tagl, $dura, $targ, $link, $descp, $price, $tel, $r) {
+
+$date = date("Y-m-d h:i:sa");
+
+$sql = "INSERT INTO ads(`sn`, `ads_id`, `tagline`, `descrip`, `user`, `date`, `duration`, `price`, `session`, `tel`, `link`, `target`, `click`)";
+$sql.= " VALUES('1', '$adsid', '$tagl', '$descp', '$r', '$date', '$dura', '$price', 'active', '$tel', '$link', '$targ', '0')";
+$result = query($sql);
+
+echo "Loading.. Please wait";
+echo '<script>window.location.href ="./adfile?id='.$adsid.'"</script>';
+}
+
+
+//ads image upload
+if (!empty($_FILES["fle"]["name"])) {
+	
+			$target_dir = "../upload/ads/";
+			$target_file =  basename($_FILES["fle"]["name"]);
+			$targetFilePath = $target_dir . $target_file;
+			$uploadOk = 1;
+			$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+	
+			
+			// Allow certain file formats
+			if($imageFileType != "jpg" && $imageFileType != "jpeg") {
+			    echo "Sorry, only JPG and JPEG files are allowed.";
+			    $uploadOk = 0;
+			} else {
+			// Check if $uploadOk is set to 0 by an error
+			if ($uploadOk == 0) {
+			   echo "Sorry, your ads image was not uploaded.";
+			// if everything is ok, try to upload file
+			} else {
+			   
+			   move_uploaded_file($_FILES["fle"]["tmp_name"], $targetFilePath);
+			   img_ads($target_file);
+   			
+		
+	}	    	
+}
+}
+
+
+///sql update ads image
+function img_ads($target_file) {
+
+	$code     = $_SESSION['adsimg'];
+
+	$sql 	  = "UPDATE ads SET `file` = '$target_file' WHERE `ads_id` = '$code'";
+	$res 	  = query($sql);
+
+	echo 'Loading.. Please wait';
+	echo '<script>window.location.href ="./done"</script>';
+
+}
+
+
+//------- edit ads ----------//
+if (isset($_POST['edadsid']) && isset($_POST['edtagl']) && isset($_POST['eddura']) && isset($_POST['edtarg']) && isset($_POST['edlink']) && isset($_POST['eddescp'])) {
+	
+$edadsid		= clean($_POST['edadsid']);
+$edtagl	 		= clean($_POST['edtagl']);
+$eddura   		= clean($_POST['eddura']); 
+$edtarg   		= clean($_POST['edtarg']);
+$edlink   		= clean($_POST['edlink']);
+$eddescp    	= clean($_POST['eddescp']);
+
+$edr			= $_SESSION['Username'];
+
+
+//get ads pricing
+if ($eddura == "A Day") {
+	
+	$edprice = 500;
+} else {
+
+if ($eddura == "A Week") {
+	
+	$edprice = 3000;
+} else {
+
+if ($eddura == "3 Days") {
+	
+	$edprice = 1000;
+} else {
+
+if ($eddura == "A Month") {
+	
+	$edprice = 14000;
+} else {
+
+if ($eddura == "A Year") {
+	
+	$edprice = 160000;
+}
+}
+}
+}
+}
+
+//check if user has enough funds
+$sql = "SELECT * FROM user WHERE `email` = '$edr'";
+$res = query($sql);
+$row = mysqli_fetch_array($res);
+
+$edavlamt = $row['wallet'];
+$edtel    = $row['tel'];
+
+if ($edavlamt >= $edprice) {
+	
+	edactivateads($edadsid, $edtagl, $eddura, $edtarg, $edlink, $eddescp, $edprice, $edtel, $edr);
+} else {
+
+	echo "You don`t have enough funds in your wallet to run this advert.<br/> Kindly fund your wallet with an amount greater than NGN".number_format($edprice)." to run this ad.";
+}
+}
+
+
+function edactivateads($edadsid, $edtagl, $eddura, $edtarg, $edlink, $eddescp, $edprice, $edtel, $edr) {
+
+$sql = "UPDATE ads SET `tagline` = '$edtagl', `descrip` = '$eddescp', `duration` = '$eddura', `price` = '$edprice', `session` = 'active', `tel` = '$edtel', `link` = '$edlink', `target` = '$edtarg' WHERE `ads_id` = '$edadsid' AND `user` = '$edr'";
+$result = query($sql);
+
+echo "Loading.. Please wait";
+echo '<script>window.location.href ="./edadfile?id='.$edadsid.'"</script>';
+}
+
+
+//---- count ads click ----//
+if (isset($_POST['adsid']) && isset($_POST['click'])) {
+	
+	$ads = $_POST['adsid'];
+	$clc = $_POST['click'];
+
+	$clck = $clc + 1;
+
+	$sql = "UPDATE ads SET `click` = '$clck' WHERE `ads_id` = '$ads'";
+	$res = query($sql);
+
+}
 ?>

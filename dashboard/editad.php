@@ -1,7 +1,12 @@
 <?php include("include/top.php");
+if (!isset($_GET['id'])) {
+  redirect("./");
+}
 $r  = $_SESSION['Username'];
 
-$sql = "SELECT * FROM user where `email` = '$r'";
+$data = $_GET['id'];
+
+$sql = "SELECT * FROM ads where `user` = '$r' AND `ads_id` = '$data'";
 $res = query($sql);
 
 $row = mysqli_fetch_array($res);
@@ -14,12 +19,12 @@ $row = mysqli_fetch_array($res);
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Apartment Store</h1>
+            <h1>Edit Ads</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="./">Dashboard</a></li>
-              <li class="breadcrumb-item active">Apartment Store</li>
+              <li class="breadcrumb-item active">Edit Ads</li>
             </ol>
           </div>
         </div>
@@ -35,7 +40,7 @@ $row = mysqli_fetch_array($res);
             <!-- general form elements disabled -->
             <div class="card card-warning">
               <div class="card-header">
-                <h3 class="card-title">Kindly input your apartment details below;</h3>
+                <h3 class="card-title">Edit your ads details below;</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -45,20 +50,14 @@ $row = mysqli_fetch_array($res);
                     <div class="col-sm-6">
                       <!-- text input -->
                       <div class="form-group">
-                        <label>Suite_No.:</label>
-                        <input type="text" id="suite" class="form-control" value="<?php echo 'DotLive-'.rand(0, 999).''?>" disabled>
+                        <label>Ads_ID.:</label>
+                        <input type="text" id="edadsid" class="form-control" value="<?php echo $data ?>" disabled>
                       </div>
                     </div>
                     <div class="col-sm-6">
                       <div class="form-group">
-                        <label>Apartment Type.:</label>
-                        <select id="apt" class="form-control" required>
-                                        <option id="apt">Self-Contain</option>
-                                        <option id="apt">Room</option>
-                                        <option id="apt">Family House</option>
-                                        <option id="apt">Room & Parlour</option>
-                                        <option id="apt">Boys Quarter</option>
-                        </select>
+                        <label>Ads Tagline.:</label>
+                          <input type="text" id="edtagl" value="<?php echo $row['tagline'] ?>" class="form-control">
                       </div>
                     </div>
                   </div>
@@ -66,32 +65,20 @@ $row = mysqli_fetch_array($res);
                    <div class="col-sm-6">
                       <!-- select -->
                       <div class="form-group">
-                        <label>Water Type.:</label>
-                        <select id="water" class="form-control" required>
-                                        <option id="water">Borehole</option>
-                                        <option id="water">Well</option>
-                                        <option id="water">Public Water</option>
-                                        <option id="water">None</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-sm-6">
-                      <!-- select -->
-                      <div class="form-group">
-                        <label>Power Source.:</label>
-                        <select id="power" class="form-control" required>
-                                        <option id="power">PHCN</option>
-                                        <option id="power">Solar Station</option>
-                                        <option id="power">Dotron</option>
-                                        <option id="power">Generator</option>
-                                        <option id="power">None</option>
+                        <label>Ads Duration.:</label>
+                        <select id="dura" class="form-control" required>
+                                        <option id="dura">A Day</option>
+                                        <option id="dura">A Week</option>
+                                        <option id="dura">3 Days</option>
+                                        <option id="dura">A Month</option>
+                                        <option id="dura">A Year</option>
                         </select>
                       </div>
                     </div>
                  <div class="col-sm-6">
                       <!-- select -->
                       <div class="form-group">
-                        <label>Select your state.:</label>
+                        <label>Target.:</label>
                         <select id="loc" class="form-control" required>
                                         <option id="loc" name="loc">Abuja</option>
                                         <option id="loc" name="loc">Abia</option>
@@ -133,89 +120,28 @@ $row = mysqli_fetch_array($res);
                         </select>
                       </div>
                     </div>
-                    <div class="col-sm-6">
-                      <div class="form-group">
-                        <label>Telephone.:</label>
-                        <input type="number" id="tel" value="<?php echo $row['tel'] ?>" class="form-control" placeholder="370" disabled>
-                      </div>
-                    </div>
-                    <div class="col-sm-6">
-                      <div class="form-group">
-                        <label>Email.:</label>
-                        <input type="text" id="email" class="form-control" value="<?php echo $row['email'] ?>" placeholder="370" disabled>
-                      </div>
-                    </div>
-                    <div class="col-sm-6">
-                      <div class="form-group">
-                        <label>Toilet Type.:</label>
-                        <select id="toi" class="form-control" required>
-                                        <option id="toi">Pit Toilet</option>
-                                        <option id="toi">Water Closet</option>
-                                        <option id="toi">Public Toilet</option>
-                                        <option id="toi">None</option>
-                        </select>
-                      </div>
-                    </div>
                     <div class="col-sm-12">
                       <div class="form-group">
-                        <label>Apartment Price.:</label>
-                        <input type="number" id="price" class="form-control" placeholder="30000" required>
-                      </div>
-                    </div>
-                    <div class="col-sm-12">
-                      <div class="form-group">
-                        <label>Apartment Location.:</label>
-                        <input type="text" id="twn" class="form-control" placeholder="30000" required>
+                        <label>Ads Link.:</label>
+                        <input type="text" id="edlink" class="form-control" placeholder="e.g your whatsapp link or your telephone number" value="<?php echo $row['link'] ?>" required>
                       </div>
                     </div>
                     <div class="col-sm-12">
                       <!-- textarea -->
                       <div class="form-group">
-                        <label>Apartment Description<small><span style="color: red;"></span></small></label>
-                        <textarea id="desc" class="form-control" rows="3" placeholder="Tell more about your apartment" required></textarea>
+                        <label>Ads Description<small><span style="color: red;"></span></small></label>
+                        <textarea id="eddescp" class="form-control" rows="3" placeholder="<?php echo $row['descrip'] ?>" required><?php echo $row['descrip'] ?></textarea>
                       </div>
                     </div>
                   </div>
  
-                 <?php
-                 if ($row['acct'] == null || $row['acct'] == "") {
-                 ?>
-                 <div class="form-group">
-                    <label class="col-form-label" for="inputWarning">Account Number.:</label>
-                    <input type="text" id="acct" class="form-control is-warning" id="inputWarning">
-                  </div>
-                  <?php
-                } else {
-                  ?>
-                  <div class="form-group">
-                    <label class="col-form-label" for="inputWarning">Account Number.:</label>
-                    <input type="text" id="acct" value="<?php echo $row['acct'] ?>" class="form-control is-warning" id="inputWarning" disabled>
-                  </div>
-                  <?php
-                }
-                if ($row['bank'] == null || $row['bank'] == "") {
-                  ?>
-                   <div class="form-group">
-                        <label>Bank Name.:</label>
-                        <input type="text" id="bank" class="form-control is-warning" id="inputWarning">
-                      </div>
-                   <?php
-                   } else {
-                   ?>   
-                   <div class="form-group">
-                        <label>Bank Name.:</label>
-                        <input type="text" id="bank" class="form-control is-warning" id="inputWarning" value="<?php echo $row['bank'] ?>" disabled>
-                      </div>
-                   <?php
-                   }
-                   ?>
-                  <br/><br/>
+                 
                   <ul style="color: red;">
  <li>Please Kindly go back and recheck all details for any errors. DotLive shall not be responsible for any mistakes.</li>
  
                                        </ul>
                                           
-                  <input type="button" name="aptmentUpl" value="Next" id="aptmentUpl" class="btn btn-success float-right">
+                  <input type="button" name="edadsUpl" value="Next" id="edadsUpl" class="btn btn-success float-right">
                 </form>
               </div>
               <!-- /.card-body -->
@@ -253,7 +179,7 @@ $row = mysqli_fetch_array($res);
                 </div>
             </div>
         </div>
-    </div> 
+    </div>  
 
 
 

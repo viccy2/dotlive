@@ -321,13 +321,9 @@ function agtReg() {
         var aprmt     = $("#aprmt").val();
         var loc       = $("#loc").val();
         var price     = $("#price").val();
+        var toi       = $("#toi").val();
+        var wat       = $("#water").val();
 
-        if (aprmt == "All" && loc == "All" && price == "All") {
+        window.location.href = "./filterapt?apr="+aprmt+"&loc="+loc+"&prc="+price+"&toi="+toi+"&wat="+wat;
 
-        window.location.href = "./apartments";
-        }else {
-
-        window.location.href = "./filterapt?apr="+aprmt+"&loc="+loc+"&prc="+price;
-        }
-
- }   
+ }

@@ -65,7 +65,7 @@
                                             <ul id="navigation">                                                                                          
                                                 <li><a href="./">Home</a></li>
                                                 <li><a href="./apartments">Apartments</a></li>
-                                                <li><a target="_blank" href="https://doteightplus.com/about">About us</a></li>
+                                                <li><a href="./roomie">Find Roomie</a></li>
                                                 <li><a href="faq/./">FAQs</a></li>
                                                 <li><a target="_blank" href="https://doteightplus.com/contact">Contact us</a></li>
                                                 <!-- Button -->

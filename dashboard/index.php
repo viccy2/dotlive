@@ -353,27 +353,32 @@ $_SESSION['new'] = $b;
                       <th>Ad_ID</th>
                       <th>Ad_Image</th>
                       <th>Duration</th>
+                      <th>Date Submitted</th>
                       <th>Number of Clicks</th>
                       <th></th>
                     </tr>
                     </thead>
-           
-<!--                    <tbody>
+       <?php
+  $r = $_SESSION['Username'];
+ $sql="SELECT * FROM ads WHERE `user` = '$r' AND `session` = 'active'";
+ $result_set=query($sql);
+ while($row= mysqli_fetch_array($result_set))
+ {
+  ?>                   
+                 <tbody>
                     <tr>
-                      <td><a href="#"><?php echo $row['Product_ID']; ?></a></td>
-                      <td><?php echo $row['Product_Name']; ?></td>
-                      <td><span class="badge badge-success">NGN <?php echo $row['amount']; ?></span></td>
-                      <?php          
-                    echo '
- <td><img style= "width: 100px; height: 100px;" src= "../upload/product/'.$row['Product_Pix'].'"  alt="product picture"></td>';
- ?>
-                      <td>
-                        <?php echo $row['Paydate']; ?>
-                      </td>
+                      <td><a href="#"><?php echo $row['ads_id']; ?></a></td>
+                       <td><img style= "width: 100px; height: 100px;" src= "../upload/ads/<?php echo $row['file'] ?>"  alt="Ads image"></td>';
+                      <td><?php echo $row['duration']; ?></td>
+                      <td><?php echo $row['date']; ?></td>
+                      <td><?php echo $row['click']; ?></span></td>
+                      <td><a href="./adsdetails?id=<?php echo $row['ads_id']; ?>">More Details</a></td>
                     </tr>
               
-                    </tbody>--->
-                    
+                    </tbody>
+     <?php
+     }
+     ?>               
                   </table>
                 </div>
                 <!-- /.table-responsive -->
