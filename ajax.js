@@ -2,9 +2,9 @@
 function check() {
 
         var name     = $("#name").val();
-        var email    = $("#email").val();
+        var uemail    = $("#email").val();
         var gend     = $("#gender").val();
-        var pword    = $("#pword").val();
+        var upword    = $("#pword").val();
         var cpword   = $("#cpword").val();
         var tel      = $("#tel").val();
 
@@ -12,12 +12,12 @@ function check() {
 
             $('#msg').html("Kindly input your full name");
         } else {
-        if (email == null || email == "") {
+        if (uemail == null || uemail == "") {
 
         $('#msg').html("Kindly input your email address");
         } else {
 
-        if (pword == null || pword == "") {
+        if (upword == null || upword == "") {
 
         $('#msg').html("Kindly create a password");
         } else {
@@ -27,7 +27,7 @@ function check() {
         $('#msg').html("Confirm your password");
         } else {
 
-        if (pword != cpword) {
+        if (upword != cpword) {
 
         $('#msg').html("Your password doesn`t match");
         } else {
@@ -43,7 +43,7 @@ function check() {
     {
         type        :  'post',
         url         :  'functions/init.php',
-        data        :  {name:name,email:email,gend:gend,pword:pword,cpword:cpword,tel:tel},
+        data        :  {name:name,uemail:uemail,gend:gend,upword:upword,cpword:cpword,tel:tel},
         success     :  function(data)
         {
             $('#msg').html(data);
@@ -129,10 +129,10 @@ function forgotpassword() {
 //update password
 function updatePword() {
 
-        var upword        = $("#pword").val();
+        var urpword       = $("#pword").val();
         var ucpword       = $("#cpword").val();
     
-        if (upword == null || upword == "") {
+        if (urpword == null || urpword == "") {
 
         $('#msg').html("Kindly create a new password");      
         } else {
@@ -142,7 +142,7 @@ function updatePword() {
         $('#msg').html("Confirm your password");
         } else {
 
-        if (upword != ucpword) {
+        if (urpword != ucpword) {
 
         $('#msg').html("Your password doesn`t match");
         } else {
@@ -154,7 +154,7 @@ function updatePword() {
     {
         type        :  'post',
         url         :  'functions/init.php',
-        data        :  {upword:upword,ucpword:ucpword},
+        data        :  {urpword:urpword,ucpword:ucpword},
         success     :  function(data)
         {
             $('#msg').html(data);
@@ -326,4 +326,29 @@ function agtReg() {
 
         window.location.href = "./filterapt?apr="+aprmt+"&loc="+loc+"&prc="+price+"&toi="+toi+"&wat="+wat;
 
+ }
+
+ //pay from wallet
+ function allPayme() {
+
+        var drt       = $("#drt").val();
+        var all       = $("#all").val();
+        var upl       = $("#upl").val();
+
+        $('#msg').html("Loading... Please wait"); 
+        
+                $.ajax
+    (
+    {
+        type        :  'post',
+        url         :  'functions/init.php',
+        data        :  {drt:drt,all:all,upl:upl},
+        success     :  function(data)
+        {
+            $('#msg').html(data);
+        }
+    }
+        )
+
+    $("#exampleModalCenter").modal();
  }

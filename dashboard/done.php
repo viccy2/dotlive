@@ -28,7 +28,7 @@
 <h2></h2>
                                 <h6>Your ads has been submitted successfully<br/><br/>
 
-                            You will get a notification if yours ads didn`t meet our community standard.<br/><br/>
+                            You will get a notification if your ad didn`t meet our community standard.<br/><br/>
 
                              
 

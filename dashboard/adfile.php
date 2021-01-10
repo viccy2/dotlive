@@ -2,7 +2,7 @@
 
 if(!isset($_GET['id'])) {
 
-  redirect("./agreed");
+  redirect("./ads");
 
 } else {
 
@@ -10,6 +10,11 @@ if(!isset($_GET['id'])) {
 
   $sql    = "SELECT * FROM `ads` WHERE `ads_id` = '$data'";
   $res    = query($sql);
+
+  if (row_count($res) == "") {
+   
+   redirect("./ads");
+  }
 
   $row    = mysqli_fetch_array($res);
 

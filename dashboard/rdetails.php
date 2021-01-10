@@ -1,8 +1,5 @@
 <?php
 include("include/top.php");
-if (!isset($_GET['id'])) {
- redirect("./myapartments");
-}
 $data = $_GET['id'];
 ?>
 
@@ -14,7 +11,7 @@ $data = $_GET['id'];
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Apartment Details</h1>
+            <h1>Rented Apartment Details</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -32,11 +29,11 @@ $data = $_GET['id'];
          <?php
  $sql="SELECT * FROM apartment WHERE `apt` ='$data'";
  $result_set=query($sql);
+ $row= mysqli_fetch_array($result_set);
  if (row_count($result_set) == "") {
    
    redirect("./myapartments");
  }
- $row= mysqli_fetch_array($result_set);
   ?>        
       <!-- Default box -->
       <div class="card card-solid">
@@ -63,7 +60,7 @@ $data = $_GET['id'];
               <p><b>Price:</b> NGN <?php echo number_format($row['price']); ?></p>
               <hr>                
              
-                <button type="button" class="btn btn-default btn-lg btn-flat" data-toggle="modal" data-target="#modal-lg">
+              <button type="button" class="btn btn-default btn-lg btn-flat" data-toggle="modal" data-target="#modal-lg">
                   <i class="fas fa-trash fa-lg mr-2"></i> 
                   Delete Apartment
                  </button>
@@ -72,7 +69,6 @@ $data = $_GET['id'];
                   <i class="fas fa-edit fa-lg mr-2"></i> 
                   Edit Apartment
                  </button>
-
               </div>
 
             </div>

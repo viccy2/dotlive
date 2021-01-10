@@ -33,16 +33,20 @@ include("include/top.php");
                <div class="nav nav-pills">
 <?php
 $name = $_SESSION['Username'];
-$sql = "SELECT SUM(`sn`) as adstot FROM ads WHERE `user` = '$name'";
+$sql = "SELECT SUM(`sn`) as adstot FROM ads WHERE `user` = '$name' AND `session` = 'active'";
 $result = query($sql);
 $row = mysqli_fetch_array($result);
+
+$sql2 = "SELECT SUM(`sn`) as adsexp FROM ads WHERE `user` = '$name' AND `session` = 'expired'";
+$result2 = query($sql2);
+$row2 = mysqli_fetch_array($result2);
   ?>    
                 <a href="./ads" class="btn btn-primary btn-block"><b>Upload Ads</b></a>
           
                 <a href="#activity" data-toggle="tab" class="btn btn-primary btn-block active"><b>All Ad(s)<sup> <span class="badge badge-danger right"><?php echo $row['adstot'];?></span></sup></b></a>
 
               
-                <a href="#timeline" data-toggle="tab" class="btn btn-primary btn-block"><b>Expired Ads<sup> <span class="badge badge-danger right"><?php echo $a;?></span></sup></b></a>
+                <a href="#timeline" data-toggle="tab" class="btn btn-primary btn-block"><b>Expired Ads<sup> <span class="badge badge-danger right"><?php echo $row2['adsexp'];?></span></sup></b></a>
               </div>
             </div>
               <!-- /.card-body -->
@@ -183,7 +187,7 @@ $row = mysqli_fetch_array($result);
                         <div class="sparkbar" data-color="#00a65a" data-height="20">NGN <?php echo number_format($row['price']); ?></div>
                       </td>
 
-                      <td><?php echo $row['date']; ?></td>
+                      <td><?php echo $row['expiry']; ?></td>
                     </tr>
               
                     </tbody>

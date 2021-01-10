@@ -1,11 +1,20 @@
 <?php
 include("include/top.php");
 
+if (!isset($_GET['id'])) {
+  redirect("./compose")
+}
+
 $vote = $_GET['id'];
 $data = $_SESSION['Username'];
 
 $sqll = "UPDATE support_reply SET `status` ='read', `other` = '0' WHERE `usname`= '$data' AND `ref` = '$vote'";
 $res = query($sqll);
+
+if (row_count($res) == "") {
+   
+   redirect("./compose");
+ }
 
 ?>
 

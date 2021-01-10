@@ -2,32 +2,120 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
+    <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <?php
+            <h1 class="m-0 text-dark">Transaction History</h1>
+          </div><!-- /.col -->
+          
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+                <!-- Small boxes (Stat box) -->
+       <div class="row">
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-credit-card"></i></span>
+              <a style="color: black" href="#">
+              <div class="info-box-content">
+                <span class="info-box-text">Wallet Balance </span>
+                 <?php
                  $r = $_SESSION['Username'];
- $sql="SELECT SUM(`price`) as `alto` FROM rent WHERE `uploader` = '$r'";
+ $sql="SELECT * FROM user WHERE `email` = '$r'";
  $result_set=query($sql);
  $row= mysqli_fetch_array($result_set);
- if (row_count($result_set) == 1) {
- 
-    $wallet = $row['alto'];
+ if ($row['wallet'] == "") {
+
+    $wallet = 0; 
+    
     } else {
 
-    $wallet = 0.00;
-    }    
+    $wallet = number_format($row['wallet']);
+    }  
+   echo '<span class="info-box-number">NGN '.$wallet.'</span>';  
   ?>                
-            <h1>Wallet Balance.: <span style="color: red;">NGN <?php echo number_format($wallet) ?></span>
-              <br>
-              <a href="./withdraw"><button type="button" name="submit" value="Withdraw Funds" class="btn btn-success">Withdraw Funds</button></a>
-              <a href="./fund"><button type="button" name="submit" value="Withdraw Funds" class="btn btn-primary">Fund Wallet</button></a>
-            </h1>
+                
+                
+              </div>
+            </a>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
           </div>
-         
+          <!-- /.col -->
+
+
+<div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-list"></i></span>
+              <a style="color: black" href="#">
+              <div class="info-box-content">
+                <span class="info-box-text">Ledger Balance </span>
+                 <?php
+                 $r = $_SESSION['Username'];
+ $sql="SELECT * FROM user WHERE `email` = '$r'";
+ $result_set=query($sql);
+ $row= mysqli_fetch_array($result_set);
+ if ($row['tempwallet'] == "") {
+
+    $twallet = 0; 
+    
+    } else {
+
+    $twallet = number_format($row['tempwallet']);
+    }  
+   echo '<span class="info-box-number">NGN '.$twallet.'</span>';  
+  ?>                
+                
+                
+              </div>
+            </a>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+
+          <!-- fix for small devices only -->
+          <div class="clearfix hidden-md-up"></div>
+
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-info elevation-1"><i class="fas fa-coins"></i></span>
+              <a style="color: black" href="./fund">
+              <div class="info-box-content">
+                <span class="info-box-text">Fund Wallet</span>
+             
+                <span class="info-box-number">click here</span>
+                
+              </div>
+            </a>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-warning elevation-1"><i class="fa fa-coins"></i></span>
+              <a style="color: black" href="./withdraw">
+              <div class="info-box-content">
+                <span class="info-box-text">Withdraw Funds</span>
+               <span class="info-box-number">click here</span>
+                
+              </div>
+            </a>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
         </div>
+        <!-- /.row -->
       </div><!-- /.container-fluid -->
     </section>
 
@@ -47,54 +135,58 @@
           </div>
         </div>
         <div class="card-body p-0">
+          <div class="table-responsive">
           <table class="table table-striped projects">
               <thead>
                   <tr>
-                      <th style="width: 15%">
+                      <th style="width: 25%">
+                        Transaction Ref
+                      </th>
+                      <th style="width: 25%">
                         Item
                       </th>
                       <th style="width: 15%">
                           Amount
                       </th>
-                      <th style="width: 15%">
+                      <th style="width: 25%">
                          Pay Date
                       </th>
-                    
+                      <th style="width: 15%">
+                         Mode of Payment
+                      </th>
+                      <th style="width: 15%">
+                         Status
+                      </th>
+                      <th style="width: 15%">
+                         Transaction Type
+                      </th>
                   </tr>
               </thead>
                              </thead>
         <?php
          $uu = $_SESSION['Username'];
- $sql="SELECT * FROM rent WHERE `uploader` = '$uu'";
+ $sql="SELECT * FROM wallet_his WHERE `user` = '$uu' ORDER BY id asc";
  $result_set=query($sql);
  while($row= mysqli_fetch_array($result_set))
  {
   ?>   
          
               <tbody>
-                  <tr>
-                      <td>
-                         <?php echo $row['apt']; ?> 
-                      </td>
-                      <td>
-                     
-                           NGN <?php echo number_format($row['price']); ?>
-                        
-                      </td>
-                    
- <td><?php echo $row['paydate']; ?></td>';
-
-                    
-                     
-                  </tr>
-                 
-                  
-                 
+                <tr>
+                      <td><?php echo $row['transref']; ?></td>
+                      <td><?php echo $row['details']; ?></td>
+                      <td>NGN <?php echo number_format($row['amt']); ?> </td>
+                      <td><?php echo date('D, M d, Y', strtotime($row['date'])); ?></td>
+                       <td><?php echo $row['mode']; ?></td>
+                      <td><?php echo $row['status']; ?></td>
+                      <td><?php echo $row['type']; ?></td>
+                   </tr>  
               </tbody>
               <?php
             }
             ?>
           </table>
+        </div>
         </div>
         <!-- /.card-body -->
       </div>

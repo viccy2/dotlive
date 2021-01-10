@@ -57,7 +57,7 @@ $category   = $row['category'];
           </li>
           <br/>          
           <li class="nav-item has-treeview">
-            <a href="./comingsoon" class="nav-link">
+            <a href="./chat" class="nav-link">
               <i class="nav-icon fa fa-envelope"></i>
               <p>
                 Chat Room

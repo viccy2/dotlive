@@ -1,5 +1,9 @@
 <?php
 include("include/top.php");
+if (!isset($_GET['id'])) {
+  
+  redirect("./adscenter");
+}
 $data = $_GET['id'];
 ?>
 
@@ -30,7 +34,12 @@ $data = $_GET['id'];
  $sql="SELECT * FROM ads WHERE `ads_id` ='$data'";
  $result_set=query($sql);
  $row= mysqli_fetch_array($result_set);
- $_SESSION['date'] = $row['date'];
+ if (row_count($result_set) == "") {
+   
+   redirect("./adscenter");
+ }
+ $date = date('D, M d, Y', strtotime($row['date']));
+ $_SESSION['expiry'] = date('Y-m-d', strtotime($row['expiry']));
   ?>        
       <!-- Default box -->
       <div class="card card-solid">
@@ -50,7 +59,7 @@ $data = $_GET['id'];
               <p><b>Tagline:</b> <?php echo $row['tagline']; ?></p>
               <p><b>Ads Details:</b> <?php echo $row['descrip']; ?></p>
               <p><b>Duration:</b> <?php echo $row['duration']; ?></p>
-              <p><b>Date Submitted:</b> <?php echo $row['date']; ?></p>
+              <p><b>Date Submitted:</b> <?php echo $date; ?></p>
               <p><b>Expiry Date:</b> <span id="demo"></span></p>
               <p><b>Target:</b> <?php echo $row['target']; ?></p>
               <p><b>Ads Price:</b> NGN <?php echo number_format($row['price']); ?></p>
@@ -129,7 +138,7 @@ $data = $_GET['id'];
 <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <script>
 // Set the date we're counting down to
-var countDownDate = new Date("<?php echo $_SESSION['date'] ?>").getTime();
+var countDownDate = new Date("<?php echo $_SESSION['expiry'] ?>").getTime();
 
 // Update the count down every 1 second
 var x = setInterval(function() {

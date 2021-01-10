@@ -102,13 +102,13 @@ function email_exist($email) {
 
 $errors = [];
 
- 	if(isset($_POST['name']) && isset($_POST['gend']) && isset($_POST['email']) && isset($_POST['pword']) && isset($_POST['cpword']) && isset($_POST['tel'])) {
+ 	if(isset($_POST['name']) && isset($_POST['gend']) && isset($_POST['uemail']) && isset($_POST['upword']) && isset($_POST['cpword']) && isset($_POST['tel'])) {
 
 
 		$name 			= clean($_POST['name']);
-		$email    		= clean($_POST['email']);
+		$email    		= clean($_POST['uemail']);
 		$gender    		= clean($_POST['gend']);
-		$pword    		= clean($_POST['pword']);
+		$upword    		= clean($_POST['upword']);
 		$tel            = clean($_POST['tel']);
 
 
@@ -116,28 +116,28 @@ $errors = [];
 
 			echo "Sorry! That email already has an account.";
 
-		}else {
+		} else {
 
-   register_user($name, $email, $gender, $pword, $tel);
+   register_user($name, $email, $gender, $upword, $tel);
 
 
 		}
 }
 
 /****register user*****/
-function register_user($name, $email, $gender, $pword, $tel) {
+function register_user($name, $email, $gender, $upword, $tel) {
 
 	$name 				= escape($name);
 	$email   			= escape($email);
 	$tel    			= escape($tel);
 	$gender				= escape($gender);
-	$pword 				= md5($pword);
+	$upword 			= md5($upword);
 
 	$id                 = "DotL".rand(0, 999);
 
 
 $sql = "INSERT INTO user(`id`, `name`, `email`, `gender`, `pword`, `tel`, `active`, `category`)";
-$sql.= " VALUES('$id', '$name', '$email', '$gender', '$pword', '$tel', '0', 'user')";
+$sql.= " VALUES('$id', '$name', '$email', '$gender', '$upword', '$tel', '0', 'user')";
 $result = query($sql);
 confirm($result);
 
@@ -226,7 +226,7 @@ $errors = [];
 
 			echo "Sorry! That email already has an account.";
 
-		}else {
+		} else {
 
    register_agt($aname, $aemail, $agender, $apword, $atel, $abank, $aacct, $anin, $agtbn);
 
@@ -303,7 +303,7 @@ function verify($email) {
 	$body .= "<p style='margin-left: 45px; text-align: left;'><a target='_blank' href='{$link}' style='color: #fbb710; text-decoration: none'>Click here to activate your email Address</a></p>
 		<br/>";
 	$body .= "<p style='margin-left: 45px; padding-bottom: 80px; text-align: left;'>Do not bother replying this email. This is a virtual email</p>";	
-    $body .= "<p text-align: center;'><img src='https://dotlive.com.ng/assets/img/icon/5.png'>";
+    $body .= "<p text-align: center;'><a href='https://doteightplus.com/contact'><img src='https://dotlive.com.ng/assets/img/icon/5.png'></a>";
     $body .= "<p style='text-align: center;'>Email.: <span style='color: #fbb710'>support@dotlive.com.ng</span></p>";	
 	$body .= "<p style='text-align: center;'>Call/Chat.: <span style='color: #fbb710'>+234(0) 810 317 1902</span></p>";	
 	$body .= "<p style='text-align: center; padding-bottom: 50px;'>DotLive from DotEightPlus</p>";	
@@ -400,8 +400,8 @@ if (isset($_POST['mail'])) {
 
 
 	$to 		= $email;
-    $from 		= "noreply@switch-360.com";
-    $cmessage 	= "Best Regards<br/> <i>Switch Team</i>";
+    $from 		= "noreply@dotlive.com.ng";
+    $cmessage 	= "Best Regards<br/> <i>Team DotLive</i>";
 
 	$headers  = "From: " . $from . "\r\n";
 	$headers .= "Reply-To: ". $from . "\r\n";
@@ -427,7 +427,7 @@ if (isset($_POST['mail'])) {
 	$body .= "<p style='margin-left: 45px; text-align: left;'><a target='_blank' href='{$link}' style='color: #fbb710; text-decoration: none'>Click here to recover your password</a></p>
 		<br/>";
 	$body .= "<p style='margin-left: 45px; padding-bottom: 80px; text-align: left;'>Kindly ignore this message if you didn`t request for a password reset.</p>";	
-    $body .= "<p text-align: center;'><img src='https://dotlive.com.ng/assets/img/icon/5.png'>";
+    $body .= "<p text-align: center;'><a href='https://doteightplus.com/contact'><img src='https://dotlive.com.ng/assets/img/icon/5.png'></a>";
     $body .= "<p style='text-align: center;'>Email.: <span style='color: #fbb710'>support@dotlive.com.ng</span></p>";	
 	$body .= "<p style='text-align: center;'>Call/Chat.: <span style='color: #fbb710'>+234(0) 810 317 1902</span></p>";	
 	$body .= "<p style='text-align: center; padding-bottom: 50px;'>DotLive from DotEightPlus</p>";	
@@ -448,13 +448,13 @@ if (isset($_POST['mail'])) {
 
 //----------------- recover password ------------//
 
-if (isset($_POST['upword']) && isset($_POST['ucpword'])) {
+if (isset($_POST['urpword']) && isset($_POST['ucpword'])) {
 	
-	$pword 		= md5($_POST['upword']);
+	$pword 		= md5($_POST['urpword']);
 	$me 		= $_SESSION['recc'];
 
 
-	$sql = "UPDATE user SET `pword` = '$pword' WHERE `email` = '$me'";
+	$sql = "UPDATE user SET `pword` = '$pword', `activator` = '' WHERE `email` = '$me'";
 	$res = query($sql);
 
 	echo "Loading... Please wait!";
@@ -611,7 +611,6 @@ $res = query($sqll);
 
 
 function rev() {
-	$errors = [];
 if($_SERVER['REQUEST_METHOD'] == "POST") {
 
 $msg 			= $_POST['msg'];
@@ -682,26 +681,31 @@ $r 				= $_SESSION['Username'];
 if ($dura == "A Day") {
 	
 	$price = 500;
+	$exp   = date('Y-m-d h:i:sa', strtotime($dura. ' + 1 days'));
 } else {
 
 if ($dura == "A Week") {
 	
 	$price = 3000;
+	$exp   = date('Y-m-d h:i:sa', strtotime($dura. ' + 1 week'));
 } else {
 
 if ($dura == "3 Days") {
 	
 	$price = 1000;
+	$exp   = date('Y-m-d h:i:sa', strtotime($dura. ' + 3 days'));
 } else {
 
 if ($dura == "A Month") {
 	
 	$price = 14000;
+	$exp   = date('Y-m-d h:i:sa', strtotime($dura. ' + 1 month'));
 } else {
 
 if ($dura == "A Year") {
 	
 	$price = 160000;
+	$exp   = date('Y-m-d h:i:sa', strtotime($dura. ' + 1 year'));
 }
 }
 }
@@ -716,22 +720,37 @@ $row = mysqli_fetch_array($res);
 $avlamt = $row['wallet'];
 $tel    = $row['tel'];
 
+$date   = date('Y-m-d');
+
 if ($avlamt >= $price) {
+
+	//deduct wallet balance
+	$walbal = $avlamt - $price;
+	$seqel  = "UPDATE user SET `wallet` = '$walbal' WHERE `email` = '$r'";
+	$resl   = query($seqel);
+
+	//insert details into transactions history
+
+	$tran = "DLADS-".date("Y").rand(0, 99999999);
+
+	$sll = "INSERT INTO wallet_his(`transref`, `user`, `amt`, `date`, `details`, `status`, `mode`, `type`)";
+	$sll.= "VALUES('$tran', '$r', '$walbal', '$date', 'Ads Payment', 'paid', 'wallet', 'debit')";
+	$rll = query($sll);
 	
-	activateads($adsid, $tagl, $dura, $targ, $link, $descp, $price, $tel, $r);
+	activateads($adsid, $tagl, $dura, $targ, $link, $descp, $price, $tel, $r, $exp);
 } else {
 
-	echo "You don`t have enough funds in your wallet to run this advert.<br/> Kindly fund your wallet with an amount greater than NGN".number_format($price)." to run this ad.";
+	echo "You don`t have enough funds in your wallet to run this advert.<br/> Kindly fund your wallet with an amount above NGN".number_format($price)." to run this ad.";
 }
 }
 
 
-function activateads($adsid, $tagl, $dura, $targ, $link, $descp, $price, $tel, $r) {
+function activateads($adsid, $tagl, $dura, $targ, $link, $descp, $price, $tel, $r, $exp) {
 
 $date = date("Y-m-d h:i:sa");
 
-$sql = "INSERT INTO ads(`sn`, `ads_id`, `tagline`, `descrip`, `user`, `date`, `duration`, `price`, `session`, `tel`, `link`, `target`, `click`)";
-$sql.= " VALUES('1', '$adsid', '$tagl', '$descp', '$r', '$date', '$dura', '$price', 'active', '$tel', '$link', '$targ', '0')";
+$sql = "INSERT INTO ads(`sn`, `ads_id`, `tagline`, `descrip`, `user`, `date`, `duration`, `price`, `session`, `tel`, `link`, `target`, `click`, `expiry`)";
+$sql.= " VALUES('1', '$adsid', '$tagl', '$descp', '$r', '$date', '$dura', '$price', 'active', '$tel', '$link', '$targ', '0', '$exp')";
 $result = query($sql);
 
 echo "Loading.. Please wait";
@@ -796,57 +815,33 @@ $eddescp    	= clean($_POST['eddescp']);
 $edr			= $_SESSION['Username'];
 
 
-//get ads pricing
-if ($eddura == "A Day") {
+//check if ads is still active
+$sql2 = "SELECT * FROM ads where `user` = '$r' AND `ads_id` = '$edadsid'";
+$res2 = query($sql2);
+$row2 = mysqli_fetch_array($res2);
+if ($row2['expiry'] == "expired") {
 	
-	$edprice = 500;
+	echo "You can`t edit this ad. It has expired!";
 } else {
 
-if ($eddura == "A Week") {
-	
-	$edprice = 3000;
-} else {
 
-if ($eddura == "3 Days") {
-	
-	$edprice = 1000;
-} else {
 
-if ($eddura == "A Month") {
-	
-	$edprice = 14000;
-} else {
-
-if ($eddura == "A Year") {
-	
-	$edprice = 160000;
-}
-}
-}
-}
-}
-
-//check if user has enough funds
+//get user telephone
 $sql = "SELECT * FROM user WHERE `email` = '$edr'";
 $res = query($sql);
 $row = mysqli_fetch_array($res);
 
-$edavlamt = $row['wallet'];
 $edtel    = $row['tel'];
-
-if ($edavlamt >= $edprice) {
 	
-	edactivateads($edadsid, $edtagl, $eddura, $edtarg, $edlink, $eddescp, $edprice, $edtel, $edr);
-} else {
+	edactivateads($edadsid, $edtagl, $edtarg, $edlink, $eddescp, $edtel, $edr);
 
-	echo "You don`t have enough funds in your wallet to run this advert.<br/> Kindly fund your wallet with an amount greater than NGN".number_format($edprice)." to run this ad.";
 }
 }
 
 
-function edactivateads($edadsid, $edtagl, $eddura, $edtarg, $edlink, $eddescp, $edprice, $edtel, $edr) {
+function edactivateads($edadsid, $edtagl, $edtarg, $edlink, $eddescp, $edtel, $edr) {
 
-$sql = "UPDATE ads SET `tagline` = '$edtagl', `descrip` = '$eddescp', `duration` = '$eddura', `price` = '$edprice', `session` = 'active', `tel` = '$edtel', `link` = '$edlink', `target` = '$edtarg' WHERE `ads_id` = '$edadsid' AND `user` = '$edr'";
+$sql = "UPDATE ads SET `tagline` = '$edtagl', `descrip` = '$eddescp', `tel` = '$edtel', `link` = '$edlink', `target` = '$edtarg' WHERE `ads_id` = '$edadsid' AND `user` = '$edr'";
 $result = query($sql);
 
 echo "Loading.. Please wait";
@@ -866,4 +861,329 @@ if (isset($_POST['adsid']) && isset($_POST['click'])) {
 	$res = query($sql);
 
 }
+
+
+
+//--- pay for apartment from wallet --//
+if (isset($_POST['drt']) && isset($_POST['all']) && isset($_POST['upl'])) {
+
+	$suite = clean($_POST['drt']);
+	$all   = clean($_POST['all']);
+	$upl   = clean($_POST['upl']);
+
+	$tran = "DLAPT-".date("Y").rand(0, 99999999);
+
+	$r   = $_SESSION['Username'];
+	
+//check if user has enough funds
+$sql = "SELECT * FROM user WHERE `email` = '$r'";
+$res = query($sql);
+$row = mysqli_fetch_array($res);
+
+$avlmt  = $row['wallet'];
+$tel    = $row['tel'];
+
+//get previous temporary wallet balance
+$temp   = $row['tempwallet'];
+
+//add new price plus previous temporary wallet bal
+if ($temp == "") {
+	$temp = 0;
+}
+
+$newtemp = $temp + $all;
+
+
+$date   = date('Y-m-d h:i:s');
+
+//set the expiry date for the user next rent
+$expy = date('Y-m-d', strtotime($date. ' + 1 year'));
+
+
+if ($avlmt >= $all) {
+
+	//deduct available balance and credit tepmporary wallet
+	$walbal = $avlmt - $all;
+	$seqel  = "UPDATE user SET `tempwallet` = '$newtemp', `wallet` = '$walbal' WHERE `email` = '$r'";
+	$resl   = query($seqel);
+
+	//insert details into transactions history
+	$sll = "INSERT INTO wallet_his(`transref`, `user`, `amt`, `date`, `details`, `status`, `mode`, `type`)";
+	$sll.= "VALUES('$tran', '$r', '$all', '$date', 'Apartment Rent', 'pending', 'wallet', 'debit')";
+	$rll = query($sll);
+
+	rentapt($suite, $date, $r, $tel, $tran, $all, $upl, $expy);
+} else {
+
+	echo "You don`t have enough funds in your wallet.<br/> Kindly fund your wallet with an amount above NGN".number_format($all)." to rent this apartment.";
+
+}
+}
+
+
+
+//get apartment
+function rentapt($suite, $date, $r, $tel, $tran, $all, $upl, $expy) {
+
+	//get apartment details from uploader
+	$rsl = "SELECT * FROM apartment WHERE `apt` = '$suite'";
+	$rss = query($rsl);
+	$rlw = mysqli_fetch_array($rss);
+
+	if ($upl == $r) {
+		
+		echo "This apartment belongs to you. <br/> You are not allowed to rent an apartment that belongs to you.";
+
+	} else {
+
+
+	$pix = $rlw['pix'];
+	$tpl = $rlw['apartment'];
+
+	//give tenant a week to secure the apartment
+	$due        = date('D, M d, Y', strtotime($date. ' + 1 week'));
+
+	//insert user rent records
+	$sql = "INSERT INTO rent(`sn`, `apt`, `paydate`, `expiry`, `tenantmail`, `tenanttel`, `tranref`, `price`, `uploader`, `status`, `type` , `pix`, `pendlimit`)";
+	$sql.= " VALUES('1', '$suite', '$date', '$expy', '$r', '$tel', '$tran', '$all', '$upl', 'pending', '$tpl', '$pix', '$due')";
+	$result = query($sql);
+
+
+	//notify user about the new transaction on the dashboard
+	$ref = "DSPR-".rand(0, 99999); 
+	$msg = "Hi there, <br> you just rented an apartment.<br/>Kindly check your transaction history for details.<br/> Your rent will be due by <b>".date('D, M d, Y', strtotime($expy))."</b>";
+	$sqln = "INSERT INTO support_reply(`sn`, `ref`, `usname`, `msg`, `date`, `status`)";
+	$sqln.= " VALUES('1', '$ref', '$r', '$msg', '$date', 'unread')";
+	$resultn = query($sqln);
+
+
+	//notify uploader of apartment about the new update
+	$ref2 = "DSPR-".rand(0, 99999); 
+	$msg2 = "Hi there, <br> your apartment with suite number <b>".$suite."</b> has been scheduled for rentage.<br/>Kindly check your apartment store for details.";
+	$sqln2 = "INSERT INTO support_reply(`sn`, `ref`, `usname`, `msg`, `date`, `status`)";
+	$sqln2.= " VALUES('1', '$ref2', '$upl', '$msg2', '$date', 'unread')";
+	$resultn2 = query($sqln2);
+
+
+	//notify user via email
+	$to         = $r;
+	$from 		= "noreply@dotlive.com.ng";
+    $cmessage 	= "Best Regards<br/> <i>Team DotLive</i>";
+
+	$headers  = "From: " . $from . "\r\n";
+	$headers .= "Reply-To: ". $from . "\r\n";
+	$headers .= "MIME-Version: 1.0\r\n";
+    $headers .= "Content-Type: text/html; charset=\"iso-8859-1\"\n";
+    $headers .= "X-Priority: 1 (Highest)\n";
+    $headers .= "X-MSMail-Priority: High\n";
+    $headers .= "Importance: High\n";
+
+    $subject = "You rented an apartment";
+
+    $logo = 'https://dotlive.com.ng/assets/img/logo/2.png';
+    $url  = 'https://dotlive.com.ng';
+    $link = 'https://dotlive.com.ng/./dashboard/./myapartments';
+
+	$body = "<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><title>DotLive from DotEightPlus</title></head><link rel='stylesheet' href='https://dotlive.com.ng/assets/css/bootstrap.min.css'><body style='text-align: center;'>";
+	$body .= "<section style='margin: 30px; margin-top: 50px ; background: #000000; color: white;'>";
+	$body .= "<img style='margin-top: 35px' src='{$logo}' alt='DotLive'>";
+	$body .= "<h1 style='margin-top: 45px; color: #fbb710'>You rented an apartment</h1>
+		<br/>";
+	$body .= "<p style='margin-left: 45px; margin-top: 34px; text-align: left; font-size: 17px;'>Hi there! <br/> thank you for choosing DotLive as your apartment agency. <br/><br/> We noticed that you just rented an apartment. Below are <br/> details about the apartment rented ;</p>
+		<br/>";
+	$body .= '<table class="text-center" style="width:90%; margin-left: 45px; color: white; border: 1px solid #f9f9ff;">
+   <tr>
+    <th style="border: 1px solid #f9f9ff;">Suite</th>
+    <th style="border: 1px solid #f9f9ff;">Apartment</th>
+    <th style="border: 1px solid #f9f9ff;">Amount Paid</th>
+    <th style="border: 1px solid #f9f9ff;">Date Paid</th>
+    <th style="border: 1px solid #f9f9ff;">Next Due Date</th>
+    <th style="border: 1px solid #f9f9ff;">Mode of Payment</th>
+  </tr>
+  <tr style="border: 1px solid #f9f9ff;">
+    <td style="border: 1px solid #f9f9ff;">'.$suite.'</td>
+    <td style="border: 1px solid #f9f9ff;">'.$tpl.'</td>
+    <td style="border: 1px solid #f9f9ff;">NGN '.number_format($all).'</td>
+    <td style="border: 1px solid #f9f9ff;">'.date('D, M d, Y', strtotime($date)).'</td>
+    <td style="border: 1px solid #f9f9ff;">'.date('D, M d, Y', strtotime($expy)).'</td>
+    <td style="border: 1px solid #f9f9ff;">wallet</td>
+  </tr>
+</table><br/>';
+	$body .= "<p style='margin-left: 45px; text-align: left;'><a target='_blank' href='{$link}' style='color: #fbb710; text-decoration: none'>Kindly note that you are to verify this apartment and get your apartment key on or before  ".$due." <br/> else this apartment will no longer be yours. <br/><br/> Click here to visit your apartment center</a></p>
+		<br/>";
+	$body .= "<p style='margin-left: 45px; padding-bottom: 80px; text-align: left;'>Do not bother replying this email. This is a virtual email</p>";	
+    $body .= "<p text-align: center;'><a href='https://doteightplus.com/contact'><img src='https://dotlive.com.ng/assets/img/icon/5.png'></a>";
+    $body .= "<p style='text-align: center;'>Email.: <span style='color: #fbb710'>support@dotlive.com.ng</span></p>";	
+	$body .= "<p style='text-align: center;'>Call/Chat.: <span style='color: #fbb710'>+234(0) 810 317 1902</span></p>";	
+	$body .= "<p style='text-align: center; padding-bottom: 50px;'>DotLive from DotEightPlus</p>";	
+	$body .= "<script src='https://dotlive.com.ng/assets/js/bootstrap.min.js'></script>";
+	$body .= "</section>";	
+	$body .= "</body></html>";
+	$send = mail($to, $subject, $body, $headers);
+
+
+	//notify uploader via email
+	$to         = $upl;
+	$from 		= "noreply@dotlive.com.ng";
+    $cmessage 	= "Best Regards<br/> <i>Team DotLive</i>";
+
+	$headers  = "From: " . $from . "\r\n";
+	$headers .= "Reply-To: ". $from . "\r\n";
+	$headers .= "MIME-Version: 1.0\r\n";
+    $headers .= "Content-Type: text/html; charset=\"iso-8859-1\"\n";
+    $headers .= "X-Priority: 1 (Highest)\n";
+    $headers .= "X-MSMail-Priority: High\n";
+    $headers .= "Importance: High\n";
+
+    $subject = "Your Apartment was Rented";
+
+    $logo = 'https://dotlive.com.ng/assets/img/logo/2.png';
+    $url  = 'https://dotlive.com.ng';
+    $link = 'https://dotlive.com.ng/./dashboard/./myapartments';
+
+	$body = "<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><title>DotLive from DotEightPlus</title></head><link rel='stylesheet' href='https://dotlive.com.ng/assets/css/bootstrap.min.css'><body style='text-align: center;'>";
+	$body .= "<section style='margin: 30px; margin-top: 50px ; background: #000000; color: white;'>";
+	$body .= "<img style='margin-top: 35px' src='{$logo}' alt='DotLive'>";
+	$body .= "<h1 style='margin-top: 45px; color: #fbb710'>Your Apartment was Rented</h1>
+		<br/>";
+	$body .= "<p style='margin-left: 45px; margin-top: 34px; text-align: left; font-size: 17px;'>Hi there! <br/> thank you for choosing DotLive as your apartment agency. <br/><br/> One of your apartment has been rented. Below are <br/> details about the apartment rented ;</p>
+		<br/>";
+	$body .= '<table class="text-center" style="width:90%; margin-left: 45px; color: white; border: 1px solid #f9f9ff;">
+   <tr>
+    <th style="border: 1px solid #f9f9ff;">Suite</th>
+    <th style="border: 1px solid #f9f9ff;">Apartment</th>
+    <th style="border: 1px solid #f9f9ff;">Date Paid</th>
+    <th style="border: 1px solid #f9f9ff;">Tenant Tel</th>
+  </tr>
+  <tr style="border: 1px solid #f9f9ff;">
+    <td style="border: 1px solid #f9f9ff;">'.$suite.'</td>
+    <td style="border: 1px solid #f9f9ff;">'.$tpl.'</td>
+    <td style="border: 1px solid #f9f9ff;">'.date('D, M d, Y', strtotime($date)).'</td>
+    <td style="border: 1px solid #f9f9ff;">'.$tel.'</td>
+  </tr>
+</table><br/>';
+	$body .= "<p style='margin-left: 45px; text-align: left;'><a target='_blank' href='{$link}' style='color: #fbb710; text-decoration: none'>Click here to review this rent</a></p>
+		<br/>";
+	$body .= "<p style='margin-left: 45px; padding-bottom: 80px; text-align: left;'>Do not bother replying this email. This is a virtual email</p>";	
+    $body .= "<p text-align: center;'><a href='https://doteightplus.com/contact'><img src='https://dotlive.com.ng/assets/img/icon/5.png'></a>";
+    $body .= "<p style='text-align: center;'>Email.: <span style='color: #fbb710'>support@dotlive.com.ng</span></p>";	
+	$body .= "<p style='text-align: center;'>Call/Chat.: <span style='color: #fbb710'>+234(0) 810 317 1902</span></p>";	
+	$body .= "<p style='text-align: center; padding-bottom: 50px;'>DotLive from DotEightPlus</p>";	
+	$body .= "<script src='https://dotlive.com.ng/assets/js/bootstrap.min.js'></script>";
+	$body .= "</section>";	
+	$body .= "</body></html>";
+	$send = mail($to, $subject, $body, $headers);
+
+
+	//update apartment to pending
+	$ssl = "UPDATE apartment SET `status` = 'pending' WHERE `apt` = '$suite'";
+	$rsl = query($ssl);
+
+
+	echo "Loading...Please wait!";												
+	echo '<script>window.location.href ="./success?id='.$tran.'"</script>';
+
+
+}
+}
+
+
+//----universal check for ads expiry---//
+$sqller = "SELECT * FROM ads WHERE `session` = 'active'";
+$result = query($sqller);
+
+if (row_count($result) <= 0) {	
+	
+} else {
+while($row = mysqli_fetch_array($result)) {
+
+//check if ads is due for expiry
+$duration = date('Y-m-d', strtotime($row['date']));
+$expiry   = date('Y-m-d', strtotime($row['expiry']));
+
+$date     = date('Y-m-d');
+
+if ($date >= $expiry) {
+
+	//constants
+	$ads 	  = $row['ads_id'];
+	$tag      = $row['tagline'];
+	$username = $row['user'];
+	$prcn     = $row['price'];
+	$dap      = $row['date'];
+	
+	$sqli = "UPDATE ads SET `session` = 'expired' WHERE `ads_id` = '$ads'";
+	$resi = query($sqli);
+
+	//notify user about the update
+	$ref = "DSPR-".rand(0, 99999);
+	$msg = "Hi there, <br> your ad(s) with Ads ID :- <b>$ads</b> and Ads Tagline - <b>$tag</b>  got expired. Kindly check your ads center for details.";
+
+	$sqln = "INSERT INTO support_reply(`sn`, `ref`, `usname`, `msg`, `date`, `status`)";
+	$sqln.= " VALUES('1', '$ref', '$username', '$msg', '$date', 'unread')";
+	$resultn = query($sqln);
+
+
+	//notify user via email
+	$to         = $username;
+	$from 		= "noreply@dotlive.com.ng";
+    $cmessage 	= "Best Regards<br/> <i>Team DotLive</i>";
+
+	$headers  = "From: " . $from . "\r\n";
+	$headers .= "Reply-To: ". $from . "\r\n";
+	$headers .= "MIME-Version: 1.0\r\n";
+    $headers .= "Content-Type: text/html; charset=\"iso-8859-1\"\n";
+    $headers .= "X-Priority: 1 (Highest)\n";
+    $headers .= "X-MSMail-Priority: High\n";
+    $headers .= "Importance: High\n";
+
+    $subject = "Your Ad has expired";
+
+    $logo = 'https://dotlive.com.ng/assets/img/logo/2.png';
+    $url  = 'https://dotlive.com.ng';
+    $link = 'https://dotlive.com.ng/./dashboard/./adscenter';
+
+	$body = "<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><title>DotLive from DotEightPlus</title></head><link rel='stylesheet' href='https://dotlive.com.ng/assets/css/bootstrap.min.css'><body style='text-align: center;'>";
+	$body .= "<section style='margin: 30px; margin-top: 50px ; background: #000000; color: white;'>";
+	$body .= "<img style='margin-top: 35px' src='{$logo}' alt='DotLive'>";
+	$body .= "<h1 style='margin-top: 45px; color: #fbb710'>Your Ad has expired</h1>
+		<br/>";
+	$body .= "<p style='margin-left: 45px; margin-top: 34px; text-align: left; font-size: 17px;'>Hi there! <br/> one of your ad got expired and will no longer be active. <br/> Kindly check the table below for details; </p>
+		<br/>";
+	$body .= '<table class="text-center" style="width:90%; margin-left: 45px; color: white; border: 1px solid #f9f9ff;">
+   <tr>
+    <th style="border: 1px solid #f9f9ff;">Ads ID</th>
+    <th style="border: 1px solid #f9f9ff;">Tagline</th>
+    <th style="border: 1px solid #f9f9ff;">Amount Paid</th>
+    <th style="border: 1px solid #f9f9ff;">Date Paid</th>
+    <th style="border: 1px solid #f9f9ff;">Mode of Payment</th>
+  </tr>
+  <tr style="border: 1px solid #f9f9ff;">
+    <td style="border: 1px solid #f9f9ff;">'.$ads.'</td>
+    <td style="border: 1px solid #f9f9ff;">'.$tag.'</td>
+    <td style="border: 1px solid #f9f9ff;">NGN '.number_format($prcn).'</td>
+    <td style="border: 1px solid #f9f9ff;">'.date('D, M d, Y', strtotime($dap)).'</td>
+    <td style="border: 1px solid #f9f9ff;">wallet</td>
+  </tr>
+</table><br/>';
+	$body .= "<p style='margin-left: 45px; text-align: left;'><a target='_blank' href='{$link}' style='color: #fbb710; text-decoration: none'>Click here to visit your ads center.</a></p>
+		<br/>";
+	$body .= "<p style='margin-left: 45px; padding-bottom: 80px; text-align: left;'>Do not bother replying this email. This is a virtual email</p>";	
+    $body .= "<p text-align: center;'><a href='https://doteightplus.com/contact'><img src='https://dotlive.com.ng/assets/img/icon/5.png'></a>";
+    $body .= "<p style='text-align: center;'>Email.: <span style='color: #fbb710'>support@dotlive.com.ng</span></p>";	
+	$body .= "<p style='text-align: center;'>Call/Chat.: <span style='color: #fbb710'>+234(0) 810 317 1902</span></p>";	
+	$body .= "<p style='text-align: center; padding-bottom: 50px;'>DotLive from DotEightPlus</p>";	
+	$body .= "<script src='https://dotlive.com.ng/assets/js/bootstrap.min.js'></script>";
+	$body .= "</section>";	
+	$body .= "</body></html>";
+	$send = mail($to, $subject, $body, $headers);
+
+}
+
+}
+
+}
+
+//-- universal check for apartment expiry --//
+
 ?>

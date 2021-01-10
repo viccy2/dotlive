@@ -11,6 +11,10 @@ if (!isset($_GET['id'])) {
 	$sql2 = "SELECT * FROM apartment WHERE `apt` = '$data'";
 	$res2 = query($sql2);	
 	$row = mysqli_fetch_array($res2);
+	if (row_count($res2) == "") {
+   
+   redirect("./details");
+ }
 	$pix = $row['pix'];
 
 	//delete image from upload folder

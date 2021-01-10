@@ -4,7 +4,7 @@
 $vote = $_GET['id'];
 $data = $_SESSION['Username'];
 
-$sqll = "UPDATE support_reply SET `status` ='read', `sn` = '0' WHERE `usname`= '$data' AND `ref` = '$vote'";
+$sqll = "UPDATE support_reply SET `status` = 'read', `sn` = '0' WHERE `usname`= '$data' AND `ref` = '$vote'";
 $res = query($sqll);
 
 ?>
@@ -21,7 +21,7 @@ $res = query($sqll);
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="./">Home</a></li>
               <li class="breadcrumb-item active">Support Ticket</li>
             </ol>
           </div>
@@ -71,9 +71,9 @@ if (empty($result_set)) {
             <!-- /.card-header -->
             <div class="card-body p-0">
               <div class="mailbox-read-info">
-                <h5>Product Approved</h5>
-                <h6>From: support@ichangedelivery.com.ng
-                  <span class="mailbox-read-time float-right"><?php echo $row['date']; ?></span></h6>
+                <h5>New Notification</h5>
+                <h6>From: support@dotlive.com.ng
+                  <span class="mailbox-read-time float-right"><?php echo date('D, M d, Y', strtotime($row['date'])); ?></span></h6>
               </div>
               
               <div class="mailbox-read-message">
@@ -89,7 +89,7 @@ if (empty($result_set)) {
 
             <!-- /.card-footer -->
             <div class="card-footer" id="poll">
-               <a href="compose.php"><button type="button" class="btn btn-default">Go Back</button></a>
+               <a href="./compose"><button type="button" class="btn btn-default">Go Back</button></a>
              
             <!-- /.card-footer -->
           </div>

@@ -1,7 +1,8 @@
 <?php
 include("functions/init.php");
-if (isset($_SESSION['Username'])) {
+if (isset($_SESSION['Username']) && isset($_SESSION['email'])) {
     unset($_SESSION['Username']);
+    unset($_SESSION['email']);
 }
 //validate link
 if (!isset($_GET['id'])) {
@@ -12,11 +13,19 @@ if (!isset($_GET['id'])) {
 
 $data = $_GET['id'];
 
+$ssl  = "SELECT * FROM user WHERE `activator` = '$data'";
+$rsl  = query($ssl);
+if (row_count($rsl) == "") {
+    
+    redirect("./opps");
+} else {
 
-$sql = "UPDATE user SET `active` = '1' WHERE `activator`= '$data'";
+
+$sql = "UPDATE user SET `active` = '1', `activator` = '' WHERE `activator`= '$data'";
 $res = query($sql);
 
 include("includes/header.php");
+}
 ?>
 <main>
     <!--? slider Area Start-->

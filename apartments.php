@@ -38,25 +38,109 @@ include("functions/top.php");
                                <div class="form-group">
                                     <input id="price" type="range" id="a" name="a" step="1500" min="5000" max="300000" oninput="x.value=parseInt(a.value)">
                                     <br>
-                                     NGN <output id="price" name="x" for="a"></output>              
+                                     NGN <output id="price" name="x" for="a">5000</output>              
                                                        
                                 </div>
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-4">
                                  <label><b style="color: #ff0000; font-size: 18px;">Campus.:</b></label>
                                 <div class="form-group">
-                                <select id="loc" name="loc" class="form-control" required>
-                                         <?php
-                $sql = "SELECT * FROM apartment WHERE `status` = 'available' GROUP BY `state` ORDER BY RAND()";
-                $res = query($sql);
-
-               while($row = mysqli_fetch_array($res)) {
-                ?>
-                                        <option id="loc" name="loc"><?php echo $row['state'] ?></option>
-                                    <?php
-                                }
-                                    ?>
-                        </select>                       
+                              <select class="form-control">
+                                        <option id="loc" name="loc">Abubakar Tafawa Balewa University, Bauchi</option>
+                                        <option id="loc" name="loc">Ahmadu Bello University, Zaria</option>
+                                        <option id="loc" name="loc">Bayero University, Kano</option>
+                                        <option id="loc" name="loc">Federal University Gashua, Yobe</option>
+                                        <option id="loc" name="loc">Federal University of Petroleum Resources, Effurun</option>
+                                        <option id="loc" name="loc">Federal University of Technology, Akure</option>
+                                        <option id="loc" name="loc">Federal University of Technology, Minna</option>
+                                        <option id="loc" name="loc">Federal University of Technology, Owerri</option>
+                                        <option id="loc" name="loc">Federal University, Dutse, Jigawa State</option>
+                                        <option id="loc" name="loc">Federal University, Dutsin-Ma, Katsina</option>
+                                        <option id="loc" name="loc">Federal University, Kashere, Gombe State</option>
+                                        <option id="loc" name="loc">Federal University, Lafia, Nasarawa State</option>
+                                        <option id="loc" name="loc">Federal University, Lokoja, Kogi State</option>
+                                        <option id="loc" name="loc">Alex Ekwueme University, Ndufu-Alike, Ebonyi State</option>
+                                        <option id="loc" name="loc">Federal University, Otuoke, Bayelsa</option>
+                                        <option id="loc" name="loc">Federal University, Oye-Ekiti, Ekiti State</option>
+                                        <option id="loc" name="loc">Federal University, Wukari, Taraba State</option>
+                                        <option id="loc" name="loc">Federal University, Birnin Kebbi</option>
+                                        <option id="loc" name="loc">Federal University, Gusau Zamfara</option>
+                                        <option id="loc" name="loc">Michael Okpara University of Agricultural Umudike</option>
+                                        <option id="loc" name="loc">Modibbo Adama University of Technology, Yola</option>
+                                        <option id="loc" name="loc">National Open University of Nigeria, Lagos</option>
+                                        <option id="loc" name="loc">Nigeria Police Academy Wudil</option>
+                                        <option id="loc" name="loc">Nigerian Defence Academy Kaduna</option>
+                                        <option id="loc" name="loc">Nnamdi Azikiwe University, Awka</option>
+                                        <option id="loc" name="loc">Obafemi Awolowo University,Ile-Ife</option>
+                                        <option id="loc" name="loc">University of Abuja, Gwagwalada</option>
+                                        <option id="loc" name="loc">Federal University of Agriculture, Abeokuta</option>
+                                        <option id="loc" name="loc">University of Agriculture, Makurdi</option>
+                                        <option id="loc" name="loc">University of Benin</option>
+                                        <option id="loc" name="loc">University of Calabar</option>
+                                        <option id="loc" name="loc">University of Ibadan</option>
+                                        <option id="loc" name="loc">University of Ilorin</option>
+                                        <option id="loc" name="loc">University of Jos</option>
+                                        <option id="loc" name="loc">University of Lagos</option>
+                                        <option id="loc" name="loc">University of Maiduguri</option>
+                                        <option id="loc" name="loc">University of Nigeria, Nsukka</option>
+                                        <option id="loc" name="loc">University of Port-Harcourt</option>
+                                        <option id="loc" name="loc">University of Uyo</option>
+                                        <option id="loc" name="loc">Usumanu Danfodiyo University</option>
+                                        <option id="loc" name="loc">Nigerian Maritime University Okerenkoko, Delta State</option>
+                                        <option id="loc" name="loc">Air Force Institute of Technology, Kaduna</option>
+                                        <option id="loc" name="loc">Nigerian Army University Biu</option>
+                                        <option id="loc" name="loc">Abia State University, Uturu</option>
+                                        <option id="loc" name="loc">Adamawa State University Mubi</option>
+                                        <option id="loc" name="loc">Adekunle Ajasin University, Akungba</option>
+                                        <option id="loc" name="loc">Akwa Ibom State University, Ikot Akpaden</option>
+                                        <option id="loc" name="loc">Ambrose Alli University, Ekpoma</option>
+                                        <option id="loc" name="loc">Chukwuemeka Odumegwu Ojukwu University, Uli</option>
+                                        <option id="loc" name="loc">University of Jos</option>
+                                        <option id="loc" name="loc">University of Lagos</option>
+                                        <option id="loc" name="loc">University of Maiduguri</option>
+                                        <option id="loc" name="loc">University of Nigeria, Nsukka</option>
+                                        <option id="loc" name="loc">Bauchi State University, Gadau</option>
+                                        <option id="loc" name="loc">Benue State University, Makurdi</option>
+                                        <option id="loc" name="loc">Yobe State University, Damaturu</option>
+                                        <option id="loc" name="loc">Cross River State University of Technology, Calabar</option>
+                                        <option id="loc" name="loc">Delta State University Abraka</option>
+                                        <option id="loc" name="loc">Ebonyi State University, Abakalik</option>
+                                        <option id="loc" name="loc">Ekiti State University</option>
+                                        <option id="loc" name="loc">Enugu State University of Science and Technology, Enugu</option>
+                                        <option id="loc" name="loc">Ibrahim Badamasi Babangida University, Lapai</option>
+                                        <option id="loc" name="loc">Ignatius Ajuru University of Education,Rumuolumeni</option>
+                                        <option id="loc" name="loc">Imo State University, Owerri</option>
+                                        <option id="loc" name="loc">Sule Lamido University, Kafin Hausa, Jigawa</option>
+                                        <option id="loc" name="loc">Kaduna State University, Kaduna</option>
+                                        <option id="loc" name="loc">Kano University of Science &amp; Technology, Wudil</option>
+                                        <option id="loc" name="loc">Kebbi State University of Science and Technology, Aliero</option>
+                                        <option id="loc" name="loc">Kwara State University, Ilorin</option>
+                                        <option id="loc" name="loc">Kogi State University Anyigba</option>
+                                        <option id="loc" name="loc">Ladoke Akintola University of Technology, Ogbomoso</option>
+                                        <option id="loc" name="loc">Ondo State University of Science and Technology Okitipupa</option>
+                                        <option id="loc" name="loc">River State University</option>
+                                        <option id="loc" name="loc">Olabisi Onabanjo University, Ago Iwoye</option>
+                                        <option id="loc" name="loc">Lagos State University, Ojo</option>
+                                        <option id="loc" name="loc">Niger Delta University Yenagoa</option>
+                                        <option id="loc" name="loc">Nasarawa State University Keffi</option>
+                                        <option id="loc" name="loc">Plateau State University Bokkos</option>
+                                        <option id="loc" name="loc">Tai Solarin University of Education Ijebu Ode</option>
+                                        <option id="loc" name="loc">Umar Musa Yar&#8217; Adua University Katsina</option>
+                                        <option id="loc" name="loc">Osun State University Osogbo</option>
+                                        <option id="loc" name="loc">Taraba State University, Jalingo</option>
+                                        <option id="loc" name="loc">Sokoto State University</option>
+                                        <option id="loc" name="loc">Yusuf Maitama Sule University Kano</option>
+                                        <option id="loc" name="loc">Oyo State Technical University Ibadan</option>
+                                        <option id="loc" name="loc">Ondo State University of Medical Sciences</option>
+                                        <option id="loc" name="loc">Edo University Iyamo</option>
+                                        <option id="loc" name="loc">Eastern Palm University Ogboko, Imo State</option>
+                                        <option id="loc" name="loc">University of Africa Toru Orua, Bayelsa State</option>
+                                        <option id="loc" name="loc">Bornu State University, Maiduguri</option>
+                                        <option id="loc" name="loc">Moshood Abiola University of Science and Technology Abeokuta</option>
+                                        <option id="loc" name="loc">Gombe State University of Science and Technology</option>
+                                        <option id="loc" name="loc">Zamfara State University</option>
+                                        <option id="loc" name="loc">Bayelsa Medical University</option>
+                        </select>
                                                        
                                 </div>
                             </div>
@@ -64,18 +148,11 @@ include("functions/top.php");
                                  <label><b style="color: #ff0000; font-size: 18px;">Apartment Type.:</b></label>
                                 <div class="form-group">
                                  <select name="aprmt" id="aprmt" class="form-control" required>
-                                     <?php
-                $sql = "SELECT * FROM apartment WHERE `status` = 'available' GROUP BY `apartment` ORDER BY RAND()";
-                $res = query($sql);
-
-               while($row = mysqli_fetch_array($res)) {
-                ?>
-                                        
-                                        <option name="aprmt" id="aprmt"><?php echo $row['apartment'] ?></option>
-                                       
-                        <?php
-                                }
-                                    ?>
+                                    <option id="apt">Self-Contain</option>
+                                        <option id="apt">Room</option>
+                                        <option id="apt">Family House</option>
+                                        <option id="apt">Room & Parlour</option>
+                                        <option id="apt">Boys Quarter</option>
                         </select>                        
                                                        
                                 </div>
@@ -85,18 +162,10 @@ include("functions/top.php");
                                  <label><b style="color: #ff0000; font-size: 18px;">Water Type.:</b></label>
                                 <div class="form-group">
                                  <select name="water" id="water" class="form-control" required>
-                                     <?php
-                $sql = "SELECT * FROM apartment WHERE `status` = 'available' GROUP BY `water` ORDER BY RAND()";
-                $res = query($sql);
-
-               while($row = mysqli_fetch_array($res)) {
-                ?>
-                                        
-                                        <option name="water" id="water"><?php echo $row['water'] ?></option>
-                                       
-                        <?php
-                                }
-                                    ?>
+                                        <option id="water">Borehole</option>
+                                        <option id="water">Well</option>
+                                        <option id="water">Public Water</option>
+                                        <option id="water">None</option>
                         </select>                        
                                                        
                                 </div>
@@ -107,23 +176,17 @@ include("functions/top.php");
                                  <label><b style="color: #ff0000; font-size: 18px;">Toilet Type.:</b></label>
                                 <div class="form-group">
                                 <select id="toi" class="form-control" required>
-                            <?php
-                $sql = "SELECT * FROM apartment WHERE `status` = 'available' GROUP BY `toilet` ORDER BY RAND()";
-                $res = query($sql);
-
-               while($row = mysqli_fetch_array($res)) {
-                ?>
-                                        <option id="toi"><?php echo $row['toilet'] ?></option>
-                    <?php
-                                }
-                                    ?>
+                            <option id="toi">Pit Toilet</option>
+                                        <option id="toi">Water Closet</option>
+                                        <option id="toi">Public Toilet</option>
+                                        <option id="toi">None</option>
                         </select>                  
                                                        
                                 </div>
                             </div>
                            
                      
-                          <div class="form-group mt-5 pl-5 col-lg-2">
+                          <div class="form-group mt-5 pl-5 col-lg-12">
                             <button type="button" onclick="filterApt();" class="button button-contactForm boxed-btn">Apply</button>                            
                         </div>
                         </div>
@@ -327,11 +390,17 @@ include("functions/top.php");
   </script>
     <?php
     if (isset($_SESSION['Username'])) {
+     $sql = "SELECT * FROM ads WHERE `session` = 'active' ORDER BY RAND() desc";
+     $res = query($sql);
+     if (row_count($res) <= 0) {
+            
+        } else {
       ?>
     <script>
         $("#adsModal").modal();
     </script>
     <?php
+}
 }
 ?>
 </body>

@@ -28,9 +28,9 @@
               <a style="color: black" href="./myapartments">
               <div class="info-box-content">
                 <span class="info-box-text">Rented Apartment(s)</span>
-              <?php
+ <?php
  $r = $_SESSION['Username'];
- $sql="SELECT SUM(sn) AS cart from apartment WHERE `uploader` = '$r' AND `status` = 'rented'";
+ $sql="SELECT SUM(sn) AS cart from rent WHERE `status` = 'rented' OR `status` = 'pending' AND `tenantmail` = '$r'";
  $result_set=query($sql);
  $row= mysqli_fetch_array($result_set);
 
@@ -68,20 +68,21 @@ $_SESSION['new'] = $b;
           <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box mb-3">
               <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-credit-card"></i></span>
-              <a style="color: black" href="./profile">
+              <a style="color: black" href="./credith">
               <div class="info-box-content">
                 <span class="info-box-text">Wallet Balance </span>
                  <?php
                  $r = $_SESSION['Username'];
- $sql="SELECT SUM(`price`) as `alto` FROM rent WHERE `uploader` = '$r'";
+ $sql="SELECT * FROM user WHERE `email` = '$r'";
  $result_set=query($sql);
  $row= mysqli_fetch_array($result_set);
- if (row_count($result_set) == 1) {
- 
-    $wallet = $row['alto'];
+ if ($row['wallet'] == "") {
+
+    $wallet = 0; 
+    
     } else {
 
-    $wallet = 0.00;
+    $wallet = number_format($row['wallet']);
     }  
    echo '<span class="info-box-number">NGN '.$wallet.'</span>';  
   ?>                
@@ -101,7 +102,7 @@ $_SESSION['new'] = $b;
           <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box mb-3">
               <span class="info-box-icon bg-success elevation-1"><i class="fas fa-list"></i></span>
-              <a style="color: black" href="./sales">
+              <a style="color: black" href="./chat">
               <div class="info-box-content">
                 <span class="info-box-text">Unread Chats</span>
              
@@ -117,11 +118,16 @@ $_SESSION['new'] = $b;
           <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box mb-3">
               <span class="info-box-icon bg-warning elevation-1"><i class="fa fa-newspaper"></i></span>
-              <a style="color: black" href="./ads">
+              <a style="color: black" href="./adscenter">
               <div class="info-box-content">
                 <span class="info-box-text">Active Ads</span>
-                
-               <span class="info-box-number">null</span>
+             <?php
+$name = $_SESSION['Username'];
+$sql = "SELECT SUM(`sn`) as adstot FROM ads WHERE `user` = '$name' AND `session` = 'active'";
+$result = query($sql);
+$row = mysqli_fetch_array($result);
+?>   
+               <span class="info-box-number"><?php echo $row['adstot'];?></span>
                 
               </div>
             </a>
@@ -132,6 +138,15 @@ $_SESSION['new'] = $b;
           <!-- /.col -->
         </div>
         <!-- /.row -->
+
+<?php 
+$r = $_SESSION['Username'];
+$ssl = "SELECT * FROM user WHERE `email` = '$r'";
+$rs  = query($ssl);
+$rwl = mysqli_fetch_array($rs);
+
+if ($rwl['category'] != 'user') {
+ ?>
                     <!-- TABLE: LATEST ORDERS -->
             <div class="card">
               <div class="card-header border-transparent">
@@ -198,6 +213,7 @@ $_SESSION['new'] = $b;
             </div>
             <!-- /.card -->
 
+
                                 <!-- TABLE: LATEST ORDERS -->
             <div class="card">
               <div class="card-header border-transparent">
@@ -218,16 +234,17 @@ $_SESSION['new'] = $b;
                   <table class="table m-0">
                     <thead>
                     <tr>
-                       <th style="width: 15%;">Suite_No.</th>
+                      <th style="width: 15%;">Suite_No.</th>
                       <th style="width: 15%;">Image</th>
-                      <th style="width: 15%;">Date Paid</th>
                       <th style="width: 15%;">Tenant Tel</th>
+                      <th style="width: 15%;">Date Paid</th>
                       <th style="width: 15%;">Price</th>
+                      <th style="width: 15%;">Pending Limit</th>
                       <th style="width: 15%;"></th>
                     </tr>
                     </thead>
          <?php
-         $r = $_SESSION['Username'];
+ $r = $_SESSION['Username'];
  $sql="SELECT * FROM rent WHERE `uploader` = '$r' AND `status` = 'pending'";
  $result_set=query($sql);
  while($row= mysqli_fetch_array($result_set))
@@ -236,23 +253,23 @@ $_SESSION['new'] = $b;
            
                     <tbody>
                     <tr>
-                      <td><a href="#"><?php echo $row['apt']; ?></a></td>
+                      <td><a href="./details?id=<?php echo $row['apt']; ?>"><?php echo $row['apt']; ?></a></td>
                       </td>
                       <?php          
                     echo '
- <td><img style= "width: 100px; height: 100px;" src= "../upload/product/'.$row['pix'].'"  alt="product picture"></td>';
- ?>
-                      <td>
-                      <td><?php echo $row['paydate']; ?></td>
+ <td><img style= "width: 100px; height: 100px;" src= "../upload/apartment/'.$row['pix'].'"  alt="apartment picture"></td>';
+ ?> 
                       <td><?php echo $row['tenanttel']; ?></td>
+                      <td><?php echo date('D, M d, Y', strtotime($row['paydate'])); ?></td>
                       <td>
-                        <div class="sparkbar" data-color="#00a65a" data-height="20">NGN <?php echo $row['price']; ?></div>
+                        <div class="sparkbar" data-color="#00a65a" data-height="20">NGN <?php echo number_format($row['price']); ?></div>
                       </td>
-                      <td><a href="./chat?id=<?php echo $row['tenantmail'] ?>"> More Details</td>
+                      <td><?php echo $row['pendlimit']; ?></td>
+                      <td><a href="tel: <?php echo $row['tenanttel'] ?>"> Call Tenant</td>
                     </tr>
               
                     </tbody>
-                    <?php
+                   <?php 
                   }
                   ?>
                   </table>
@@ -309,7 +326,7 @@ $_SESSION['new'] = $b;
  <td><img style= "width: 100px; height: 100px;" src= "../upload/product/'.$row['pix'].'"  alt="product picture"></td>';
  ?>
                       <td>
-                      <td><?php echo $row['paydate']; ?></td>
+                      <td><?php echo date('D, M d, Y', strtotime($row['paydate'])); ?></td>
                       <td><?php echo $row['tenanttel']; ?></td>
                       <td>
                         <div class="sparkbar" data-color="#00a65a" data-height="20">NGN <?php echo $row['price']; ?></div>
@@ -328,7 +345,154 @@ $_SESSION['new'] = $b;
              
             </div>
             <!-- /.card -->
+<?php
+} else {
+?>
 
+                                        <!-- TABLE: LATEST ORDERS -->
+            <div class="card">
+              <div class="card-header border-transparent">
+                <h3 class="card-title">Pending Apartment(s)</h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <div class="table-responsive">
+                  <table class="table m-0">
+                    <thead>
+                    <tr>
+                      <th style="width: 15%;">Suite_No.</th>
+                      <th style="width: 15%;">Image</th>
+                      <th style="width: 15%;">Landlord/Agent</th>
+                      <th style="width: 15%;">Date Paid</th>
+                      <th style="width: 15%;">Price</th>
+                      <th style="width: 15%;">Pending Limit</th>
+                      <th style="width: 15%;"></th>
+                      <th style="width: 15%;"></th>
+                    </tr>
+                    </thead>
+         <?php
+ $r = $_SESSION['Username'];
+ $sql="SELECT * FROM rent WHERE `tenantmail` = '$r' AND `status` = 'pending'";
+ $result_set=query($sql);
+ while($row= mysqli_fetch_array($result_set))
+ {
+  ?>   
+           
+                    <tbody>
+                    <tr>
+                      <td><a href="./rdetails?id=<?php echo $row['apt']; ?>"><?php echo $row['apt']; ?></a></td>
+                      </td>
+                      <?php          
+                    echo '
+ <td><img style= "width: 100px; height: 100px;" src= "../upload/apartment/'.$row['pix'].'"  alt="apartment picture"></td>';
+ ?> 
+                      <?php
+                      $dvs = $row['uploader'];
+                      $sll = "SELECT * FROM user WHERE `email` = '$dvs'";
+                      $qas = query($sll);
+
+                      $wsd = mysqli_fetch_array($qas);
+                      ?>
+                      <td><?php echo $wsd['tel']; ?></td>
+                      <td><?php echo date('D, M d, Y', strtotime($row['paydate'])); ?></td>
+                      <td>
+                        <div class="sparkbar" data-color="#00a65a" data-height="20">NGN <?php echo number_format($row['price']); ?></div>
+                      </td>
+                      <td><?php echo $row['pendlimit']; ?></td>
+                      <td><a href="tel: <?php echo $wsd['tel']; ?>"> Call Landlord</td>
+                      <td><a href="./rdetails?id=<?php echo $row['apt']; ?>">Verify Apartment</a></td>
+                    </tr>
+              
+                    </tbody>
+                   <?php 
+                  }
+                  ?>
+                  </table>
+                </div>
+                <!-- /.table-responsive -->
+              </div>
+             
+            </div>
+            <!-- /.card -->
+             
+
+                                <!-- TABLE: LATEST ORDERS -->
+            <div class="card">
+              <div class="card-header border-transparent">
+                <h3 class="card-title">Rented Apartment(s)</h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <div class="table-responsive">
+                  <table class="table m-0">
+                    <thead>
+                    <tr>
+                       <th style="width: 15%;">Suite_No.</th>
+                      <th style="width: 15%;">Image</th>
+                      <th style="width: 15%;">Date Paid</th>
+                      <th style="width: 15%;">Tenant Tel</th>
+                      <th style="width: 15%;">Price</th>
+                      <th style="width: 15%;"></th>
+                    </tr>
+                    </thead>
+         <?php
+         $r = $_SESSION['Username'];
+ $sql="SELECT * FROM rent WHERE `uploader` = '$r' AND `status` = 'rented'";
+ $result_set=query($sql);
+ while($row= mysqli_fetch_array($result_set))
+ {
+  ?>   
+           
+                    <tbody>
+                    <tr>
+                      <td><a href="#"><?php echo $row['apt']; ?></a></td>
+                      </td>
+                      <?php          
+                    echo '
+ <td><img style= "width: 100px; height: 100px;" src= "../upload/product/'.$row['pix'].'"  alt="product picture"></td>';
+ ?>
+                      <td>
+                      <td><?php echo date('D, M d, Y', strtotime($row['paydate'])); ?></td>
+                      <td><?php echo $row['tenanttel']; ?></td>
+                      <td>
+                        <div class="sparkbar" data-color="#00a65a" data-height="20">NGN <?php echo $row['price']; ?></div>
+                      </td>
+                      <td><a href="./chat?id=<?php echo $row['tenantmail'] ?>"> More Details</td>
+                    </tr>
+              
+                    </tbody>
+                    <?php
+                  }
+                  ?>
+                  </table>
+                </div>
+                <!-- /.table-responsive -->
+              </div>
+             
+            </div>
+            <!-- /.card -->      
+
+<?php
+}
+?>
 
                     <!-- TABLE: LATEST ORDERS -->
             <div class="card">
@@ -370,7 +534,7 @@ $_SESSION['new'] = $b;
                       <td><a href="#"><?php echo $row['ads_id']; ?></a></td>
                        <td><img style= "width: 100px; height: 100px;" src= "../upload/ads/<?php echo $row['file'] ?>"  alt="Ads image"></td>';
                       <td><?php echo $row['duration']; ?></td>
-                      <td><?php echo $row['date']; ?></td>
+                      <td><?php echo date('D, M d, Y', strtotime($row['date'])); ?></td>
                       <td><?php echo $row['click']; ?></span></td>
                       <td><a href="./adsdetails?id=<?php echo $row['ads_id']; ?>">More Details</a></td>
                     </tr>

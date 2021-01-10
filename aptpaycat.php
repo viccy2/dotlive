@@ -1,14 +1,14 @@
 <?php
 include("functions/top.php");
-if(!isset($_GET['id']) && !isset($_GET['mla']) && !isset($_GET['drt'])) {
+if(!isset($_GET['id']) && !isset($_GET['drt']) && !isset($_GET['upl'])) {
 
 redirect("./apartment");
 
 } else {
 
-$email   = $_GET['mla'];
-$tranref = md5($_GET['drt']);
+$suite   = $_GET['drt'];
 $all     = $_GET['id']; 
+$upl     = $_GET['upl'];
 }
 ?>
 <main>
@@ -47,17 +47,19 @@ $all     = $_GET['id'];
                     <div class="col-12">
                     <h2 class="contact-title">Select a Payment Category</h2>
                 </div>
-                    <form class="form-contact contact_form" method="post" id="contactForm" novalidate="novalidate">
+                <form class="form-contact contact_form" method="post" id="contactForm" novalidate="novalidate">
                         <div class="row">
-                          <input type="text" id="mla" value="<?php echo $email ?>" hidden>
-                          <input type="text" id="drt" value="<?php echo $tranref ?>" hidden>
+                          <input type="text" id="drt" value="<?php echo $suite ?>" hidden>
                           <input type="text" id="all" value="<?php echo $all ?>" hidden>
+                           <input type="text" id="upl" value="<?php echo $upl ?>" hidden>
                            <div class="form-group mt-3 pl-5 col-lg-6">
-                            <button type="button" class="button button-contactForm boxed-btn">Pay From Wallet</button>
+                            <button type="button" id="walpay" onclick="allPayme()" class="button button-contactForm boxed-btn">Pay From Your Wallet</button>
+                    
+                            <button type="button" data-toggle="modal" data-backdrop="static" data-target="#exampModalCenter" class="button button-contactForm boxed-btn">Pay From Your Walle</button>
                         </div>
 
                          <div class="form-group mt-3 pl-5 col-lg-6">
-                            <button type="button" class="button button-contactForm boxed-btn">Pay Online</button>
+                            <a href="./aptpay?drt=<?php echo $suite ?>&all=<?php echo $all ?>"><button type="button" class="button button-contactForm boxed-btn">Use Other Payment Method</button></a>
                         </div>
                           
                         </div>
@@ -70,6 +72,23 @@ $all     = $_GET['id'];
     </section>
     <!-- Contact Area End -->
 </main>
+
+<!---- Input Password modal ---->
+    <div class="modal fade" id="exampModalCenter">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div style="background: #f9f9ff; color: #ff0000;" class="modal-content">
+                <div class="modal-body">
+                   <div class="col-sm-12">
+                    <div class="form-group">
+                        <label><b style="color: #ff0000; font-size: 18px;">Input your password to confirm this transaction.:</b></label>
+                        <input class="form-control valid" name="password" id="trpword" type="password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your Password'" placeholder="Enter your Password" required>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+
 
 <!-- Modal -->
     <div class="modal fade" id="exampleModalCenter">

@@ -11,6 +11,11 @@ if(!isset($_GET['id'])) {
   $sql    = "SELECT * FROM `apartment` WHERE `apt` = '$data'";
   $res    = query($sql);
 
+  if (row_count($res) == "") {
+   
+   redirect("./agreed");
+ }
+
   $row    = mysqli_fetch_array($res);
 
   $_SESSION['aptimg']  = $data;

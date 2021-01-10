@@ -13,7 +13,7 @@ $data = $_GET['id'];
 
 $sql = "SELECT * FROM user WHERE `activator`= '$data'";
 $res = query($sql);
-if (row_count($res) != 1) {
+if (row_count($res) == "") {
     
     header("location: ./404");
 } else {

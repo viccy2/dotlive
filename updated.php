@@ -3,6 +3,13 @@ include("functions/top.php");
 if (isset($_SESSION['Username'])) {
     unset($_SESSION['Username']);
 }
+if (!isset($_SESSION['femail'])) {
+    
+    redirect("./signin");
+} else {
+
+    unset($_SESSION['femail']);
+}
 ?>
 <main>
     <!--? slider Area Start-->

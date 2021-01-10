@@ -74,44 +74,101 @@ $row = mysqli_fetch_array($res);
                       <!-- select -->
                       <div class="form-group">
                         <label>Target.:</label>
-                        <select id="loc" class="form-control" required>
-                                        <option id="loc" name="loc">Abuja</option>
-                                        <option id="loc" name="loc">Abia</option>
-                                        <option id="loc" name="loc">Adamawa</option>
-                                        <option id="loc" name="loc">Akwa Ibom</option>
-                                        <option id="loc" name="loc">Anambra</option>
-                                        <option id="loc" name="loc">Bauchi</option>
-                                        <option id="loc" name="loc">Bayelsa</option>
-                                        <option id="loc" name="loc">Benue</option>
-                                        <option id="loc" name="loc">Borno</option>
-                                        <option id="loc" name="loc">Cross River</option>
-                                        <option id="loc" name="loc">Delta</option>
-                                        <option id="loc" name="loc">Ebonyi</option>
-                                        <option id="loc" name="loc">Edo</option>
-                                        <option id="loc" name="loc">Ekiti</option>
-                                        <option id="loc" name="loc">Enugu</option>
-                                        <option id="loc" name="loc">Gombe</option>
-                                        <option id="loc" name="loc">Imo</option>
-                                        <option id="loc" name="loc">Jigawa</option>
-                                        <option id="loc" name="loc">Kaduna</option>
-                                        <option id="loc" name="loc">Kano</option>
-                                        <option id="loc" name="loc">Katsina</option>
-                                        <option id="loc" name="loc">Kebbi</option>
-                                        <option id="loc" name="loc">Kogi</option>
-                                        <option id="loc" name="loc">Kwara</option>
-                                        <option id="loc" name="loc">Lagos</option>
-                                        <option id="loc" name="loc">Nassarawa</option>
-                                        <option id="loc" name="loc">Niger</option>
-                                        <option id="loc" name="loc">Ogun</option>
-                                        <option id="loc" name="loc">Ondo</option>
-                                        <option id="loc" name="loc">Osun</option>
-                                        <option id="loc" name="loc">Oyo</option>
-                                        <option id="loc" name="loc">Plateau</option>
-                                        <option id="loc" name="loc">Rivers</option>
-                                        <option id="loc" name="loc">Sokoto</option>
-                                        <option id="loc" name="loc">Taraba</option>
-                                        <option id="loc" name="loc">Yobe</option>
-                                        <option id="loc" name="loc">Zamfara</option>
+                       <select class="form-control">
+                                        <option id="loc" name="loc">Abubakar Tafawa Balewa University, Bauchi</option>
+                                        <option id="loc" name="loc">Ahmadu Bello University, Zaria</option>
+                                        <option id="loc" name="loc">Bayero University, Kano</option>
+                                        <option id="loc" name="loc">Federal University Gashua, Yobe</option>
+                                        <option id="loc" name="loc">Federal University of Petroleum Resources, Effurun</option>
+                                        <option id="loc" name="loc">Federal University of Technology, Akure</option>
+                                        <option id="loc" name="loc">Federal University of Technology, Minna</option>
+                                        <option id="loc" name="loc">Federal University of Technology, Owerri</option>
+                                        <option id="loc" name="loc">Federal University, Dutse, Jigawa State</option>
+                                        <option id="loc" name="loc">Federal University, Dutsin-Ma, Katsina</option>
+                                        <option id="loc" name="loc">Federal University, Kashere, Gombe State</option>
+                                        <option id="loc" name="loc">Federal University, Lafia, Nasarawa State</option>
+                                        <option id="loc" name="loc">Federal University, Lokoja, Kogi State</option>
+                                        <option id="loc" name="loc">Alex Ekwueme University, Ndufu-Alike, Ebonyi State</option>
+                                        <option id="loc" name="loc">Federal University, Otuoke, Bayelsa</option>
+                                        <option id="loc" name="loc">Federal University, Oye-Ekiti, Ekiti State</option>
+                                        <option id="loc" name="loc">Federal University, Wukari, Taraba State</option>
+                                        <option id="loc" name="loc">Federal University, Birnin Kebbi</option>
+                                        <option id="loc" name="loc">Federal University, Gusau Zamfara</option>
+                                        <option id="loc" name="loc">Michael Okpara University of Agricultural Umudike</option>
+                                        <option id="loc" name="loc">Modibbo Adama University of Technology, Yola</option>
+                                        <option id="loc" name="loc">National Open University of Nigeria, Lagos</option>
+                                        <option id="loc" name="loc">Nigeria Police Academy Wudil</option>
+                                        <option id="loc" name="loc">Nigerian Defence Academy Kaduna</option>
+                                        <option id="loc" name="loc">Nnamdi Azikiwe University, Awka</option>
+                                        <option id="loc" name="loc">Obafemi Awolowo University,Ile-Ife</option>
+                                        <option id="loc" name="loc">University of Abuja, Gwagwalada</option>
+                                        <option id="loc" name="loc">Federal University of Agriculture, Abeokuta</option>
+                                        <option id="loc" name="loc">University of Agriculture, Makurdi</option>
+                                        <option id="loc" name="loc">University of Benin</option>
+                                        <option id="loc" name="loc">University of Calabar</option>
+                                        <option id="loc" name="loc">University of Ibadan</option>
+                                        <option id="loc" name="loc">University of Ilorin</option>
+                                        <option id="loc" name="loc">University of Jos</option>
+                                        <option id="loc" name="loc">University of Lagos</option>
+                                        <option id="loc" name="loc">University of Maiduguri</option>
+                                        <option id="loc" name="loc">University of Nigeria, Nsukka</option>
+                                        <option id="loc" name="loc">University of Port-Harcourt</option>
+                                        <option id="loc" name="loc">University of Uyo</option>
+                                        <option id="loc" name="loc">Usumanu Danfodiyo University</option>
+                                        <option id="loc" name="loc">Nigerian Maritime University Okerenkoko, Delta State</option>
+                                        <option id="loc" name="loc">Air Force Institute of Technology, Kaduna</option>
+                                        <option id="loc" name="loc">Nigerian Army University Biu</option>
+                                        <option id="loc" name="loc">Abia State University, Uturu</option>
+                                        <option id="loc" name="loc">Adamawa State University Mubi</option>
+                                        <option id="loc" name="loc">Adekunle Ajasin University, Akungba</option>
+                                        <option id="loc" name="loc">Akwa Ibom State University, Ikot Akpaden</option>
+                                        <option id="loc" name="loc">Ambrose Alli University, Ekpoma</option>
+                                        <option id="loc" name="loc">Chukwuemeka Odumegwu Ojukwu University, Uli</option>
+                                        <option id="loc" name="loc">University of Jos</option>
+                                        <option id="loc" name="loc">University of Lagos</option>
+                                        <option id="loc" name="loc">University of Maiduguri</option>
+                                        <option id="loc" name="loc">University of Nigeria, Nsukka</option>
+                                        <option id="loc" name="loc">Bauchi State University, Gadau</option>
+                                        <option id="loc" name="loc">Benue State University, Makurdi</option>
+                                        <option id="loc" name="loc">Yobe State University, Damaturu</option>
+                                        <option id="loc" name="loc">Cross River State University of Technology, Calabar</option>
+                                        <option id="loc" name="loc">Delta State University Abraka</option>
+                                        <option id="loc" name="loc">Ebonyi State University, Abakalik</option>
+                                        <option id="loc" name="loc">Ekiti State University</option>
+                                        <option id="loc" name="loc">Enugu State University of Science and Technology, Enugu</option>
+                                        <option id="loc" name="loc">Ibrahim Badamasi Babangida University, Lapai</option>
+                                        <option id="loc" name="loc">Ignatius Ajuru University of Education,Rumuolumeni</option>
+                                        <option id="loc" name="loc">Imo State University, Owerri</option>
+                                        <option id="loc" name="loc">Sule Lamido University, Kafin Hausa, Jigawa</option>
+                                        <option id="loc" name="loc">Kaduna State University, Kaduna</option>
+                                        <option id="loc" name="loc">Kano University of Science &amp; Technology, Wudil</option>
+                                        <option id="loc" name="loc">Kebbi State University of Science and Technology, Aliero</option>
+                                        <option id="loc" name="loc">Kwara State University, Ilorin</option>
+                                        <option id="loc" name="loc">Kogi State University Anyigba</option>
+                                        <option id="loc" name="loc">Ladoke Akintola University of Technology, Ogbomoso</option>
+                                        <option id="loc" name="loc">Ondo State University of Science and Technology Okitipupa</option>
+                                        <option id="loc" name="loc">River State University</option>
+                                        <option id="loc" name="loc">Olabisi Onabanjo University, Ago Iwoye</option>
+                                        <option id="loc" name="loc">Lagos State University, Ojo</option>
+                                        <option id="loc" name="loc">Niger Delta University Yenagoa</option>
+                                        <option id="loc" name="loc">Nasarawa State University Keffi</option>
+                                        <option id="loc" name="loc">Plateau State University Bokkos</option>
+                                        <option id="loc" name="loc">Tai Solarin University of Education Ijebu Ode</option>
+                                        <option id="loc" name="loc">Umar Musa Yar&#8217; Adua University Katsina</option>
+                                        <option id="loc" name="loc">Osun State University Osogbo</option>
+                                        <option id="loc" name="loc">Taraba State University, Jalingo</option>
+                                        <option id="loc" name="loc">Sokoto State University</option>
+                                        <option id="loc" name="loc">Yusuf Maitama Sule University Kano</option>
+                                        <option id="loc" name="loc">Oyo State Technical University Ibadan</option>
+                                        <option id="loc" name="loc">Ondo State University of Medical Sciences</option>
+                                        <option id="loc" name="loc">Edo University Iyamo</option>
+                                        <option id="loc" name="loc">Eastern Palm University Ogboko, Imo State</option>
+                                        <option id="loc" name="loc">University of Africa Toru Orua, Bayelsa State</option>
+                                        <option id="loc" name="loc">Bornu State University, Maiduguri</option>
+                                        <option id="loc" name="loc">Moshood Abiola University of Science and Technology Abeokuta</option>
+                                        <option id="loc" name="loc">Gombe State University of Science and Technology</option>
+                                        <option id="loc" name="loc">Zamfara State University</option>
+                                        <option id="loc" name="loc">Bayelsa Medical University</option>
                         </select>
                       </div>
                     </div>

@@ -260,7 +260,7 @@ if (empty($result_set)) {
                     <td class="mailbox-subject"><b><?php echo $y; ?>
                     </td>
                     <td class="mailbox-attachment"></td>
-                    <td class="mailbox-date"><?php echo $row['date'];?></td>
+                    <td class="mailbox-date"><?php echo date('D, M d, Y', strtotime($row['date'])); ?></td>
 
                   </tr>
                   <?php

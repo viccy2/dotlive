@@ -10,6 +10,11 @@ if (!isset($_GET['id'])) {
    $res = query($sql);
    $row = mysqli_fetch_array($res);
 
+   if (row_count($res) == "") {
+   
+   redirect("./apartment");
+ }
+
    $uploader = $row['uploader'];
 }
 ?>
@@ -71,15 +76,15 @@ if (!isset($_GET['id'])) {
                    ?>
                   </ul>
                   <p style="font-size: 22px;" class="excert">
-                     Power Source.: <?php echo $row['power'] ?><br><br>
-                                   Water Type.: <?php echo $row['water'] ?> <br><br>
-                                   Toilet Type.: <?php echo $row['toilet'] ?> <br><br>
-                                   Apartment Campus.: <?php echo $row['state'] ?> <br><br>
-                                   Apartment Location.: <?php echo $row['location'] ?><br><br>
-                                   <span style="color: #ff0000">Price.: NGN <?php echo number_format($row['price']) ?>/yr</span>
+                     <b>Power Source</b>.: <?php echo $row['power'] ?><br><br>
+                                   <b>Water Type</b>.: <?php echo $row['water'] ?> <br><br>
+                                   <b>Toilet Type</b>.: <?php echo $row['toilet'] ?> <br><br>
+                                   <b>Apartment Campus</b>.: <?php echo $row['state'] ?> <br><br>
+                                   <b>Apartment Location</b>.: <?php echo $row['location'] ?><br><br>
+                                   <span style="color: #ff0000"><b>Price</b>.: NGN <?php echo number_format($row['price']) ?>/yr</span>
                   </p>
                   <p style="font-size: 22px;">
-                     Description.: <?php echo $row['description'] ?>
+                     <b>Description</b>.: <?php echo $row['description'] ?>
                   </p>
                   
                </div>
@@ -88,7 +93,7 @@ if (!isset($_GET['id'])) {
             if (isset($_SESSION['Username'])) {
             ?>
            <div class="form-group">
-               <a href="./aptpaycat?drt=<?php echo md5(rand()); ?>&id=<?php echo $row['price'] ?>&mla=<?php echo $_SESSION['Username'] ?>"><button type="submit" class="button button-contactForm btn_1 boxed-btn">Get Apartment</button></a>
+               <a href="./aptpaycat?drt=<?php echo $row['apt']; ?>&id=<?php echo $row['price'] ?>&upl=<?php echo $row['uploader'] ?>"><button type="submit" class="button button-contactForm btn_1 boxed-btn">Get Apartment</button></a>
             </div> 
       <?php
     } else {
