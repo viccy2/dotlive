@@ -22,7 +22,7 @@ $customer_email = $email;
 $amount = $all;  
 $currency = "NGN";
 $txref = $tranref; // ensure you generate unique references per transaction.
-$PBFPubKey = "FLWPUBK-45ca76776ea3b71a0034f9696d507d62-X"; // get your public key from the dashboard.
+$PBFPubKey = "FLWPUBK_TEST-050f3bacfc7b7d0e6a2a572af4bf11ce-X"; // get your public key from the dashboard.
 $redirect_url = "https://dotlive.com.ng/./pay";
 
 

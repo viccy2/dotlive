@@ -4,7 +4,7 @@
         $currency = "NGN"; //Correct Currency from Server
 
         $query = array(
-            "SECKEY" => "FLWSECK-2e3b5137a9e247f6f030dc7b0316b65f-X",
+            "SECKEY" => "FLWSECK_TEST-80e32ef2a464bce4f5aa83882a770601-X",
             "txref" => $ref
         );
 
