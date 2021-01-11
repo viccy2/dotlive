@@ -211,7 +211,7 @@ if (!isset($_GET['apr']) && !isset($_GET['loc']) && !isset($_GET['prc']) && !iss
 
                 <div class="row mt-5">
                     <?php
-     $sql = "SELECT * FROM apartment WHERE `status` = 'available' AND `apartment` = '$apr' AND `state` = '$loc' AND `toilet` = '$toi' AND `price` <= '$prc' ORDER BY RAND() desc";
+     $sql = "SELECT * FROM apartment WHERE `status` = 'available' AND `apartment` = '$apr' AND `state` = '$loc' AND `toilet` = '$toi' AND `price` BETWEEN 0 and '$prc' ORDER BY RAND() desc";
      $res = query($sql);
 
      if (row_count($res) == 0) {

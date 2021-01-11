@@ -1,19 +1,8 @@
 <?php
 include("functions/top.php");
-if (!isset($_SESSION['Username']) && !isset($_GET['id'])) {
-   
-   redirect("./opps");
-} else {
-    $data = $_GET['id'];
-    $ssl  = "SELECT * FROM rent WHERE `tranref` = '$data'";
-    $res  = query($ssl);
-
-    if (row_count($res) == "") {
-        
-        redirect("./opps");
-    } else {}}
 ?>
 
+    <main>
         <!--? slider Area Start-->
         <section class="slider-area ">
             <div class="slider-active">
@@ -23,9 +12,9 @@ if (!isset($_SESSION['Username']) && !isset($_GET['id'])) {
                         <div class="row">
                             <div class="col-xl-6 col-lg-7 col-md-12">
                                 <div class="hero__caption">
-                                    <h1 data-animation="fadeInLeft" data-delay="0.2s">Hurray :)</h1>
-                                    <p data-animation="fadeInLeft" data-delay="0.4s">Thank you for choosing DotLive as your apartment agency <br/> Kindly check your dashboard and your email for details on your new rented apartment.</p>
-                                    <a href="dashboard/./" class="btn hero-btn" data-animation="fadeInLeft" data-delay="0.7s">Go to Dashboard</a>
+                                    <h1 data-animation="fadeInLeft" data-delay="0.2s">Uh Oh :(</h1>
+                                    <p data-animation="fadeInLeft" data-delay="0.4s">To enjoy full access to our service, . <br/> kindly connect to an available internet service.</p>
+                                    <a href="#" onclick="goBack();" class="btn hero-btn" data-animation="fadeInLeft" data-delay="0.7s">Go Back</a>
                                 </div>
                             </div>
                         </div>
@@ -33,9 +22,6 @@ if (!isset($_SESSION['Username']) && !isset($_GET['id'])) {
                 </div>
             </div>
         </section>
-
-
-        
 
 <!-- JS here -->
 <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
@@ -78,5 +64,10 @@ if (!isset($_SESSION['Username']) && !isset($_GET['id'])) {
 <!-- Jquery Plugins, main Jquery -->	
 <script src="./assets/js/plugins.js"></script>
 <script src="./assets/js/main.js"></script>
+ <script>
+function goBack() {
+    window.history.back()
+}
+</script>
 </body>
 </html>

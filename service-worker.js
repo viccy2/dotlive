@@ -1,6 +1,5 @@
 var CACHE_NAME = 'pwgen-cache';
 var urlsToCache = [
-    'assets/img/logo/pwa.png',
     'index.php'
 ];
 console.log('loading sw');

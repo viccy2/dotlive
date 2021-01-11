@@ -37,7 +37,7 @@ include("functions/top.php");
                                  <label><b style="color: #ff0000; font-size: 18px;">Price Range.:</b></label>
                                <div class="form-group">
                                     <input id="price" type="range" id="a" name="a" step="1500" min="5000" max="300000" oninput="x.value=parseInt(a.value)">
-                                    <br>
+                                    <br/>
                                      NGN <output id="price" name="x" for="a">5000</output>              
                                                        
                                 </div>
@@ -215,10 +215,10 @@ include("functions/top.php");
                                 <div class="properties__caption">
                                     <p><?php echo $row['apt'] ?></p>
                                 <h3><a href="#"><?php echo $row['apartment'] ?></a></h3>
-                                <p>Power Source.: <?php echo $row['power'] ?><br>
-                                   Water Type.: <?php echo $row['water'] ?> <br>
-                                   Toilet Type.: <?php echo $row['toilet'] ?><br>
-                                   Apartment Campus.: <?php echo $row['state'] ?><br>
+                                <p>Power Source.: <?php echo $row['power'] ?><br/>
+                                   Water Type.: <?php echo $row['water'] ?> <br/>
+                                   Toilet Type.: <?php echo $row['toilet'] ?><br/>
+                                   Apartment Campus.: <?php echo $row['state'] ?><br/>
                                    Apartment Location.: <?php echo $row['location'] ?>
 
                                 </p>
@@ -299,8 +299,11 @@ include("functions/top.php");
         <button style="color: white;" type="button" class="close" data-dismiss="modal">&times; Close</button>
         <h2 class="modal-title"><b style="color: white;"><?php echo $row['tagline'] ?></b></h2>
         <br/>
-        <img class="img-fluid" src="upload/ads/<?php echo $row['file'] ?>" style="width: 100%; height: 450px;" alt="Ads Image">
-        <br><br>
+        <?php 
+        echo '
+        <img class="img-fluid" src="upload/ads/'.$row['file'].'" style="width: 100%; height: 450px;" alt="Ads Image"/>';
+        ?>
+        <br/><br/>
         <p style="color: #f9f9ff"><?php echo $row['descrip'] ?></p>
          <p style="color: #f9f9ff">Contact <?php echo $row['tel'] ?> for details</p>
       </div>

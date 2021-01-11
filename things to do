@@ -3,7 +3,6 @@ Get total polytechnic available in Nigeria
 chatting system
 select tag should scroll
 calculate range using php and mysql
-service worker: Uncaught (in promise) TypeError: Failed to fetch
 map system
 
 
@@ -212,3 +211,55 @@ cvv: 564,
 Expiry: 10/32,
 
 Pin: 3310
+
+
+
+
+
+
+https://api.flutterwave.com/v3/transfers
+
+Method: POST
+Headers: Content-Type: application/json, Authorization: Bearer {{ SEC_KEY }}
+Parameters:
+
+JSON
+
+{
+    "account_bank": "044",
+    "account_number": "0690000040",
+    "amount": 5500,
+    "narration": "Akhlm Pstmn Trnsfr xx007",
+    "currency": "NGN",
+    "reference": "akhlm-pstmnpyt-rfxx007_PMCKDU_1",
+    "callback_url": "https://webhook.site/b3e505b0-fe02-430e-a538-22bbbce8ce0d",
+    "debit_currency": "NGN"
+}
+Sample Response
+Here's a sample response for a successful bank transfer
+
+JSON
+
+{
+    "status": "success",
+    "message": "Transfer Queued Successfully",
+    "data": {
+        "id": 36000,
+        "account_number": "0690000040",
+        "bank_code": "044",
+        "full_name": "Alexis Sanchez",
+        "created_at": "2020-04-28T13:18:15.000Z",
+        "currency": "NGN",
+        "debit_currency": "NGN",
+        "amount": 5500,
+        "fee": 26.875,
+        "status": "NEW",
+        "reference": "akhlm-pstmnpyt-rfxx007_PMCKDU_1",
+        "meta": null,
+        "narration": "Akhlm Pstmn Trnsfr xx007",
+        "complete_message": "",
+        "requires_approval": 0,
+        "is_approved": 1,
+        "bank_name": "ACCESS BANK NIGERIA"
+    }
+}
