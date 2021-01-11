@@ -12,6 +12,12 @@ $upl     = $_POST['upl'];
 $all     = $_POST['all']; 
 $drt     = $_POST['drt'];
 
+//pass them in session
+$_SESSION['upl'] = $upl;
+$_SESSION['all'] = $all;
+$_SESSION['drt'] = $drt;
+
+
 $tranref = "DLAPT-".date("Y").rand(0, 99999999);
 
 
