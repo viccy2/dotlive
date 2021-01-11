@@ -1,25 +1,29 @@
 <?php
 include("functions/init.php");
-if(!isset($_GET['id']) && !isset($_GET['mla']) && !isset($_GET['drt'])) {
+if(!isset($_SESSION['Username'])) {
 
 redirect("./apartment");
 
 } else {
 
-$email   = $_GET['mla'];
-$tranref = md5($_GET['drt']);
-$all     = $_GET['id']; 
+//constants
+$email   = $_SESSION['Username'];
+$upl     = $_POST['upl'];
+$all     = $_POST['all']; 
+$drt     = $_POST['drt'];
+
+$tranref = "DLAPT-".date("Y").rand(0, 99999999);
+
 
 
 $curl = curl_init();
 
-$customer_email = "user@example.com";
-$amount = 3000;  
+$customer_email = $email;
+$amount = $all;  
 $currency = "NGN";
-$txref = "rave-29933838"; // ensure you generate unique references per transaction.
-$PBFPubKey = "<YOUR PUBLIC KEY>"; // get your public key from the dashboard.
-$redirect_url = "https://your-website.com/urltoredirectto";
-$payment_plan = "pass the plan id"; // this is only required for recurring payments.
+$txref = $tranref; // ensure you generate unique references per transaction.
+$PBFPubKey = "FLWPUBK-45ca76776ea3b71a0034f9696d507d62-X"; // get your public key from the dashboard.
+$redirect_url = "https://dotlive.com.ng/./pay";
 
 
 curl_setopt_array($curl, array(
@@ -32,8 +36,7 @@ curl_setopt_array($curl, array(
     'currency'=>$currency,
     'txref'=>$txref,
     'PBFPubKey'=>$PBFPubKey,
-    'redirect_url'=>$redirect_url,
-    'payment_plan'=>$payment_plan
+    'redirect_url'=>$redirect_url
   ]),
   CURLOPT_HTTPHEADER => [
     "content-type: application/json",
@@ -46,6 +49,7 @@ $err = curl_error($curl);
 
 if($err){
   // there was an error contacting the rave API
+  redirect("./payerror");
   die('Curl returned error: ' . $err);
 }
 
@@ -55,10 +59,6 @@ if(!$transaction->data && !$transaction->data->link){
   // there was an error from the API
   print_r('API returned error: ' . $transaction->message);
 }
-
-// uncomment out this line if you want to redirect the user to the payment page
-//print_r($transaction->data->message);
-
 
 // redirect to page so User can pay
 // uncomment this line to allow the user redirect to the payment page

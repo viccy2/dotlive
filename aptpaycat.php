@@ -47,24 +47,20 @@ $upl     = $_GET['upl'];
                     <div class="col-12">
                     <h2 class="contact-title">Select a Payment Category</h2>
                 </div>
-                <form class="form-contact contact_form" method="post" id="contactForm" novalidate="novalidate">
-                        <div class="row">
-                          <input type="text" id="drt" value="<?php echo $suite ?>" hidden>
-                          <input type="text" id="all" value="<?php echo $all ?>" hidden>
-                           <input type="text" id="upl" value="<?php echo $upl ?>" hidden>
+                        <div class="row">                         
                            <div class="form-group mt-3 pl-5 col-lg-6">
-                            <button type="button" id="walpay" onclick="allPayme()" class="button button-contactForm boxed-btn">Pay From Your Wallet</button>
-                    
-                            <button type="button" data-toggle="modal" data-backdrop="static" data-target="#exampModalCenter" class="button button-contactForm boxed-btn">Pay From Your Walle</button>
+                            <button type="button" data-toggle="modal" data-backdrop="static" data-target="#exampModalCenter" class="button button-contactForm boxed-btn">Pay From Your Wallet</button>
                         </div>
 
-                         <div class="form-group mt-3 pl-5 col-lg-6">
-                            <a href="./aptpay?drt=<?php echo $suite ?>&all=<?php echo $all ?>"><button type="button" class="button button-contactForm boxed-btn">Use Other Payment Method</button></a>
-                        </div>
-                          
-                        </div>
+                         <form action="./aptpay" class="form-contact contact_form col-lg-6" method="post" novalidate="novalidate">
                         
-                    </form>
+                             <input type="text" name="drt" value="<?php echo $suite ?>" hidden>
+                          <input type="text" name="all" value="<?php echo $all ?>" hidden>
+                           <input type="text" name="upl" value="<?php echo $upl ?>" hidden>
+                            <button type="submit" class="button button-contactForm boxed-btn">Use Other Payment Method</button>
+                        
+                          </form>
+                        </div>
                 </div>
                 
             </div>
@@ -78,28 +74,28 @@ $upl     = $_GET['upl'];
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div style="background: #f9f9ff; color: #ff0000;" class="modal-content">
                 <div class="modal-body">
+                    
+                <form class="form-contact contact_form" method="post" id="contactForm" novalidate="novalidate">
+                     <input type="text" id="drt" value="<?php echo $suite ?>" hidden>
+                          <input type="text" id="all" value="<?php echo $all ?>" hidden>
+                           <input type="text" id="upl" value="<?php echo $upl ?>" hidden>
                    <div class="col-sm-12">
                     <div class="form-group">
-                        <label><b style="color: #ff0000; font-size: 18px;">Input your password to confirm this transaction.:</b></label>
+                        <label><b style="color: #ff0000; font-size: 18px;">Input your password to confirm this transaction.:</b></label><br><br><br>
                         <input class="form-control valid" name="password" id="trpword" type="password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your Password'" placeholder="Enter your Password" required>
                     </div>
+                    <div id="msg"></div><br>
+                    <button type="button" id="walpay" onclick="allPayme()" class="button button-contactForm boxed-btn">Confirm Payment</button>
                 </div>
+            </form>
+            
                 </div>
             </div>
         </div>
     </div> 
 
 
-<!-- Modal -->
-    <div class="modal fade" id="exampleModalCenter">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div style="background: #f9f9ff; color: #ff0000;" class="modal-content">
-                <div class="modal-body">
-                    <div id="msg" class="text-center"></div>
-                </div>
-            </div>
-        </div>
-    </div> 
+
  <?php include("includes/footer.php"); ?>
 
 <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>

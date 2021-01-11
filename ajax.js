@@ -334,6 +334,13 @@ function agtReg() {
         var drt       = $("#drt").val();
         var all       = $("#all").val();
         var upl       = $("#upl").val();
+        var trpwod    = $("#trpword").val();
+
+        if (trpwod == "" || trpwod == null) {
+
+            $('#msg').html("Kindly input your password to complete this transaction"); 
+
+        } else {
 
         $('#msg').html("Loading... Please wait"); 
         
@@ -342,7 +349,7 @@ function agtReg() {
     {
         type        :  'post',
         url         :  'functions/init.php',
-        data        :  {drt:drt,all:all,upl:upl},
+        data        :  {drt:drt,all:all,upl:upl,trpwod:trpwod},
         success     :  function(data)
         {
             $('#msg').html(data);
@@ -352,3 +359,4 @@ function agtReg() {
 
     $("#exampleModalCenter").modal();
  }
+}

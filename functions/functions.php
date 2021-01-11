@@ -865,20 +865,27 @@ if (isset($_POST['adsid']) && isset($_POST['click'])) {
 
 
 //--- pay for apartment from wallet --//
-if (isset($_POST['drt']) && isset($_POST['all']) && isset($_POST['upl'])) {
+if (isset($_POST['drt']) && isset($_POST['all']) && isset($_POST['upl']) && isset($_POST['trpwod'])) {
 
 	$suite = clean($_POST['drt']);
 	$all   = clean($_POST['all']);
 	$upl   = clean($_POST['upl']);
+	$trps  = md5($_POST['trpwod']);
 
 	$tran = "DLAPT-".date("Y").rand(0, 99999999);
 
 	$r   = $_SESSION['Username'];
 	
-//check if user has enough funds
+//retrieve user details
 $sql = "SELECT * FROM user WHERE `email` = '$r'";
 $res = query($sql);
 $row = mysqli_fetch_array($res);
+
+//confirm password for transction
+if ($row['pword'] != $trps) {
+	
+	echo "Invalid Password inputed";
+} else {
 
 $avlmt  = $row['wallet'];
 $tel    = $row['tel'];
@@ -899,7 +906,7 @@ $date   = date('Y-m-d h:i:s');
 //set the expiry date for the user next rent
 $expy = date('Y-m-d', strtotime($date. ' + 1 year'));
 
-
+//check if user has enough funds
 if ($avlmt >= $all) {
 
 	//deduct available balance and credit tepmporary wallet
@@ -917,6 +924,7 @@ if ($avlmt >= $all) {
 
 	echo "You don`t have enough funds in your wallet.<br/> Kindly fund your wallet with an amount above NGN".number_format($all)." to rent this apartment.";
 
+}
 }
 }
 

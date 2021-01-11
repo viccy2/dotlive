@@ -1,11 +1,10 @@
 <?php
     if (isset($_GET['txref'])) {
         $ref = $_GET['txref'];
-        $amount = ""; //Correct Amount from Server
-        $currency = ""; //Correct Currency from Server
+        $currency = "NGN"; //Correct Currency from Server
 
         $query = array(
-            "SECKEY" => "Your Secret Key",
+            "SECKEY" => "FLWSECK-2e3b5137a9e247f6f030dc7b0316b65f-X",
             "txref" => $ref
         );
 
@@ -28,6 +27,8 @@
 
         $resp = json_decode($response, true);
 
+        $amount = $resp['data']['amount']; //Correct Amount from Server
+        
         $paymentStatus = $resp['data']['status'];
         $chargeResponsecode = $resp['data']['chargecode'];
         $chargeAmount = $resp['data']['amount'];
@@ -40,6 +41,7 @@
           //Give Value and return to Success page
         } else {
             //Dont Give Value and return to Failure page
+
         }
     }
         else {
