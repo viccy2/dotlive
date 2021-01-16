@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 01, 2021 at 02:12 PM
+-- Generation Time: Jan 16, 2021 at 05:40 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.5
 
@@ -36,6 +36,7 @@ CREATE TABLE `ads` (
   `file` text NOT NULL,
   `user` text NOT NULL,
   `date` datetime NOT NULL,
+  `expiry` datetime NOT NULL,
   `duration` text NOT NULL,
   `price` text NOT NULL,
   `session` text NOT NULL,
@@ -49,8 +50,10 @@ CREATE TABLE `ads` (
 -- Dumping data for table `ads`
 --
 
-INSERT INTO `ads` (`id`, `sn`, `ads_id`, `tagline`, `descrip`, `file`, `user`, `date`, `duration`, `price`, `session`, `tel`, `link`, `target`, `click`) VALUES
-(7, '1', 'DotLive-Ads207', 'Solar Panel', 'Get cheap solar panel to power your home 24/7 for just NGN25,000', 'dot.jpg', 'doteightinc@outlook.com', '2021-01-01 11:04:51', 'A Day', '500', 'active', '355353', 'https://doteightplus.com/contact', 'Ekiti', '');
+INSERT INTO `ads` (`id`, `sn`, `ads_id`, `tagline`, `descrip`, `file`, `user`, `date`, `expiry`, `duration`, `price`, `session`, `tel`, `link`, `target`, `click`) VALUES
+(10, '1', 'DotLive-Ads799', 'Solar Panel', 'Get cheap solar for just NGN25,000', 'compl.jpg', 'doteightinc@outlook.com', '2021-01-04 12:14:13', '2021-01-06 12:14:13', 'A Day', '500', 'expired', '355353', 'https://doteightplus.com/contact', 'Abubakar Tafawa Balewa University, Bauchi', '0'),
+(11, '1', 'DotLive-Ads369', 'Vintage Homes', 'We decorate the interior space of your room', 'dotmonday.jpg', 'doteightinc@outlook.com', '2021-01-04 01:05:23', '2021-01-06 01:05:23', 'A Day', '500', 'expired', '355353', 'https://doteightplus.com/contact', 'Abubakar Tafawa Balewa University, Bauchi', '0'),
+(14, '1', 'DotLive-Ads467', 'Vintage Homes', 'vintage home at your service', 'dotmonday.jpg', 'doteightinc@outlook.com', '2021-01-04 02:21:49', '2021-02-04 02:21:49', 'A Month', '14000', 'expired', '355353', 'https://doteightplus.com/contact', 'Abubakar Tafawa Balewa University, Bauchi', '1');
 
 -- --------------------------------------------------------
 
@@ -70,6 +73,7 @@ CREATE TABLE `apartment` (
   `price` text NOT NULL,
   `water` text NOT NULL,
   `power` text NOT NULL,
+  `toilet` text NOT NULL,
   `status` text NOT NULL,
   `uploader` text NOT NULL,
   `tel` text NOT NULL,
@@ -81,13 +85,12 @@ CREATE TABLE `apartment` (
 -- Dumping data for table `apartment`
 --
 
-INSERT INTO `apartment` (`id`, `sn`, `apt`, `apartment`, `pix`, `location`, `state`, `description`, `price`, `water`, `power`, `status`, `uploader`, `tel`, `acct`, `bank`) VALUES
-(7, '1', 'DotLive-61', 'Self-Contain', '1.jpg', 'Ikole', 'Abuja', 'no more hustle jawe', '40000', 'Borehole', 'PHCN', 'available', 'doteightinc@outlook.com', '355353', '0267181815', 'Polaris Bank Limited'),
-(8, '1', 'DotLive-39', 'Self-Contain', '2.jpg', 'Ikole', 'Abuja', 'rooms are available', '87000', 'Borehole', 'PHCN', 'available', 'doteightinc@outlook.com', '355353', '0267181815', 'Polaris Bank Limited'),
-(9, '1', 'DotLive-672', 'Self-Contain', '3.jpg', 'Ikole', 'Abuja', 'rooms are available', '40000', 'Borehole', 'PHCN', 'available', 'doteightinc@outlook.com', '355353', '0267181815', 'Polaris Bank Limited'),
-(11, '1', 'DotLive-994', 'Room', 'Untitled-1.jpg', 'Ikole', 'Abuja', 'rooms are available', '30000', 'Well', 'PHCN', 'available', 'doteightinc@outlook.com', '355353', '0267181815', 'Polaris Bank Limited'),
-(12, '1', 'DotLive-555', 'Family House', 'dotmonday.jpg', 'ilaro', 'Abuja', 'rooms are available', '15000', 'Borehole', 'PHCN', 'available', 'doteightinc@outlook.com', '355353', '0267181815', 'Polaris Bank Limited'),
-(13, '1', 'DotLive-322', 'Self-Contain', '83659836_1087393674939014_491341522768232448_o.jpg', 'Benue', 'Benue', 'more rooms are available', '23000', 'Borehole', 'PHCN', 'available', 'doteightinc@outlook.com', '355353', '0267181815', 'Polaris Bank Limited');
+INSERT INTO `apartment` (`id`, `sn`, `apt`, `apartment`, `pix`, `location`, `state`, `description`, `price`, `water`, `power`, `toilet`, `status`, `uploader`, `tel`, `acct`, `bank`) VALUES
+(7, '1', 'DotLive-61', 'Self-Contain', '1.jpg', 'Ikole', 'Abubakar Tafawa Balewa University, Bauchi', 'no more hustle jawe', '40000', 'Borehole', 'PHCN', 'Pit Toilet', 'available', 'doteightinc@outlook.com', '355353', '0267181815', 'Polaris Bank Limited'),
+(8, '1', 'DotLive-39', 'Self-Contain', 'dd-Recovered.jpg', 'Ikole', 'Abubakar Tafawa Balewa University, Bauchi', 'rooms are available', '87000', 'Borehole', 'PHCN', 'Public Toilet', 'pending', 'doteightinc@outlook.com', '355353', '0267181815', 'Polaris Bank Limited'),
+(9, '1', 'DotLive-672', 'Self-Contain', '3.jpg', 'Ikole', 'Abuja', 'rooms are available', '40000', 'Borehole', 'PHCN', 'Pit Toilet', 'pending', 'doteightinc@outlook.com', '355353', '0267181815', 'Polaris Bank Limited'),
+(11, '1', 'DotLive-994', 'Room', 'Untitled-1.jpg', 'Ikole', 'Abuja', 'rooms are available', '30000', 'Well', 'PHCN', 'Pit Toilet', 'available', 'doteightinc@outlook.com', '355353', '0267181815', 'Polaris Bank Limited'),
+(12, '1', 'DotLive-555', 'Family House', 'dotmonday.jpg', 'ilaro', 'Ekiti', 'rooms are available', '15000', 'Borehole', 'PHCN', 'Pit Toilet', 'pending', 'doteightinc@outlook.com', '355353', '0267181815', 'Polaris Bank Limited');
 
 -- --------------------------------------------------------
 
@@ -99,14 +102,27 @@ CREATE TABLE `rent` (
   `id` int(11) NOT NULL,
   `sn` text NOT NULL,
   `apt` text NOT NULL,
+  `type` text NOT NULL,
+  `pix` text NOT NULL,
   `paydate` datetime NOT NULL,
+  `expiry` text NOT NULL,
   `tenantmail` text NOT NULL,
   `tenanttel` text NOT NULL,
   `tranref` text NOT NULL,
   `price` text NOT NULL,
   `uploader` text NOT NULL,
-  `status` text NOT NULL
+  `status` text NOT NULL,
+  `pendlimit` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `rent`
+--
+
+INSERT INTO `rent` (`id`, `sn`, `apt`, `type`, `pix`, `paydate`, `expiry`, `tenantmail`, `tenanttel`, `tranref`, `price`, `uploader`, `status`, `pendlimit`) VALUES
+(16, '1', 'DotLive-555', 'Family House', 'dotmonday.jpg', '2021-01-10 07:27:11', '2022-01-10', 'Greatnessabolade@gmail.com', '03232323', 'DLAPT-20217529079', '15000', 'doteightinc@outlook.com', 'pending', 'Sun, Jan 17, 2021'),
+(17, '1', 'DotLive-672', 'Self-Contain', '3.jpg', '2021-01-11 05:48:21', '2022-01-11', 'Greatnessabolade@gmail.com', '03232323', 'DLAPT-202112734220', '40000', 'doteightinc@outlook.com', 'pending', 'Mon, Jan 18, 2021'),
+(18, '1', 'DotLive-39', 'Self-Contain', 'dd-Recovered.jpg', '2021-01-11 06:02:05', '2022-01-11', 'Greatnessabolade@gmail.com', '03232323', 'DLAPT-202120031344', '87000', 'doteightinc@outlook.com', 'pending', 'Mon, Jan 18, 2021');
 
 -- --------------------------------------------------------
 
@@ -123,13 +139,6 @@ CREATE TABLE `support` (
   `Datesent` text NOT NULL,
   `Status` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `support`
---
-
-INSERT INTO `support` (`sn`, `id`, `SupportRef`, `Username`, `Msg`, `Datesent`, `Status`) VALUES
-('1', 26, '3898928', 'doteightinc@outlook.com', 'hey', '2020-12-28 02-36-45pm', 'Open');
 
 -- --------------------------------------------------------
 
@@ -148,6 +157,18 @@ CREATE TABLE `support_reply` (
   `via` text NOT NULL,
   `status` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `support_reply`
+--
+
+INSERT INTO `support_reply` (`id`, `sn`, `ref`, `msg`, `other`, `date`, `usname`, `via`, `status`) VALUES
+(132, '0', 'DSPR-44786', 'Hi there, <br> you just rented an apartment.<br/>Kindly check your transaction history for details.<br/> Your rent will be due by <b>Mon, Jan 10, 2022</b>', '', '2021-01-10 07:27:11', 'Greatnessabolade@gmail.com', '', 'read'),
+(133, '0', 'DSPR-53971', 'Hi there, <br> your apartment with suite number <b>DotLive-555</b> has been scheduled for rentage.<br/>Kindly check your apartment store for details.', '', '2021-01-10 07:27:11', 'doteightinc@outlook.com', '', 'read'),
+(134, '0', 'DSPR-80046', 'Hi there, <br> you just rented an apartment.<br/>Kindly check your transaction history for details.<br/> Your rent will be due by <b>Tue, Jan 11, 2022</b>', '', '2021-01-11 05:48:21', 'Greatnessabolade@gmail.com', '', 'read'),
+(135, '1', 'DSPR-63640', 'Hi there, <br> your apartment with suite number <b>DotLive-672</b> has been scheduled for rentage.<br/>Kindly check your apartment store for details.', '', '2021-01-11 05:48:21', 'doteightinc@outlook.com', '', 'unread'),
+(136, '0', 'DSPR-17303', 'Hi there, <br> you just rented an apartment.<br/>Kindly check your transaction history for details.<br/> Your rent will be due by <b>Tue, Jan 11, 2022</b>', '', '2021-01-11 06:02:05', 'Greatnessabolade@gmail.com', '', 'read'),
+(137, '1', 'DSPR-58138', 'Hi there, <br> your apartment with suite number <b>DotLive-39</b> has been scheduled for rentage.<br/>Kindly check your apartment store for details.', '', '2021-01-11 06:02:05', 'doteightinc@outlook.com', '', 'unread');
 
 -- --------------------------------------------------------
 
@@ -171,17 +192,18 @@ CREATE TABLE `user` (
   `nin` text NOT NULL,
   `activator` text NOT NULL,
   `lstseen` datetime NOT NULL,
-  `wallet` text NOT NULL
+  `wallet` text NOT NULL,
+  `tempwallet` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`sn`, `id`, `agtbiz`, `name`, `email`, `gender`, `pword`, `tel`, `active`, `category`, `bank`, `acct`, `nin`, `activator`, `lstseen`, `wallet`) VALUES
-(5, 'DotL428', '', 'Abolade Greatness ', 'Greatnessabolade@gmail.com', 'Male', '87756e68785221e15693852f107146ef', '08103171902', '1', 'user', '', '', '', 'a1eb6dcad421ecacca8671d7c5e1e4c6', '2020-12-30 12:29:57', ''),
-(8, 'DotLnd92', '', 'Dot EightInc', 'doteightinc@outlook.com', 'Male', '4ae5250f21b670fda063e10bddc230a0', '355353', '1', 'landlord', 'Polaris Bank Limited', '0267181815', 'verified', 'f9df6080f7da4baaf1a91b6ad56c3226', '2020-12-29 11:58:10', '700'),
-(9, 'DotLnd153', 'Dot Housing', 'Dot EightInc', 'doteightinc@outlook.co', 'Male', '53c1df01e11ec01bcf9ced4ccae8c667', '5657755', '1', 'agent', 'Keystone Bank Limited', '0267181815', '', '475bed278ab59a6cf9f31fed6835ac2b', '2020-12-30 12:21:17', '');
+INSERT INTO `user` (`sn`, `id`, `agtbiz`, `name`, `email`, `gender`, `pword`, `tel`, `active`, `category`, `bank`, `acct`, `nin`, `activator`, `lstseen`, `wallet`, `tempwallet`) VALUES
+(11, 'DotLnd366', '', 'Abolade Greatness', 'doteightinc@outlook.com', 'Male', '548b8a698396d01a24b4a85518075673', '6464644', '1', 'landlord', 'Guaranty Trust Bank Plc', '0267181815', '', '', '2021-01-08 06:45:47', '283000', '187000'),
+(15, 'DotL38', '', 'Abolade Greatness', 'Greatnessabolade@gmail.com', 'Male', '5668eca6cce28dbd64d888303dd7fb60', '03232323', '1', 'user', '', '', '', '', '0000-00-00 00:00:00', '236000', '244000'),
+(17, 'DotAgt596', 'DotEightPlus', 'Abolade Greatness', 'Greatnessabolade@gmail.co', 'Male', '5668eca6cce28dbd64d888303dd7fb60', '03232323', '1', 'agent', 'Guaranty Trust Bank Plc', '0267181815', '', '', '0000-00-00 00:00:00', '', '');
 
 -- --------------------------------------------------------
 
@@ -191,10 +213,24 @@ INSERT INTO `user` (`sn`, `id`, `agtbiz`, `name`, `email`, `gender`, `pword`, `t
 
 CREATE TABLE `wallet_his` (
   `id` int(11) NOT NULL,
+  `transref` text NOT NULL,
   `user` text NOT NULL,
   `amt` text NOT NULL,
-  `date` text NOT NULL
+  `date` text NOT NULL,
+  `details` text NOT NULL,
+  `status` text NOT NULL,
+  `mode` text NOT NULL,
+  `type` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `wallet_his`
+--
+
+INSERT INTO `wallet_his` (`id`, `transref`, `user`, `amt`, `date`, `details`, `status`, `mode`, `type`) VALUES
+(20, 'DLAPT-20217529079', 'Greatnessabolade@gmail.com', '15000', '2021-01-10 07:27:11', 'Apartment Rent', 'pending', 'wallet', 'debit'),
+(21, 'DLAPT-202112734220', 'Greatnessabolade@gmail.com', '40000', '2021-01-11 05:48:21', 'Apartment Rent', 'pending', 'wallet', 'debit'),
+(22, 'DLAPT-202120031344', 'Greatnessabolade@gmail.com', '87000', '2021-01-11 06:02:05', 'Apartment Rent', 'pending', 'wallet', 'debit');
 
 --
 -- Indexes for dumped tables
@@ -250,7 +286,7 @@ ALTER TABLE `wallet_his`
 -- AUTO_INCREMENT for table `ads`
 --
 ALTER TABLE `ads`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `apartment`
@@ -262,7 +298,7 @@ ALTER TABLE `apartment`
 -- AUTO_INCREMENT for table `rent`
 --
 ALTER TABLE `rent`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `support`
@@ -274,19 +310,19 @@ ALTER TABLE `support`
 -- AUTO_INCREMENT for table `support_reply`
 --
 ALTER TABLE `support_reply`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `sn` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `sn` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `wallet_his`
 --
 ALTER TABLE `wallet_his`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

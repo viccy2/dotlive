@@ -91,15 +91,18 @@ if (!isset($_GET['id'])) {
             </div>
             <?php
             if (isset($_SESSION['Username'])) {
+              $_SESSION['apt'] = $row['apt'];
+              $_SESSION['prc'] = $row['price'];
+              $_SESSION['uplo'] = $row['uploader'];
             ?>
            <div class="form-group">
-               <a href="./aptpaycat?drt=<?php echo $row['apt']; ?>&id=<?php echo $row['price'] ?>&upl=<?php echo $row['uploader'] ?>"><button type="submit" class="button button-contactForm btn_1 boxed-btn">Get Apartment</button></a>
+               <a href="./aptpaycat"><button type="button" class="button button-contactForm btn_1 boxed-btn">Get Apartment</button></a>
             </div> 
       <?php
     } else {
 ?>
   <div class="form-group">
-               <a href="./signup"><button type="submit" class="button button-contactForm btn_1 boxed-btn">Get Apartment</button></a>
+               <a href="./signup"><button type="button" class="button button-contactForm btn_1 boxed-btn">Get Apartment</button></a>
             </div> 
       <?php
     }

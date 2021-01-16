@@ -360,3 +360,37 @@ function agtReg() {
     $("#exampleModalCenter").modal();
  }
 }
+
+
+//pay from online wallet
+function allonlPayme() {
+
+        var onldrt       = $("#drt").val();
+        var onlall       = $("#all").val();
+        var onlupl       = $("#upl").val();
+        var onltrpwod    = $("#trpword").val();
+
+        if (onltrpwod == "" || onltrpwod == null) {
+
+            $('#msg').html("Kindly input your password to complete this transaction"); 
+
+        } else {
+
+        $('#msg').html("Loading... Please wait"); 
+        
+                $.ajax
+    (
+    {
+        type        :  'post',
+        url         :  'functions/init.php',
+        data        :  {onldrt:onldrt,onlall:onlall,onlupl:onlupl,onltrpwod:onltrpwod},
+        success     :  function(data)
+        {
+            $('#msg').html(data);
+        }
+    }
+        )
+
+    $("#exampleModalCenter").modal();
+ }
+}

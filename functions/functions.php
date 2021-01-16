@@ -909,17 +909,7 @@ $expy = date('Y-m-d', strtotime($date. ' + 1 year'));
 //check if user has enough funds
 if ($avlmt >= $all) {
 
-	//deduct available balance and credit tepmporary wallet
-	$walbal = $avlmt - $all;
-	$seqel  = "UPDATE user SET `tempwallet` = '$newtemp', `wallet` = '$walbal' WHERE `email` = '$r'";
-	$resl   = query($seqel);
-
-	//insert details into transactions history
-	$sll = "INSERT INTO wallet_his(`transref`, `user`, `amt`, `date`, `details`, `status`, `mode`, `type`)";
-	$sll.= "VALUES('$tran', '$r', '$all', '$date', 'Apartment Rent', 'pending', 'wallet', 'debit')";
-	$rll = query($sll);
-
-	rentapt($suite, $date, $r, $tel, $tran, $all, $upl, $expy);
+	rentapt($suite, $date, $r, $tel, $tran, $all, $upl, $expy, $newtemp, $walbal);
 } else {
 
 	echo "You don`t have enough funds in your wallet.<br/> Kindly fund your wallet with an amount above NGN".number_format($all)." to rent this apartment.";
@@ -931,7 +921,7 @@ if ($avlmt >= $all) {
 
 
 //get apartment
-function rentapt($suite, $date, $r, $tel, $tran, $all, $upl, $expy) {
+function rentapt($suite, $date, $r, $tel, $tran, $all, $upl, $expy, $newtemp, $walbal) {
 
 	//get apartment details from uploader
 	$rsl = "SELECT * FROM apartment WHERE `apt` = '$suite'";
@@ -943,6 +933,245 @@ function rentapt($suite, $date, $r, $tel, $tran, $all, $upl, $expy) {
 		echo "This apartment belongs to you. <br/> You are not allowed to rent an apartment that belongs to you.";
 
 	} else {
+
+	//deduct available balance and credit tepmporary wallet
+	$walbal = $avlmt - $all;
+	$seqel  = "UPDATE user SET `tempwallet` = '$newtemp', `wallet` = '$walbal' WHERE `email` = '$r'";
+	$resl   = query($seqel);
+
+	//insert details into transactions history
+	$sll = "INSERT INTO wallet_his(`transref`, `user`, `amt`, `date`, `details`, `status`, `mode`, `type`)";
+	$sll.= "VALUES('$tran', '$r', '$all', '$date', 'Apartment Rent', 'pending', 'wallet', 'debit')";
+	$rll = query($sll);
+
+
+	$pix = $rlw['pix'];
+	$tpl = $rlw['apartment'];
+
+	//give tenant a week to secure the apartment
+	$due        = date('D, M d, Y', strtotime($date. ' + 1 week'));
+
+	//insert user rent records
+	$sql = "INSERT INTO rent(`sn`, `apt`, `paydate`, `expiry`, `tenantmail`, `tenanttel`, `tranref`, `price`, `uploader`, `status`, `type` , `pix`, `pendlimit`)";
+	$sql.= " VALUES('1', '$suite', '$date', '$expy', '$r', '$tel', '$tran', '$all', '$upl', 'pending', '$tpl', '$pix', '$due')";
+	$result = query($sql);
+
+
+	//notify user about the new transaction on the dashboard
+	$ref = "DSPR-".rand(0, 99999); 
+	$msg = "Hi there, <br> you just rented an apartment.<br/>Kindly check your transaction history for details.<br/> Your rent will be due by <b>".date('D, M d, Y', strtotime($expy))."</b>";
+	$sqln = "INSERT INTO support_reply(`sn`, `ref`, `usname`, `msg`, `date`, `status`)";
+	$sqln.= " VALUES('1', '$ref', '$r', '$msg', '$date', 'unread')";
+	$resultn = query($sqln);
+
+
+	//notify uploader of apartment about the new update
+	$ref2 = "DSPR-".rand(0, 99999); 
+	$msg2 = "Hi there, <br> your apartment with suite number <b>".$suite."</b> has been scheduled for rentage.<br/>Kindly check your apartment store for details.";
+	$sqln2 = "INSERT INTO support_reply(`sn`, `ref`, `usname`, `msg`, `date`, `status`)";
+	$sqln2.= " VALUES('1', '$ref2', '$upl', '$msg2', '$date', 'unread')";
+	$resultn2 = query($sqln2);
+
+
+	//notify user via email
+	$to         = $r;
+	$from 		= "noreply@dotlive.com.ng";
+    $cmessage 	= "Best Regards<br/> <i>Team DotLive</i>";
+
+	$headers  = "From: " . $from . "\r\n";
+	$headers .= "Reply-To: ". $from . "\r\n";
+	$headers .= "MIME-Version: 1.0\r\n";
+    $headers .= "Content-Type: text/html; charset=\"iso-8859-1\"\n";
+    $headers .= "X-Priority: 1 (Highest)\n";
+    $headers .= "X-MSMail-Priority: High\n";
+    $headers .= "Importance: High\n";
+
+    $subject = "You rented an apartment";
+
+    $logo = 'https://dotlive.com.ng/assets/img/logo/2.png';
+    $url  = 'https://dotlive.com.ng';
+    $link = 'https://dotlive.com.ng/./dashboard/./myapartments';
+
+	$body = "<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><title>DotLive from DotEightPlus</title></head><link rel='stylesheet' href='https://dotlive.com.ng/assets/css/bootstrap.min.css'><body style='text-align: center;'>";
+	$body .= "<section style='margin: 30px; margin-top: 50px ; background: #000000; color: white;'>";
+	$body .= "<img style='margin-top: 35px' src='{$logo}' alt='DotLive'>";
+	$body .= "<h1 style='margin-top: 45px; color: #fbb710'>You rented an apartment</h1>
+		<br/>";
+	$body .= "<p style='margin-left: 45px; margin-top: 34px; text-align: left; font-size: 17px;'>Hi there! <br/> thank you for choosing DotLive as your apartment agency. <br/><br/> We noticed that you just rented an apartment. Below are <br/> details about the apartment rented ;</p>
+		<br/>";
+	$body .= '<table class="text-center" style="width:90%; margin-left: 45px; color: white; border: 1px solid #f9f9ff;">
+   <tr>
+    <th style="border: 1px solid #f9f9ff;">Suite</th>
+    <th style="border: 1px solid #f9f9ff;">Apartment</th>
+    <th style="border: 1px solid #f9f9ff;">Amount Paid</th>
+    <th style="border: 1px solid #f9f9ff;">Date Paid</th>
+    <th style="border: 1px solid #f9f9ff;">Next Due Date</th>
+    <th style="border: 1px solid #f9f9ff;">Mode of Payment</th>
+  </tr>
+  <tr style="border: 1px solid #f9f9ff;">
+    <td style="border: 1px solid #f9f9ff;">'.$suite.'</td>
+    <td style="border: 1px solid #f9f9ff;">'.$tpl.'</td>
+    <td style="border: 1px solid #f9f9ff;">NGN '.number_format($all).'</td>
+    <td style="border: 1px solid #f9f9ff;">'.date('D, M d, Y', strtotime($date)).'</td>
+    <td style="border: 1px solid #f9f9ff;">'.date('D, M d, Y', strtotime($expy)).'</td>
+    <td style="border: 1px solid #f9f9ff;">wallet</td>
+  </tr>
+</table><br/>';
+	$body .= "<p style='margin-left: 45px; text-align: left;'><a target='_blank' href='{$link}' style='color: #fbb710; text-decoration: none'>Kindly note that you are to verify this apartment and get your apartment key on or before  ".$due." <br/> else this apartment will no longer be yours. <br/><br/> Click here to visit your apartment center</a></p>
+		<br/>";
+	$body .= "<p style='margin-left: 45px; padding-bottom: 80px; text-align: left;'>Do not bother replying this email. This is a virtual email</p>";	
+    $body .= "<p text-align: center;'><a href='https://doteightplus.com/contact'><img src='https://dotlive.com.ng/assets/img/icon/5.png'></a>";
+    $body .= "<p style='text-align: center;'>Email.: <span style='color: #fbb710'>support@dotlive.com.ng</span></p>";	
+	$body .= "<p style='text-align: center;'>Call/Chat.: <span style='color: #fbb710'>+234(0) 810 317 1902</span></p>";	
+	$body .= "<p style='text-align: center; padding-bottom: 50px;'>DotLive from DotEightPlus</p>";	
+	$body .= "<script src='https://dotlive.com.ng/assets/js/bootstrap.min.js'></script>";
+	$body .= "</section>";	
+	$body .= "</body></html>";
+	$send = mail($to, $subject, $body, $headers);
+
+
+	//notify uploader via email
+	$to         = $upl;
+	$from 		= "noreply@dotlive.com.ng";
+    $cmessage 	= "Best Regards<br/> <i>Team DotLive</i>";
+
+	$headers  = "From: " . $from . "\r\n";
+	$headers .= "Reply-To: ". $from . "\r\n";
+	$headers .= "MIME-Version: 1.0\r\n";
+    $headers .= "Content-Type: text/html; charset=\"iso-8859-1\"\n";
+    $headers .= "X-Priority: 1 (Highest)\n";
+    $headers .= "X-MSMail-Priority: High\n";
+    $headers .= "Importance: High\n";
+
+    $subject = "Your Apartment was Rented";
+
+    $logo = 'https://dotlive.com.ng/assets/img/logo/2.png';
+    $url  = 'https://dotlive.com.ng';
+    $link = 'https://dotlive.com.ng/./dashboard/./myapartments';
+
+	$body = "<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><title>DotLive from DotEightPlus</title></head><link rel='stylesheet' href='https://dotlive.com.ng/assets/css/bootstrap.min.css'><body style='text-align: center;'>";
+	$body .= "<section style='margin: 30px; margin-top: 50px ; background: #000000; color: white;'>";
+	$body .= "<img style='margin-top: 35px' src='{$logo}' alt='DotLive'>";
+	$body .= "<h1 style='margin-top: 45px; color: #fbb710'>Your Apartment was Rented</h1>
+		<br/>";
+	$body .= "<p style='margin-left: 45px; margin-top: 34px; text-align: left; font-size: 17px;'>Hi there! <br/> thank you for choosing DotLive as your apartment agency. <br/><br/> One of your apartment has been rented. Below are <br/> details about the apartment rented ;</p>
+		<br/>";
+	$body .= '<table class="text-center" style="width:90%; margin-left: 45px; color: white; border: 1px solid #f9f9ff;">
+   <tr>
+    <th style="border: 1px solid #f9f9ff;">Suite</th>
+    <th style="border: 1px solid #f9f9ff;">Apartment</th>
+    <th style="border: 1px solid #f9f9ff;">Date Paid</th>
+    <th style="border: 1px solid #f9f9ff;">Tenant Tel</th>
+  </tr>
+  <tr style="border: 1px solid #f9f9ff;">
+    <td style="border: 1px solid #f9f9ff;">'.$suite.'</td>
+    <td style="border: 1px solid #f9f9ff;">'.$tpl.'</td>
+    <td style="border: 1px solid #f9f9ff;">'.date('D, M d, Y', strtotime($date)).'</td>
+    <td style="border: 1px solid #f9f9ff;">'.$tel.'</td>
+  </tr>
+</table><br/>';
+	$body .= "<p style='margin-left: 45px; text-align: left;'><a target='_blank' href='{$link}' style='color: #fbb710; text-decoration: none'>Click here to review this rent</a></p>
+		<br/>";
+	$body .= "<p style='margin-left: 45px; padding-bottom: 80px; text-align: left;'>Do not bother replying this email. This is a virtual email</p>";	
+    $body .= "<p text-align: center;'><a href='https://doteightplus.com/contact'><img src='https://dotlive.com.ng/assets/img/icon/5.png'></a>";
+    $body .= "<p style='text-align: center;'>Email.: <span style='color: #fbb710'>support@dotlive.com.ng</span></p>";	
+	$body .= "<p style='text-align: center;'>Call/Chat.: <span style='color: #fbb710'>+234(0) 810 317 1902</span></p>";	
+	$body .= "<p style='text-align: center; padding-bottom: 50px;'>DotLive from DotEightPlus</p>";	
+	$body .= "<script src='https://dotlive.com.ng/assets/js/bootstrap.min.js'></script>";
+	$body .= "</section>";	
+	$body .= "</body></html>";
+	$send = mail($to, $subject, $body, $headers);
+
+
+	//update apartment to pending
+	$ssl = "UPDATE apartment SET `status` = 'pending' WHERE `apt` = '$suite'";
+	$rsl = query($ssl);
+
+
+	echo "Loading...Please wait!";												
+	echo '<script>window.location.href ="./success?id='.$tran.'"</script>';
+
+
+}
+}
+
+
+
+
+
+
+
+
+//------------- pay for apartment from online wallet -----------//
+if (isset($_POST['onldrt']) && isset($_POST['onlall']) && isset($_POST['onlupl']) && isset($_POST['onltrpwod'])) {
+
+	$suite = clean($_POST['drt']);
+	$all   = clean($_POST['all']);
+	$upl   = clean($_POST['upl']);
+	$trps  = md5($_POST['trpwod']);
+
+	$tran = "DLAPT-".date("Y").rand(0, 99999999);
+
+	$r   = $_SESSION['Username'];
+	
+//retrieve user details
+$sql = "SELECT * FROM user WHERE `email` = '$r'";
+$res = query($sql);
+$row = mysqli_fetch_array($res);
+
+//confirm password for transction
+if ($row['pword'] != $trps) {
+	
+	echo "Invalid Password inputed";
+} else {
+
+$tel    = $row['tel'];
+
+//get previous temporary wallet balance
+$temp   = $row['tempwallet'];
+
+//add new price plus previous temporary wallet bal
+if ($temp == "") {
+	$temp = 0;
+}
+
+$newtemp = $temp + $all;
+
+
+$date   = date('Y-m-d h:i:s');
+
+//set the expiry date for the user next rent
+$expy = date('Y-m-d', strtotime($date. ' + 1 year'));
+
+
+	onlrentapt($suite, $date, $r, $tel, $tran, $all, $upl, $expy, $newtemp);
+}
+}
+
+
+
+//get apartment
+function onlrentapt($suite, $date, $r, $tel, $tran, $all, $upl, $expy, $newtemp) {
+
+	//get apartment details from uploader
+	$rsl = "SELECT * FROM apartment WHERE `apt` = '$suite'";
+	$rss = query($rsl);
+	$rlw = mysqli_fetch_array($rss);
+
+	if ($upl == $r) {
+		
+		echo "This apartment belongs to you. <br/> You are not allowed to rent an apartment that belongs to you.";
+
+	} else {
+
+	//credit tepmporary wallet
+	$seqel  = "UPDATE user SET `tempwallet` = '$newtemp' WHERE `email` = '$r'";
+	$resl   = query($seqel);
+
+	//insert details into transactions history
+	$sll = "INSERT INTO wallet_his(`transref`, `user`, `amt`, `date`, `details`, `status`, `mode`, `type`)";
+	$sll.= "VALUES('$tran', '$r', '$all', '$date', 'Apartment Rent', 'pending', 'online pay', 'debit')";
+	$rll = query($sll);
 
 
 	$pix = $rlw['pix'];

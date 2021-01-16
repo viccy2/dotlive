@@ -34,7 +34,45 @@ if (!isset($_SESSION['Username']) && !isset($_GET['id'])) {
             </div>
         </section>
 
+<!--Ads Modal -->
+<div id="adsModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
 
+    <!-- Modal content-->
+    <div style="background: #000000;" class="modal-content">
+        <?php
+        $sql = "SELECT * FROM ads WHERE `session` = 'active' ORDER BY RAND() desc";
+        $res = query($sql);
+        $row = mysqli_fetch_array($res);
+
+        $_SESSION['disad'] = $row['ads_id'];
+        $_SESSION['click'] = $row['click'];
+        ?>
+      <div class="modal-body">
+        <button style="color: white;" type="button" class="close" data-dismiss="modal">&times; Close</button>
+        <h2 class="modal-title"><b style="color: white;"><?php echo $row['tagline'] ?></b></h2>
+        <br/>
+        <?php 
+        echo '
+        <img class="img-fluid" src="upload/ads/'.$row['file'].'" style="width: 100%; height: 450px;" alt="Ads Image"/>';
+        ?>
+        <br/><br/>
+        <p style="color: #f9f9ff"><?php echo $row['descrip'] ?></p>
+         <p style="color: #f9f9ff">Contact <?php echo $row['tel'] ?> for details</p>
+      </div>
+  <?php
+      if ($row['link'] != "") {
+      ?> 
+      <p id="adsid" hidden><?php echo $_SESSION['disad'] ?></p>  
+      <p id="click" hidden><?php echo $_SESSION['click'] ?></p>   
+        <a target="_blank" id="adclckdet" href="<?php echo $row['link'] ?>"><button type="button" class="btn btn-default col-lg-12">More details</button></a>
+    <?php
+}
+?>
+        
+</div>
+  </div>
+</div>
         
 
 <!-- JS here -->
@@ -78,5 +116,45 @@ if (!isset($_SESSION['Username']) && !isset($_GET['id'])) {
 <!-- Jquery Plugins, main Jquery -->	
 <script src="./assets/js/plugins.js"></script>
 <script src="./assets/js/main.js"></script>
+     <script>
+ $(document).ready(function() 
+{
+
+    //---------- count ads click --------//
+    $("#adclckdet").click(function() 
+    {
+        var adsid    = $("#adsid").text();
+        var click    = $("#click").text();
+        
+        $.ajax
+    (
+    {
+        type        :  'post',
+        url         :  'functions/init.php',
+        data        :  {adsid:adsid,click:click},
+        success     :  function(data)
+        {
+            $('#msg').html(data);
+        }
+    }
+        )
+})
+})
+  </script>
+    <?php
+    if (isset($_SESSION['Username'])) {
+     $sql = "SELECT * FROM ads WHERE `session` = 'active' ORDER BY RAND() desc";
+     $res = query($sql);
+     if (row_count($res) <= 0) {
+            
+        } else {
+      ?>
+    <script>
+        $("#adsModal").modal();
+    </script>
+    <?php
+}
+}
+?>
 </body>
 </html>

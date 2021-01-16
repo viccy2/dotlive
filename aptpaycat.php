@@ -1,14 +1,14 @@
 <?php
 include("functions/top.php");
-if(!isset($_GET['id']) && !isset($_GET['drt']) && !isset($_GET['upl'])) {
+if(!isset($_SESSION['apt']) && !isset($_SESSION['prc']) && !isset($_SESSION['uplo'])) {
 
-redirect("./apartment");
+redirect("./apartments");
 
 } else {
 
-$suite   = $_GET['drt'];
-$all     = $_GET['id']; 
-$upl     = $_GET['upl'];
+$suite   = $_SESSION['apt'];
+$all     = $_SESSION['prc']; 
+$upl     = $_SESSION['uplo'];
 }
 ?>
 <main>

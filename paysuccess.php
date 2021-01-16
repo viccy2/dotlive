@@ -1,5 +1,10 @@
 <?php
 include("functions/top.php");
+if (!isset($_SESSION['upl']) && !isset($_SESSION['all']) && !isset($_SESSION['drt'])) {
+	
+	redirect("./payerror");
+}
+
 if (!isset($_SESSION['Username'])) {
 	
 	redirect("./payerror");
@@ -28,7 +33,7 @@ if (!isset($_SESSION['Username'])) {
                         <input class="form-control valid" name="password" id="trpword" type="password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your Password'" placeholder="Enter your Password" required>
                     </div>
                     <div id="msg"></div><br>
-                    <button type="button" id="walpay" onclick="allPayme()" class="button button-contactForm boxed-btn">Confirm Payment</button>
+                    <button type="button" id="walpay" onclick="allonlPayme()" class="button button-contactForm boxed-btn">Confirm Payment</button>
                 </div>
             </form>
             
@@ -80,8 +85,15 @@ if (!isset($_SESSION['Username'])) {
 <!-- Jquery Plugins, main Jquery -->	
 <script src="./assets/js/plugins.js"></script>
 <script src="./assets/js/main.js"></script>
+<script src="ajax.js"></script>
 <script>
-	$("#exampModalCenter").modal();
+	$("#exampModalCenter").modal({backdrop: "static"});
 </script>
 </body>
 </html>
+<?php
+//unset constants session
+unset($_SESSION['upl']);
+unset($_SESSION['all']);
+unset($_SESSION['drt']);
+?>

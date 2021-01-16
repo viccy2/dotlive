@@ -39,8 +39,6 @@
              // please check other things like whether you already gave value for this ref
           // if the email matches the customer who owns the product etc
           //Give Value and return to Success page
-
-            $_SESSION['ref'] = $ref;
             
             header("Location: ./paysuccess");
 
