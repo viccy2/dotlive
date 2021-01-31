@@ -80,7 +80,7 @@ if (empty($result_set)) {
             <div class="card-body p-0">
               <div class="mailbox-read-info">
               
-                <h6>From: support@switch-360.com
+                <h6>From: support@dotlive.com.ng
                   <span class="mailbox-read-time float-right"><?php echo $row['date']; ?></span></h6>
               </div>
               
