@@ -1,5 +1,5 @@
 <?php
-include("functions/top.php");
+require("functions/top.php");
 ?>
 
     <main>
