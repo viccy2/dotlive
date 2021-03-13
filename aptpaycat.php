@@ -26,43 +26,47 @@ $upl     = $_SESSION['uplo'];
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="./">Home</a></li>
-                                        <li class="breadcrumb-item"><a href="#">Payment Category</a></li> 
+                                        <li class="breadcrumb-item"><a href="#">Payment Category</a></li>
                                     </ol>
                                 </nav>
                                 <!-- breadcrumb End -->
                             </div>
                         </div>
                     </div>
-                </div>          
+                </div>
             </div>
         </div>
     </section>
     <!--?  Contact Area start  -->
     <section class="contact-section">
         <div class="container">
-           
+
             <div class="row">
-                
+
                 <div id="space" class="col-lg-12">
                     <div class="col-12">
-                    <h2 class="contact-title">Select a Payment Category</h2>
-                </div>
-                        <div class="row">                         
-                           <div class="form-group mt-3 pl-5 col-lg-6">
-                            <button type="button" data-toggle="modal" data-backdrop="static" data-target="#exampModalCenter" class="button button-contactForm boxed-btn">Pay From Your Wallet</button>
+                        <h2 class="contact-title">Select a Payment Category</h2>
+                    </div>
+                    <div class="row">
+                        <div class="form-group mt-3 pl-5 col-lg-6">
+                            <button type="button" data-toggle="modal" data-backdrop="static"
+                                data-target="#exampModalCenter" class="button button-contactForm boxed-btn">Pay From
+                                Your Wallet</button>
                         </div>
 
-                         <form action="./aptpay" class="form-contact contact_form col-lg-6" method="post" novalidate="novalidate">
-                        
-                             <input type="text" name="drt" value="<?php echo $suite ?>" hidden>
-                          <input type="text" name="all" value="<?php echo $all ?>" hidden>
-                           <input type="text" name="upl" value="<?php echo $upl ?>" hidden>
-                            <button type="submit" class="button button-contactForm boxed-btn">Use Other Payment Method</button>
-                        
-                          </form>
-                        </div>
+                        <form action="./aptpay" class="form-contact contact_form col-lg-6" method="post"
+                            novalidate="novalidate">
+
+                            <input type="text" name="drt" value="<?php echo $suite ?>" hidden>
+                            <input type="text" name="all" value="<?php echo $all ?>" hidden>
+                            <input type="text" name="upl" value="<?php echo $upl ?>" hidden>
+                            <button type="submit" class="button button-contactForm boxed-btn">Use Other Payment
+                                Method</button>
+
+                        </form>
+                    </div>
                 </div>
-                
+
             </div>
         </div>
     </section>
@@ -70,33 +74,41 @@ $upl     = $_SESSION['uplo'];
 </main>
 
 <!---- Input Password modal ---->
-    <div class="modal fade" id="exampModalCenter">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div style="background: #f9f9ff; color: #ff0000;" class="modal-content">
-                <div class="modal-body">
-                    
+<div class="modal fade" id="exampModalCenter">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div style="background: #f9f9ff; color: #ff0000;" class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <form class="form-contact contact_form" method="post" id="contactForm" novalidate="novalidate">
-                     <input type="text" id="drt" value="<?php echo $suite ?>" hidden>
-                          <input type="text" id="all" value="<?php echo $all ?>" hidden>
-                           <input type="text" id="upl" value="<?php echo $upl ?>" hidden>
-                   <div class="col-sm-12">
-                    <div class="form-group">
-                        <label><b style="color: #ff0000; font-size: 18px;">Kindly Input your password to confirm this transaction.:</b></label><br><br><br>
-                        <input class="form-control valid" name="password" id="trpword" type="password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your Password'" placeholder="Enter your Password" required>
+                    <input type="text" id="drt" value="<?php echo $suite ?>" hidden>
+                    <input type="text" id="all" value="<?php echo $all ?>" hidden>
+                    <input type="text" id="upl" value="<?php echo $upl ?>" hidden>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label><b style="color: #ff0000; font-size: 18px;">Kindly input your password to confirm
+                                    this transaction.:</b></label><br><br><br>
+                            <input class="form-control valid" name="password" id="trpword" type="password"
+                                onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your Password'"
+                                placeholder="Enter your Password" required>
+                        </div>
+                        <div id="msg"></div><br>
+                        <button type="button" id="walpay" onclick="allPayme()"
+                            class="button button-contactForm boxed-btn">Confirm Payment</button>
+
                     </div>
-                    <div id="msg"></div><br>
-                    <button type="button" id="walpay" onclick="allPayme()" class="button button-contactForm boxed-btn">Confirm Payment</button>
-                </div>
-            </form>
-            
-                </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel Payment</button>
             </div>
         </div>
-    </div> 
+    </div>
+</div>
 
 
 
- <?php include("includes/footer.php"); ?>
+<?php include("includes/footer.php"); ?>
 
 <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
 <!-- Jquery, Popper, Bootstrap -->
@@ -132,9 +144,10 @@ $upl     = $_SESSION['uplo'];
 <script src="./assets/js/jquery.validate.min.js"></script>
 <script src="./assets/js/mail-script.js"></script>
 
-<!-- Jquery Plugins, main Jquery -->	
+<!-- Jquery Plugins, main Jquery -->
 <script src="./assets/js/plugins.js"></script>
 <script src="./assets/js/main.js"></script>
 <script src="ajax.js"></script>
 </body>
+
 </html>

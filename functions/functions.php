@@ -49,7 +49,7 @@ function validation_errors($error_message) {
 $error_message = <<<DELIMITER
 
 <div style="background: #000000; color: white;" class="col-md-12 alert alert-danger alert-mg-b alert-success-style6 alert-st-bg3 alert-st-bg14">
-    <button type="button" style="color: white;" class="col-md-12 close sucess-op" data-dismiss="modal" aria-label="Close">
+    <button type="button" style="color: white;" class="col-md-12 close success-op" data-dismiss="modal" aria-label="Close">
 		<span class="icon-sc-cl" aria-hidden="true">&times;</span>
 									</button>
                  <p style="color: white;"><strong>$error_message </strong></p>
@@ -66,7 +66,7 @@ function validator($error_message) {
 
 $error_message = <<<DELIMITER
 <div style="background: #000000; color: white;" class="col-md-12 alert alert-danger alert-mg-b alert-success-style6 alert-st-bg3 alert-st-bg14">
-    <button type="button" style="color: white;" class="col-md-12 close sucess-op" data-dismiss="modal" aria-label="Close">
+    <button type="button" style="color: white;" class="col-md-12 close success-op" data-dismiss="modal" aria-label="Close">
 		<span class="icon-sc-cl" aria-hidden="true">&times;</span>
 									</button>
                  <p style="color: white;"><strong>$error_message </strong></p>
@@ -909,7 +909,7 @@ $expy = date('Y-m-d', strtotime($date. ' + 1 year'));
 //check if user has enough funds
 if ($avlmt >= $all) {
 
-	rentapt($suite, $date, $r, $tel, $tran, $all, $upl, $expy, $newtemp, $walbal);
+	rentapt($suite, $date, $r, $tel, $tran, $all, $upl, $expy, $newtemp, $avlmt);
 } else {
 
 	echo "You don`t have enough funds in your wallet.<br/> Kindly fund your wallet with an amount above NGN".number_format($all)." to rent this apartment.";
@@ -921,7 +921,7 @@ if ($avlmt >= $all) {
 
 
 //get apartment
-function rentapt($suite, $date, $r, $tel, $tran, $all, $upl, $expy, $newtemp, $walbal) {
+function rentapt($suite, $date, $r, $tel, $tran, $all, $upl, $expy, $newtemp, $avlmt) {
 
 	//get apartment details from uploader
 	$rsl = "SELECT * FROM apartment WHERE `apt` = '$suite'";
@@ -1017,7 +1017,7 @@ function rentapt($suite, $date, $r, $tel, $tran, $all, $upl, $expy, $newtemp, $w
     <td style="border: 1px solid #f9f9ff;">wallet</td>
   </tr>
 </table><br/>';
-	$body .= "<p style='margin-left: 45px; text-align: left;'><a target='_blank' href='{$link}' style='color: #fbb710; text-decoration: none'>Kindly note that you are to verify this apartment and get your apartment key on or before  ".$due." <br/> else this apartment will no longer be yours. <br/><br/> Click here to visit your apartment center</a></p>
+	$body .= "<p style='margin-left: 45px; text-align: left;'><a target='_blank' href='{$link}' style='color: #fbb710; text-decoration: none'>Kindly note that you are to verify this apartment and get your apartment key on or before  ".$due." <br/> else this apartment will no longer be yours. <br/><br/><span style='background: white; color: #ff0000; text-decoration: none;'> Click here to visit your apartment center</span> </a></p>
 		<br/>";
 	$body .= "<p style='margin-left: 45px; padding-bottom: 80px; text-align: left;'>Do not bother replying this email. This is a virtual email</p>";	
     $body .= "<p text-align: center;'><a href='https://doteightplus.com/contact'><img src='https://dotlive.com.ng/assets/img/icon/5.png'></a>";
@@ -1070,7 +1070,7 @@ function rentapt($suite, $date, $r, $tel, $tran, $all, $upl, $expy, $newtemp, $w
     <td style="border: 1px solid #f9f9ff;">'.$tel.'</td>
   </tr>
 </table><br/>';
-	$body .= "<p style='margin-left: 45px; text-align: left;'><a target='_blank' href='{$link}' style='color: #fbb710; text-decoration: none'>Click here to review this rent</a></p>
+	$body .= "<p style='margin-left: 45px; text-align: left;'><a target='_blank' href='{$link}' style='color: #ff0000; text-decoration: none; background: white;'>Click here to review this rent</a></p>
 		<br/>";
 	$body .= "<p style='margin-left: 45px; padding-bottom: 80px; text-align: left;'>Do not bother replying this email. This is a virtual email</p>";	
     $body .= "<p text-align: center;'><a href='https://doteightplus.com/contact'><img src='https://dotlive.com.ng/assets/img/icon/5.png'></a>";
@@ -1089,7 +1089,7 @@ function rentapt($suite, $date, $r, $tel, $tran, $all, $upl, $expy, $newtemp, $w
 
 
 	echo "Loading...Please wait!";												
-	echo '<script>window.location.href ="./success?id='.$tran.'"</script>';
+	echo '<script>window.location.href ="./success?id='.$tran.'&xp='.$expy.'"</script>';
 
 
 }
@@ -1201,7 +1201,7 @@ function onlrentapt($suite, $date, $r, $tel, $tran, $all, $upl, $expy, $newtemp)
 	$sqln2.= " VALUES('1', '$ref2', '$upl', '$msg2', '$date', 'unread')";
 	$resultn2 = query($sqln2);
 
-
+	
 	//notify user via email
 	$to         = $r;
 	$from 		= "noreply@dotlive.com.ng";
@@ -1226,7 +1226,7 @@ function onlrentapt($suite, $date, $r, $tel, $tran, $all, $upl, $expy, $newtemp)
 	$body .= "<img style='margin-top: 35px' src='{$logo}' alt='DotLive'>";
 	$body .= "<h1 style='margin-top: 45px; color: #fbb710'>You rented an apartment</h1>
 		<br/>";
-	$body .= "<p style='margin-left: 45px; margin-top: 34px; text-align: left; font-size: 17px;'>Hi there! <br/> thank you for choosing DotLive as your apartment agency. <br/><br/> We noticed that you just rented an apartment. Below are <br/> details about the apartment rented ;</p>
+	$body .= "<p style='margin-left: 45px; margin-top: 34px; text-align: left; font-size: 17px;'>Hi there! <br/> Thank you for choosing DotLive as your apartment agency. <br/><br/> We noticed that you just rented an apartment. Below are <br/> details about the apartment rented ;</p>
 		<br/>";
 	$body .= '<table class="text-center" style="width:90%; margin-left: 45px; color: white; border: 1px solid #f9f9ff;">
    <tr>
@@ -1246,7 +1246,7 @@ function onlrentapt($suite, $date, $r, $tel, $tran, $all, $upl, $expy, $newtemp)
     <td style="border: 1px solid #f9f9ff;">wallet</td>
   </tr>
 </table><br/>';
-	$body .= "<p style='margin-left: 45px; text-align: left;'><a target='_blank' href='{$link}' style='color: #fbb710; text-decoration: none'>Kindly note that you are to verify this apartment and get your apartment key on or before  ".$due." <br/> else this apartment will no longer be yours. <br/><br/> Click here to visit your apartment center</a></p>
+	$body .= "<p style='margin-left: 45px; text-align: left;'><a target='_blank' href='{$link}' style='color: #fbb710; text-decoration: none'>Kindly note that you are to verify this apartment and get your apartment key on or before  ".$due." <br/> else this apartment will no longer be yours. <br/><br/><span style='color: #ff0000; text-decoration: none; background: white'> Click here to visit your apartment center</span></a></p>
 		<br/>";
 	$body .= "<p style='margin-left: 45px; padding-bottom: 80px; text-align: left;'>Do not bother replying this email. This is a virtual email</p>";	
     $body .= "<p text-align: center;'><a href='https://doteightplus.com/contact'><img src='https://dotlive.com.ng/assets/img/icon/5.png'></a>";
@@ -1283,7 +1283,7 @@ function onlrentapt($suite, $date, $r, $tel, $tran, $all, $upl, $expy, $newtemp)
 	$body .= "<img style='margin-top: 35px' src='{$logo}' alt='DotLive'>";
 	$body .= "<h1 style='margin-top: 45px; color: #fbb710'>Your Apartment was Rented</h1>
 		<br/>";
-	$body .= "<p style='margin-left: 45px; margin-top: 34px; text-align: left; font-size: 17px;'>Hi there! <br/> thank you for choosing DotLive as your apartment agency. <br/><br/> One of your apartment has been rented. Below are <br/> details about the apartment rented ;</p>
+	$body .= "<p style='margin-left: 45px; margin-top: 34px; text-align: left; font-size: 17px;'>Hi there! <br/> Thank you for choosing DotLive as your apartment agency. <br/><br/> One of your apartment has been rented. Below are <br/> details about the apartment rented ;</p>
 		<br/>";
 	$body .= '<table class="text-center" style="width:90%; margin-left: 45px; color: white; border: 1px solid #f9f9ff;">
    <tr>
@@ -1299,7 +1299,7 @@ function onlrentapt($suite, $date, $r, $tel, $tran, $all, $upl, $expy, $newtemp)
     <td style="border: 1px solid #f9f9ff;">'.$tel.'</td>
   </tr>
 </table><br/>';
-	$body .= "<p style='margin-left: 45px; text-align: left;'><a target='_blank' href='{$link}' style='color: #fbb710; text-decoration: none'>Click here to review this rent</a></p>
+	$body .= "<p style='margin-left: 45px; text-align: left;'><a target='_blank' href='{$link}' style='color: #ff0000; text-decoration: none; background: white'>Click here to review this rent</a></p>
 		<br/>";
 	$body .= "<p style='margin-left: 45px; padding-bottom: 80px; text-align: left;'>Do not bother replying this email. This is a virtual email</p>";	
     $body .= "<p text-align: center;'><a href='https://doteightplus.com/contact'><img src='https://dotlive.com.ng/assets/img/icon/5.png'></a>";
@@ -1318,13 +1318,14 @@ function onlrentapt($suite, $date, $r, $tel, $tran, $all, $upl, $expy, $newtemp)
 
 
 	echo "Loading...Please wait!";												
-	echo '<script>window.location.href ="./success?id='.$tran.'"</script>';
+	echo '<script>window.location.href ="./success?id='.$tran.'&xp='.$expy.'"</script>';
 
 
 }
 }
 
 
+function adsexpp() {
 //----universal check for ads expiry---//
 $sqller = "SELECT * FROM ads WHERE `session` = 'active'";
 $result = query($sqller);
@@ -1420,7 +1421,7 @@ if ($date >= $expiry) {
 }
 
 }
-
+}
 //-- universal check for apartment expiry --//
 
 ?>

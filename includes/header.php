@@ -1,15 +1,17 @@
 <!doctype html>
 <html>
+
 <head>
     <title>DotLive</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">   
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="DotLive from DotEightPlus">
-    <meta name="keywords" content="Get affordable, cheap and beautiful hostels for living, meetups and bootcamps from the comfort of your homes.">
+    <meta name="keywords"
+        content="Get affordable, cheap and beautiful hostels for living, meetups and bootcamps from the comfort of your homes.">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-    <meta name="theme-color" content="#f9f9ff"> 
+    <meta name="theme-color" content="#f9f9ff">
     <link rel="manifest" href="manifest.json">
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/dotsvg.svg">
 
@@ -28,7 +30,7 @@
     <link rel="stylesheet" href="assets/css/slick.css">
     <link rel="stylesheet" href="assets/css/nice-select.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    
+
 </head>
 
 <body>
@@ -54,7 +56,7 @@
                             <!-- Logo -->
                             <div class="col-xl-2 col-lg-2">
                                 <div class="logo">
-                                   <a href="./"><img src="assets/img/logo/top.png" alt=""></a>
+                                    <a href="./"><img src="assets/img/logo/top.png" alt=""></a>
                                 </div>
                             </div>
                             <div class="col-xl-10 col-lg-10">
@@ -62,22 +64,34 @@
                                     <!-- Main-menu -->
                                     <div class="main-menu d-none d-lg-block">
                                         <nav>
-                                            <ul id="navigation">                                                                                          
+                                            <ul id="navigation">
                                                 <li><a href="./">Home</a></li>
                                                 <li><a href="./apartments">Apartments</a></li>
                                                 <li><a href="./roomie">Find Roomie</a></li>
                                                 <li><a href="faq/./">FAQs</a></li>
-                                                <li><a target="_blank" href="https://doteightplus.com/contact">Contact us</a></li>
+                                                <li><a target="_blank" href="https://doteightplus.com/contact">Contact
+                                                        us</a></li>
                                                 <!-- Button -->
                                                 <?php
                                                 if (isset($_SESSION['Username'])) {
+                                                    
+                                                    $we = $_SESSION['Username'];
+                                                    
+                                                    $sql = "SELECT * FROM `user` WHERE `email` = '$we'";
+                                                    $res = query($sql);
+
+                                                    $row = mysqli_fetch_array($res);
                                                 ?>
-                                                <li><a style="color: #ff0000; text-transform: lowercase;" href="dashboard/./"><?php echo strtolower($_SESSION['Username']); ?></a></li>
+                                                <li><a style="color: #ff0000; text-transform: capitalize;"
+                                                        href="dashboard/./">Welcome <?php echo $row['name']; ?></a>
+                                                </li>
                                                 <?php
                                             } else {
                                                 ?>
-                                                <li class="button-header margin-left "><a href="./signup" class="btn">Sign up</a></li>
-                                                <li class="button-header"><a href="./signin" class="btn btn3">Sign in</a></li>
+                                                <li class="button-header margin-left "><a href="./signup"
+                                                        class="btn">Sign up</a></li>
+                                                <li class="button-header"><a href="./signin" class="btn btn3">Sign
+                                                        in</a></li>
                                                 <?php
                                             }
                                             ?>
@@ -85,7 +99,7 @@
                                         </nav>
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
                             <!-- Mobile Menu -->
                             <div class="col-12">
                                 <div class="mobile_menu d-block d-lg-none"></div>
