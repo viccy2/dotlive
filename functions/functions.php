@@ -1423,5 +1423,8 @@ if ($date >= $expiry) {
 }
 }
 //-- universal check for apartment expiry --//
+function apt_exp() {
 
+	
+}
 ?>

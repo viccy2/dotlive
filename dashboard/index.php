@@ -2,33 +2,33 @@
  include("include/top.php");
   ?>
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Dashboard</h1>
-          </div><!-- /.col -->
-          
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Dashboard</h1>
+                </div><!-- /.col -->
+
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
 
     <!-- Main content -->
     <section class="content">
-      <div class="container-fluid">
-        <!-- Small boxes (Stat box) -->
-       <div class="row">
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box">
-              <span class="info-box-icon bg-info elevation-1"><i class="fas fa-check"></i></span>
-              <a style="color: black" href="./myapartments">
-              <div class="info-box-content">
-                <span class="info-box-text">Rented Apartment(s)</span>
- <?php
+        <div class="container-fluid">
+            <!-- Small boxes (Stat box) -->
+            <div class="row">
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-info elevation-1"><i class="fas fa-check"></i></span>
+                        <a style="color: black" href="./myapartments">
+                            <div class="info-box-content">
+                                <span class="info-box-text">Rented Apartment(s)</span>
+                                <?php
  $r = $_SESSION['Username'];
  $sql="SELECT SUM(sn) AS cart from rent WHERE `status` = 'rented' OR `status` = 'pending' AND `tenantmail` = '$r'";
  $result_set=query($sql);
@@ -56,22 +56,22 @@ if (row_count($result_sets) == 1) {
   $b = 0;
 }
 $_SESSION['new'] = $b;
-  ?>                
-                
-              </div>
-            </a>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box mb-3">
-              <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-credit-card"></i></span>
-              <a style="color: black" href="./credith">
-              <div class="info-box-content">
-                <span class="info-box-text">Wallet Balance </span>
-                 <?php
+  ?>
+
+                            </div>
+                        </a>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="info-box mb-3">
+                        <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-credit-card"></i></span>
+                        <a style="color: black" href="./credith">
+                            <div class="info-box-content">
+                                <span class="info-box-text">Wallet Balance </span>
+                                <?php
                  $r = $_SESSION['Username'];
  $sql="SELECT * FROM user WHERE `email` = '$r'";
  $result_set=query($sql);
@@ -85,61 +85,61 @@ $_SESSION['new'] = $b;
     $wallet = number_format($row['wallet']);
     }  
    echo '<span class="info-box-number">NGN '.$wallet.'</span>';  
-  ?>                
-                
-                
-              </div>
-            </a>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
+  ?>
 
-          <!-- fix for small devices only -->
-          <div class="clearfix hidden-md-up"></div>
 
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box mb-3">
-              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-list"></i></span>
-              <a style="color: black" href="./chat">
-              <div class="info-box-content">
-                <span class="info-box-text">Unread Chats</span>
-             
-                <span class="info-box-number">0</span>
-                
-              </div>
-            </a>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box mb-3">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fa fa-newspaper"></i></span>
-              <a style="color: black" href="./adscenter">
-              <div class="info-box-content">
-                <span class="info-box-text">Active Ads</span>
-             <?php
+                            </div>
+                        </a>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+
+                <!-- fix for small devices only -->
+                <div class="clearfix hidden-md-up"></div>
+
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="info-box mb-3">
+                        <span class="info-box-icon bg-success elevation-1"><i class="fas fa-list"></i></span>
+                        <a style="color: black" href="./chat">
+                            <div class="info-box-content">
+                                <span class="info-box-text">Unread Chats</span>
+
+                                <span class="info-box-number">0</span>
+
+                            </div>
+                        </a>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="info-box mb-3">
+                        <span class="info-box-icon bg-warning elevation-1"><i class="fa fa-newspaper"></i></span>
+                        <a style="color: black" href="./adscenter">
+                            <div class="info-box-content">
+                                <span class="info-box-text">Active Ads</span>
+                                <?php
 $name = $_SESSION['Username'];
 $sql = "SELECT SUM(`sn`) as adstot FROM ads WHERE `user` = '$name' AND `session` = 'active'";
 $result = query($sql);
 $row = mysqli_fetch_array($result);
-?>   
-               <span class="info-box-number"><?php echo $row['adstot'];?></span>
-                
-              </div>
-            </a>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-        </div>
-        <!-- /.row -->
+?>
+                                <span class="info-box-number"><?php echo $row['adstot'];?></span>
 
-<?php 
+                            </div>
+                        </a>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+
+            <?php 
 $r = $_SESSION['Username'];
 $ssl = "SELECT * FROM user WHERE `email` = '$r'";
 $rs  = query($ssl);
@@ -147,427 +147,436 @@ $rwl = mysqli_fetch_array($rs);
 
 if ($rwl['category'] != 'user') {
  ?>
-                    <!-- TABLE: LATEST ORDERS -->
+            <!-- TABLE: LATEST ORDERS -->
             <div class="card">
-              <div class="card-header border-transparent">
-                <h3 class="card-title">Your Apartment(s)</h3>
+                <div class="card-header border-transparent">
+                    <h3 class="card-title">Your Apartment(s)</h3>
 
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                  </button>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
                 </div>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body p-0">
-                <div class="table-responsive">
-                  <table class="table m-0">
-                    <thead>
-                    <tr>
-                      <th style="width: 15%;">Suite_No.</th>
-                      <th style="width: 15%;">Image</th>
-                      <th style="width: 15%;">Apartment Type</th>
-                      <th style="width: 15%;">Water Type</th>
-                      <th style="width: 15%;">Power Source</th>
-                      <th style="width: 15%;">Price</th>
-                      <th style="width: 15%;"></th>
-                    </tr>
-                    </thead>
-         <?php
+                <!-- /.card-header -->
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table m-0">
+                            <thead>
+                                <tr>
+                                    <th style="width: 15%;">Suite_No.</th>
+                                    <th style="width: 15%;">Image</th>
+                                    <th style="width: 15%;">Apartment Type</th>
+                                    <th style="width: 15%;">Water Type</th>
+                                    <th style="width: 15%;">Power Source</th>
+                                    <th style="width: 15%;">Price</th>
+                                    <th style="width: 15%;"></th>
+                                </tr>
+                            </thead>
+                            <?php
          $r = $_SESSION['Username'];
  $sql="SELECT * FROM apartment WHERE `uploader` = '$r' AND `status` = 'available'";
  $result_set=query($sql);
  while($row= mysqli_fetch_array($result_set))
  {
-  ?>   
-           
- <tbody>
-                    <tr>
-                      <td><a href="#"><?php echo $row['apt']; ?></a></td>
-                      </td>
-                      <?php          
+  ?>
+
+                            <tbody>
+                                <tr>
+                                    <td><a href="#"><?php echo $row['apt']; ?></a></td>
+                                    </td>
+                                    <?php          
                     echo '
  <td><img style= "width: 100px; height: 100px;" src= "../upload/apartment/'.$row['pix'].'"  alt="product picture"></td>';
  ?>
-                      <td><?php echo $row['apartment']; ?></td>
-                      <td><?php echo $row['water']; ?></td>
-                      <td><?php echo $row['power']; ?></td>
-                      <td>
-                        <div class="sparkbar" data-color="#00a65a" data-height="20">NGN <?php echo number_format($row['price']); ?></div>
-                      </td>
-                      <td><a href="./details?id=<?php echo $row['apt']; ?>"> More Details</td>
-                    </tr>
-                       
-                    </tbody>
-                    <?php
+                                    <td><?php echo $row['apartment']; ?></td>
+                                    <td><?php echo $row['water']; ?></td>
+                                    <td><?php echo $row['power']; ?></td>
+                                    <td>
+                                        <div class="sparkbar" data-color="#00a65a" data-height="20">NGN
+                                            <?php echo number_format($row['price']); ?></div>
+                                    </td>
+                                    <td><a href="./details?id=<?php echo $row['apt']; ?>"> More Details</td>
+                                </tr>
+
+                            </tbody>
+                            <?php
                   }
                   ?>
-                  </table>
+                        </table>
+                    </div>
+                    <!-- /.table-responsive -->
                 </div>
-                <!-- /.table-responsive -->
-              </div>
-             
+
             </div>
             <!-- /.card -->
 
 
-                                <!-- TABLE: LATEST ORDERS -->
+            <!-- TABLE: LATEST ORDERS -->
             <div class="card">
-              <div class="card-header border-transparent">
-                <h3 class="card-title">Pending Apartment(s)</h3>
+                <div class="card-header border-transparent">
+                    <h3 class="card-title">Pending Apartment(s)</h3>
 
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                  </button>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
                 </div>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body p-0">
-                <div class="table-responsive">
-                  <table class="table m-0">
-                    <thead>
-                    <tr>
-                      <th style="width: 15%;">Suite_No.</th>
-                      <th style="width: 15%;">Image</th>
-                      <th style="width: 15%;">Tenant Tel</th>
-                      <th style="width: 15%;">Date Paid</th>
-                      <th style="width: 15%;">Price</th>
-                      <th style="width: 15%;">Pending Limit</th>
-                      <th style="width: 15%;"></th>
-                    </tr>
-                    </thead>
-         <?php
+                <!-- /.card-header -->
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table m-0">
+                            <thead>
+                                <tr>
+                                    <th style="width: 15%;">Suite_No.</th>
+                                    <th style="width: 15%;">Image</th>
+                                    <th style="width: 15%;">Tenant Tel</th>
+                                    <th style="width: 15%;">Date Paid</th>
+                                    <th style="width: 15%;">Price</th>
+                                    <th style="width: 15%;">Pending Limit</th>
+                                    <th style="width: 15%;"></th>
+                                </tr>
+                            </thead>
+                            <?php
  $r = $_SESSION['Username'];
  $sql="SELECT * FROM rent WHERE `uploader` = '$r' AND `status` = 'pending'";
  $result_set=query($sql);
  while($row= mysqli_fetch_array($result_set))
  {
-  ?>   
-           
-                    <tbody>
-                    <tr>
-                      <td><a href="./details?id=<?php echo $row['apt']; ?>"><?php echo $row['apt']; ?></a></td>
-                      </td>
-                      <?php          
+  ?>
+
+                            <tbody>
+                                <tr>
+                                    <td><a href="./details?id=<?php echo $row['apt']; ?>"><?php echo $row['apt']; ?></a>
+                                    </td>
+                                    </td>
+                                    <?php          
                     echo '
  <td><img style= "width: 100px; height: 100px;" src= "../upload/apartment/'.$row['pix'].'"  alt="apartment picture"></td>';
- ?> 
-                      <td><?php echo $row['tenanttel']; ?></td>
-                      <td><?php echo date('D, M d, Y', strtotime($row['paydate'])); ?></td>
-                      <td>
-                        <div class="sparkbar" data-color="#00a65a" data-height="20">NGN <?php echo number_format($row['price']); ?></div>
-                      </td>
-                      <td><?php echo $row['pendlimit']; ?></td>
-                      <td><a href="tel: <?php echo $row['tenanttel'] ?>"> Call Tenant</td>
-                    </tr>
-              
-                    </tbody>
-                   <?php 
+ ?>
+                                    <td><?php echo $row['tenanttel']; ?></td>
+                                    <td><?php echo date('D, M d, Y', strtotime($row['paydate'])); ?></td>
+                                    <td>
+                                        <div class="sparkbar" data-color="#00a65a" data-height="20">NGN
+                                            <?php echo number_format($row['price']); ?></div>
+                                    </td>
+                                    <td><?php echo $row['pendlimit']; ?></td>
+                                    <td><a href="tel: <?php echo $row['tenanttel'] ?>"> Call Tenant</td>
+                                </tr>
+
+                            </tbody>
+                            <?php 
                   }
                   ?>
-                  </table>
+                        </table>
+                    </div>
+                    <!-- /.table-responsive -->
                 </div>
-                <!-- /.table-responsive -->
-              </div>
-             
+
             </div>
             <!-- /.card -->
-             
 
-                                <!-- TABLE: LATEST ORDERS -->
+
+            <!-- TABLE: LATEST ORDERS -->
             <div class="card">
-              <div class="card-header border-transparent">
-                <h3 class="card-title">Rented Apartment(s)</h3>
+                <div class="card-header border-transparent">
+                    <h3 class="card-title">Rented Apartment(s)</h3>
 
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                  </button>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
                 </div>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body p-0">
-                <div class="table-responsive">
-                  <table class="table m-0">
-                    <thead>
-                    <tr>
-                       <th style="width: 15%;">Suite_No.</th>
-                      <th style="width: 15%;">Image</th>
-                      <th style="width: 15%;">Date Paid</th>
-                      <th style="width: 15%;">Tenant Tel</th>
-                      <th style="width: 15%;">Price</th>
-                      <th style="width: 15%;"></th>
-                    </tr>
-                    </thead>
-         <?php
+                <!-- /.card-header -->
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table m-0">
+                            <thead>
+                                <tr>
+                                    <th style="width: 15%;">Suite_No.</th>
+                                    <th style="width: 15%;">Image</th>
+                                    <th style="width: 15%;">Date Paid</th>
+                                    <th style="width: 15%;">Tenant Tel</th>
+                                    <th style="width: 15%;">Price</th>
+                                    <th style="width: 15%;"></th>
+                                </tr>
+                            </thead>
+                            <?php
          $r = $_SESSION['Username'];
  $sql="SELECT * FROM rent WHERE `uploader` = '$r' AND `status` = 'rented'";
  $result_set=query($sql);
  while($row= mysqli_fetch_array($result_set))
  {
-  ?>   
-           
-                    <tbody>
-                    <tr>
-                      <td><a href="#"><?php echo $row['apt']; ?></a></td>
-                      </td>
-                      <?php          
+  ?>
+
+                            <tbody>
+                                <tr>
+                                    <td><a href="#"><?php echo $row['apt']; ?></a></td>
+                                    </td>
+                                    <?php          
                     echo '
  <td><img style= "width: 100px; height: 100px;" src= "../upload/product/'.$row['pix'].'"  alt="product picture"></td>';
  ?>
-                      <td>
-                      <td><?php echo date('D, M d, Y', strtotime($row['paydate'])); ?></td>
-                      <td><?php echo $row['tenanttel']; ?></td>
-                      <td>
-                        <div class="sparkbar" data-color="#00a65a" data-height="20">NGN <?php echo $row['price']; ?></div>
-                      </td>
-                      <td><a href="./chat?id=<?php echo $row['tenantmail'] ?>"> More Details</td>
-                    </tr>
-              
-                    </tbody>
-                    <?php
+                                    <td>
+                                    <td><?php echo date('D, M d, Y', strtotime($row['paydate'])); ?></td>
+                                    <td><?php echo $row['tenanttel']; ?></td>
+                                    <td>
+                                        <div class="sparkbar" data-color="#00a65a" data-height="20">NGN
+                                            <?php echo $row['price']; ?></div>
+                                    </td>
+                                    <td><a href="./chat?id=<?php echo $row['tenantmail'] ?>"> More Details</td>
+                                </tr>
+
+                            </tbody>
+                            <?php
                   }
                   ?>
-                  </table>
+                        </table>
+                    </div>
+                    <!-- /.table-responsive -->
                 </div>
-                <!-- /.table-responsive -->
-              </div>
-             
+
             </div>
             <!-- /.card -->
-<?php
+            <?php
 } else {
 ?>
 
-                                        <!-- TABLE: LATEST ORDERS -->
+            <!-- TABLE: LATEST ORDERS -->
             <div class="card">
-              <div class="card-header border-transparent">
-                <h3 class="card-title">Pending Apartment(s)</h3>
+                <div class="card-header border-transparent">
+                    <h3 class="card-title">Pending Apartment(s)</h3>
 
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                  </button>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
                 </div>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body p-0">
-                <div class="table-responsive">
-                  <table class="table m-0">
-                    <thead>
-                    <tr>
-                      <th style="width: 15%;">Suite_No.</th>
-                      <th style="width: 15%;">Image</th>
-                      <th style="width: 15%;">Landlord/Agent</th>
-                      <th style="width: 15%;">Date Paid</th>
-                      <th style="width: 15%;">Price</th>
-                      <th style="width: 15%;">Pending Limit</th>
-                      <th style="width: 15%;"></th>
-                      <th style="width: 15%;"></th>
-                    </tr>
-                    </thead>
-         <?php
+                <!-- /.card-header -->
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table m-0">
+                            <thead>
+                                <tr>
+                                    <th style="width: 15%;">Suite_No.</th>
+                                    <th style="width: 15%;">Image</th>
+                                    <th style="width: 15%;">Landlord/Agent</th>
+                                    <th style="width: 15%;">Date Paid</th>
+                                    <th style="width: 15%;">Price</th>
+                                    <th style="width: 15%;">Pending Limit</th>
+                                    <th style="width: 15%;"></th>
+                                    <th style="width: 15%;"></th>
+                                </tr>
+                            </thead>
+                            <?php
  $r = $_SESSION['Username'];
  $sql="SELECT * FROM rent WHERE `tenantmail` = '$r' AND `status` = 'pending'";
  $result_set=query($sql);
  while($row= mysqli_fetch_array($result_set))
  {
-  ?>   
-           
-                    <tbody>
-                    <tr>
-                      <td><a href="./rdetails?id=<?php echo $row['apt']; ?>"><?php echo $row['apt']; ?></a></td>
-                      </td>
-                      <?php          
+  ?>
+
+                            <tbody>
+                                <tr>
+                                    <td><a
+                                            href="./rdetails?id=<?php echo $row['apt']; ?>"><?php echo $row['apt']; ?></a>
+                                    </td>
+                                    </td>
+                                    <?php          
                     echo '
  <td><img style= "width: 100px; height: 100px;" src= "../upload/apartment/'.$row['pix'].'"  alt="apartment picture"></td>';
- ?> 
-                      <?php
+ ?>
+                                    <?php
                       $dvs = $row['uploader'];
                       $sll = "SELECT * FROM user WHERE `email` = '$dvs'";
                       $qas = query($sll);
 
                       $wsd = mysqli_fetch_array($qas);
                       ?>
-                      <td><?php echo $wsd['tel']; ?></td>
-                      <td><?php echo date('D, M d, Y', strtotime($row['paydate'])); ?></td>
-                      <td>
-                        <div class="sparkbar" data-color="#00a65a" data-height="20">NGN <?php echo number_format($row['price']); ?></div>
-                      </td>
-                      <td><?php echo $row['pendlimit']; ?></td>
-                      <td><a href="tel: <?php echo $wsd['tel']; ?>"> Call Landlord</td>
-                      <td><a href="./rdetails?id=<?php echo $row['apt']; ?>">Verify Apartment</a></td>
-                    </tr>
-              
-                    </tbody>
-                   <?php 
+                                    <td><?php echo $wsd['tel']; ?></td>
+                                    <td><?php echo date('D, M d, Y', strtotime($row['paydate'])); ?></td>
+                                    <td>
+                                        <div class="sparkbar" data-color="#00a65a" data-height="20">NGN
+                                            <?php echo number_format($row['price']); ?></div>
+                                    </td>
+                                    <td><?php echo $row['pendlimit']; ?></td>
+                                    <td><a href="tel: <?php echo $wsd['tel']; ?>"> Call Landlord</td>
+                                    <td><a href="./rdetails?id=<?php echo $row['apt']; ?>">Verify Apartment</a></td>
+                                </tr>
+
+                            </tbody>
+                            <?php 
                   }
                   ?>
-                  </table>
+                        </table>
+                    </div>
+                    <!-- /.table-responsive -->
                 </div>
-                <!-- /.table-responsive -->
-              </div>
-             
+
             </div>
             <!-- /.card -->
-             
 
-                                <!-- TABLE: LATEST ORDERS -->
+
+            <!-- TABLE: LATEST ORDERS -->
             <div class="card">
-              <div class="card-header border-transparent">
-                <h3 class="card-title">Rented Apartment(s)</h3>
+                <div class="card-header border-transparent">
+                    <h3 class="card-title">Rented Apartment(s)</h3>
 
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                  </button>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
                 </div>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body p-0">
-                <div class="table-responsive">
-                  <table class="table m-0">
-                    <thead>
-                    <tr>
-                       <th style="width: 15%;">Suite_No.</th>
-                      <th style="width: 15%;">Image</th>
-                      <th style="width: 15%;">Date Paid</th>
-                      <th style="width: 15%;">Tenant Tel</th>
-                      <th style="width: 15%;">Price</th>
-                      <th style="width: 15%;"></th>
-                    </tr>
-                    </thead>
-         <?php
+                <!-- /.card-header -->
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table m-0">
+                            <thead>
+                                <tr>
+                                    <th style="width: 15%;">Suite_No.</th>
+                                    <th style="width: 15%;">Image</th>
+                                    <th style="width: 15%;">Date Paid</th>
+                                    <th style="width: 15%;">Tenant Tel</th>
+                                    <th style="width: 15%;">Price</th>
+                                    <th style="width: 15%;"></th>
+                                </tr>
+                            </thead>
+                            <?php
          $r = $_SESSION['Username'];
  $sql="SELECT * FROM rent WHERE `uploader` = '$r' AND `status` = 'rented'";
  $result_set=query($sql);
  while($row= mysqli_fetch_array($result_set))
  {
-  ?>   
-           
-                    <tbody>
-                    <tr>
-                      <td><a href="#"><?php echo $row['apt']; ?></a></td>
-                      </td>
-                      <?php          
+  ?>
+
+                            <tbody>
+                                <tr>
+                                    <td><a href="#"><?php echo $row['apt']; ?></a></td>
+                                    </td>
+                                    <?php          
                     echo '
  <td><img style= "width: 100px; height: 100px;" src= "../upload/product/'.$row['pix'].'"  alt="product picture"></td>';
  ?>
-                      <td>
-                      <td><?php echo date('D, M d, Y', strtotime($row['paydate'])); ?></td>
-                      <td><?php echo $row['tenanttel']; ?></td>
-                      <td>
-                        <div class="sparkbar" data-color="#00a65a" data-height="20">NGN <?php echo $row['price']; ?></div>
-                      </td>
-                      <td><a href="./chat?id=<?php echo $row['tenantmail'] ?>"> More Details</td>
-                    </tr>
-              
-                    </tbody>
-                    <?php
+                                    <td>
+                                    <td><?php echo date('D, M d, Y', strtotime($row['paydate'])); ?></td>
+                                    <td><?php echo $row['tenanttel']; ?></td>
+                                    <td>
+                                        <div class="sparkbar" data-color="#00a65a" data-height="20">NGN
+                                            <?php echo $row['price']; ?></div>
+                                    </td>
+                                    <td><a href="./chat?id=<?php echo $row['tenantmail'] ?>"> More Details</td>
+                                </tr>
+
+                            </tbody>
+                            <?php
                   }
                   ?>
-                  </table>
+                        </table>
+                    </div>
+                    <!-- /.table-responsive -->
                 </div>
-                <!-- /.table-responsive -->
-              </div>
-             
-            </div>
-            <!-- /.card -->      
 
-<?php
+            </div>
+            <!-- /.card -->
+
+            <?php
 }
 ?>
 
-                    <!-- TABLE: LATEST ORDERS -->
+            <!-- TABLE: LATEST ORDERS -->
             <div class="card">
-              <div class="card-header border-transparent">
-                <h3 class="card-title">Active Ads</h3>
+                <div class="card-header border-transparent">
+                    <h3 class="card-title">Active Ads</h3>
 
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                  </button>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
                 </div>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body p-0">
-                <div class="table-responsive">
-                  <table class="table m-0">
-                    <thead>
-                    <tr>
-                      <th>Ad_ID</th>
-                      <th>Ad_Image</th>
-                      <th>Duration</th>
-                      <th>Date Submitted</th>
-                      <th>Number of Clicks</th>
-                      <th></th>
-                    </tr>
-                    </thead>
-       <?php
+                <!-- /.card-header -->
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table m-0">
+                            <thead>
+                                <tr>
+                                    <th>Ad_ID</th>
+                                    <th>Ad_Image</th>
+                                    <th>Duration</th>
+                                    <th>Date Submitted</th>
+                                    <th>Number of Clicks</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <?php
   $r = $_SESSION['Username'];
  $sql="SELECT * FROM ads WHERE `user` = '$r' AND `session` = 'active'";
  $result_set=query($sql);
  while($row= mysqli_fetch_array($result_set))
  {
-  ?>                   
-                 <tbody>
-                    <tr>
-                      <td><a href="#"><?php echo $row['ads_id']; ?></a></td>
-                       <td><img style= "width: 100px; height: 100px;" src= "../upload/ads/<?php echo $row['file'] ?>"  alt="Ads image"></td>';
-                      <td><?php echo $row['duration']; ?></td>
-                      <td><?php echo date('D, M d, Y', strtotime($row['date'])); ?></td>
-                      <td><?php echo $row['click']; ?></span></td>
-                      <td><a href="./adsdetails?id=<?php echo $row['ads_id']; ?>">More Details</a></td>
-                    </tr>
-              
-                    </tbody>
-     <?php
+  ?>
+                            <tbody>
+                                <tr>
+                                    <td><a href="#"><?php echo $row['ads_id']; ?></a></td>
+                                    <td><img style="width: 100px; height: 100px;"
+                                            src="../upload/ads/<?php echo $row['file'] ?>" alt="Ads image"></td>';
+                                    <td><?php echo $row['duration']; ?></td>
+                                    <td><?php echo date('D, M d, Y', strtotime($row['date'])); ?></td>
+                                    <td><?php echo $row['click']; ?></span></td>
+                                    <td><a href="./adsdetails?id=<?php echo $row['ads_id']; ?>">More Details</a></td>
+                                </tr>
+
+                            </tbody>
+                            <?php
      }
-     ?>               
-                  </table>
+     ?>
+                        </table>
+                    </div>
+                    <!-- /.table-responsive -->
                 </div>
-                <!-- /.table-responsive -->
-              </div>
-             
+
             </div>
             <!-- /.card -->
 
-              <!-- /.card-footer -->
-            </div>
-            <!-- /.card -->
-    
+            <!-- /.card-footer -->
+        </div>
+        <!-- /.card -->
+
         <!-- /.row (main row) -->
-      </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
- <?php include("include/footer.php"); ?>
+</div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+<?php include("include/footer.php"); ?>
 
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
+</aside>
+<!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
 
@@ -577,7 +586,7 @@ if ($rwl['category'] != 'user') {
 <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
-  $.widget.bridge('uibutton', $.ui.button)
+$.widget.bridge('uibutton', $.ui.button)
 </script>
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -602,4 +611,5 @@ if ($rwl['category'] != 'user') {
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.js"></script>
 </body>
+
 </html>

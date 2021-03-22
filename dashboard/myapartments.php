@@ -4,7 +4,7 @@ include("include/top.php");
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
+    <!-- Content Header Page header -->
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -44,6 +44,7 @@ include("include/top.php");
   ?>
                                 <a href="./apartment" class="btn btn-primary btn-block"><b>Upload Apartment</b></a>
 
+
                                 <?php
  }
  ?>
@@ -69,7 +70,7 @@ include("include/top.php");
               ?>
                                 <?php
    $r = $_SESSION['Username'];
- $sql="SELECT SUM(sn) AS prod from apartment WHERE `uploader` = '$r' AND `status` = 'pending'";
+ $sql="SELECT SUM(sn) AS prod from rent WHERE `tenantmail` = '$r' AND `status` = 'rented'";
  $result_set=query($sql);
  while($row= mysqli_fetch_array($result_set))
  {
@@ -209,7 +210,7 @@ include("include/top.php");
                                                         </thead>
                                                         <?php
        $r = $_SESSION['Username'];
- $sql="SELECT * FROM apartment WHERE `uploader` = '$r' AND `status` = 'rented'";
+ $sql="SELECT * FROM rent WHERE `tenantmail` = '$r' AND `status` = 'rented'";
  $result_set=query($sql);
  while($row= mysqli_fetch_array($result_set))
  {
@@ -301,7 +302,7 @@ include("include/top.php");
                                                 </thead>
                                                 <?php
          $r = $_SESSION['Username'];
- $sql="SELECT * FROM rent WHERE `uploader` = '$r' AND `status` = 'pending'";
+ $sql="SELECT * FROM rent WHERE `tenantmail` = '$r' AND `status` = 'pending'";
  $result_set=query($sql);
  while($row= mysqli_fetch_array($result_set))
  {
@@ -313,16 +314,18 @@ include("include/top.php");
                                                         </td>
                                                         <?php          
                     echo '
- <td><img style= "width: 100px; height: 100px;" src= "../upload/product/'.$row['pix'].'"  alt="product picture"></td>';
+ <td><img style= "width: 100px; height: 100px;" src= "../upload/apartment/'.$row['pix'].'"  alt="product picture"></td>';
  ?>
-                                                        <td>
-                                                        <td><?php echo $row['paydate']; ?></td>
+
+                                                        <td><?php echo date('D, M d, Y', strtotime($row['paydate'])); ?>
+                                                        </td>
                                                         <td><?php echo $row['tenanttel']; ?></td>
                                                         <td>
                                                             <div class="sparkbar" data-color="#00a65a" data-height="20">
-                                                                NGN <?php echo $row['price']; ?></div>
+                                                                NGN <?php echo number_format($row['price']); ?></div>
                                                         </td>
-                                                        <td><a href="./chat?id=<?php echo $row['tenantmail'] ?>"> More
+                                                        <td><a href="./rdetails?id=<?php echo $row['apt'] ?>">
+                                                                More
                                                                 Details</td>
                                                     </tr>
 
