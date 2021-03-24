@@ -260,17 +260,16 @@ $(document).ready(function () {
   //love apartment
   $("#lovebtn").click(function () {
 
-    var love = $("#").val();
+    var love = $("#lover").text();
+    var lvpr = $("#lvpr").text();
 
-      $.ajax({
-        type: "post",
-        url: "../functions/init.php",
-        data: fd,
-        contentType: false,
-        processData: false,
-        success: function (data) {
-          $("#msg").html(data);
-        },
+    $.ajax({
+      type: "post",
+      url: "../functions/init.php",
+      data: {love:love,lvpr:lvpr},
+      success: function (data) {
+        $("#msg").html(data);
+      },
       });
   });
 });

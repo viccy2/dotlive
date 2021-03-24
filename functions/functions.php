@@ -1422,6 +1422,29 @@ if ($date >= $expiry) {
 
 }
 }
+
+//verify apartent in love
+if(isset($_POST['love']) && isset($_POST['lvpr'])){
+
+	$aptlove = $_POST['love'];
+	$aptpr   = $_POST['aptpr'];
+
+	//update rent detials
+	$sql 	 = "UPDATE rent SET `status` = 'rented' WHERE `apt` = '$aptlove' AND `price` = '$aptpr'";
+	$rrr     = query($sql);
+
+	//update apartment details
+	$ssl    = "UPDATE apartment SET `status` = 'rented' WHERE `apt` = '$aptlove' AND `price` = '$aptpr'";
+	$rsl    = query($sql);
+
+	//credit agent or landlord
+	$sqln = "INSERT INTO support_reply(`sn`, `ref`, `usname`, `msg`, `date`, `status`)";
+	$sqln.= " VALUES('1', '$ref', '$username', '$msg', '$date', 'unread')";
+	$resultn = query($sqln);
+
+}
+
+
 //-- universal check for apartment expiry --//
 function apt_exp() {
 

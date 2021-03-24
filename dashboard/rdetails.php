@@ -117,6 +117,7 @@ $data = $_GET['id'];
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn  btn-danger" data-dismiss="modal">No</button>
                 <p id="lover" hidden><?php echo $data; ?></p>
+                <p id="lvpr" hidden><?php echo $row['price']; ?></p>
                 <button type="button" id="lovebtn" class="btn btn-default">Yes</button></a>
                 </thead>
 
