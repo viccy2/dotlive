@@ -23,42 +23,39 @@ if (!isset($_SESSION['email'])) {
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="./">Home</a></li>
-                                        <li class="breadcrumb-item"><a href="#">Verification</a></li> 
+                                        <li class="breadcrumb-item"><a href="#">Verification</a></li>
                                     </ol>
                                 </nav>
                                 <!-- breadcrumb End -->
                             </div>
                         </div>
                     </div>
-                </div>          
+                </div>
             </div>
         </div>
     </section>
     <!--?  Contact Area start  -->
     <section class="contact-section">
         <div class="container">
-           
+
             <div class="row">
-                
+
                 <div id="space" class="col-lg-12">
                     <div class="col-12">
-                    <h2 class="contact-title">A verification link has been sent to <?php echo $_SESSION['email'] ?></h2>                     
-                    <p style="color: black;"><i style="font-size: 10px;" class="fa fa-check"></i> Check your inbox and spam folder</p>                     
-                    <p style="color: black;"><i style="font-size: 10px;" class="fa fa-check"></i> Have an active internet connection</p> 
-                    <p style="color: black;"><i style="font-size: 10px;" class="fa fa-check"></i> Make sure you supplied the correct email</p>                    
-                </div>
-                   
-                        <div class="row">
-                          
-                           <div class="form-group mt-3 pl-5 col-lg-4">
-                            <a href="mailto:"><button type="button" id="userr" class="button button-contactForm boxed-btn">Open mail</button></a>
-                        </div>
+                        <h2 class="contact-title">A verification link has been sent to <?php echo $_SESSION['email'] ?>
+                        </h2>
+                        <p style="color: black;"><i style="font-size: 10px;" class="fa fa-check"></i> Check your inbox
+                            and spam folder</p>
+                        <p style="color: black;"><i style="font-size: 10px;" class="fa fa-check"></i> Have an active
+                            internet connection</p>
+                        <p style="color: black;"><i style="font-size: 10px;" class="fa fa-check"></i> Make sure you
+                            supplied the correct email</p>
+                    </div>
 
-                        </div>
-                        
-                   
+
+
                 </div>
-                
+
             </div>
         </div>
     </section>
@@ -66,16 +63,16 @@ if (!isset($_SESSION['email'])) {
 </main>
 
 <!-- Modal -->
-    <div class="modal fade" id="exampleModalCenter">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div style="background: #f9f9ff; color: #ff0000;" class="modal-content">
-                <div class="modal-body">
-                    <div id="msg" class="text-center"></div>
-                </div>
+<div class="modal fade" id="exampleModalCenter">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div style="background: #f9f9ff; color: #ff0000;" class="modal-content">
+            <div class="modal-body">
+                <div id="msg" class="text-center"></div>
             </div>
         </div>
-    </div> 
- <?php include("includes/footer.php"); ?>
+    </div>
+</div>
+<?php include("includes/footer.php"); ?>
 
 <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
 <!-- Jquery, Popper, Bootstrap -->
@@ -111,9 +108,10 @@ if (!isset($_SESSION['email'])) {
 <script src="./assets/js/jquery.validate.min.js"></script>
 <script src="./assets/js/mail-script.js"></script>
 
-<!-- Jquery Plugins, main Jquery -->	
+<!-- Jquery Plugins, main Jquery -->
 <script src="./assets/js/plugins.js"></script>
 <script src="./assets/js/main.js"></script>
 <script src="ajax.js"></script>
 </body>
+
 </html>

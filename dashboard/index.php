@@ -44,7 +44,7 @@ if (row_count($result_set) == 1) {
  echo '<span class="info-box-number">'.$a.'</span>'; 
  
  $rs = $_SESSION['Username'];
- $sqls="SELECT SUM(sn) AS cart from apartment WHERE `uploader` = '$rs' AND `status` = 'available'";
+ $sqls="SELECT SUM(sn) AS cart from apartment WHERE `uploader` = '$rs'";
  $result_sets=query($sqls);
  $rows= mysqli_fetch_array($result_sets);
 
@@ -178,7 +178,7 @@ if ($rwl['category'] != 'user') {
                             </thead>
                             <?php
          $r = $_SESSION['Username'];
- $sql="SELECT * FROM apartment WHERE `uploader` = '$r' AND `status` = 'available'";
+ $sql="SELECT * FROM apartment WHERE `uploader` = '$r'";
  $result_set=query($sql);
  while($row= mysqli_fetch_array($result_set))
  {
@@ -246,7 +246,7 @@ if ($rwl['category'] != 'user') {
                             </thead>
                             <?php
  $r = $_SESSION['Username'];
- $sql="SELECT * FROM rent WHERE `uploader` = '$r' AND `status` = 'pending'";
+ $sql="SELECT * FROM rent WHERE `tenantmail` = '$r' AND `status` = 'pending'";
  $result_set=query($sql);
  while($row= mysqli_fetch_array($result_set))
  {
@@ -268,7 +268,8 @@ if ($rwl['category'] != 'user') {
                                             <?php echo number_format($row['price']); ?></div>
                                     </td>
                                     <td><?php echo $row['pendlimit']; ?></td>
-                                    <td><a href="tel: <?php echo $row['tenanttel'] ?>"> Call Tenant</td>
+                                    <td><a href="tel: <?php echo $row['tel']; ?>"> Call Landlord</td>
+                                    <td><a href="./rdetails?id=<?php echo $row['apt']; ?>">Verify Apartment</a></td>
                                 </tr>
 
                             </tbody>

@@ -129,7 +129,7 @@ include("include/top.php");
                                             </thead>
                                             <?php
   $r = $_SESSION['Username'];
- $sql="SELECT * FROM apartment WHERE `uploader` = '$r' AND `status` = 'available'";
+ $sql="SELECT * FROM apartment WHERE `uploader` = '$r'";
  $result_set=query($sql);
  while($row= mysqli_fetch_array($result_set))
  {
@@ -352,92 +352,6 @@ include("include/top.php");
                         </div>
 
 
-                        <div class="tab-pane" id="sent">
-                            <!-- The timeline -->
-                            <div class="timeline timeline-inverse">
-                                <!-- timeline time label -->
-
-                                <!-- /.timeline-label -->
-                                <!-- timeline item -->
-                                <div class="card">
-                                    <div class="card-header border-transparent">
-                                        <h3 class="card-title">Unapproved Product(s)</h3>
-
-                                        <div class="card-tools">
-                                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                                <i class="fas fa-minus"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                                <i class="fas fa-times"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <!-- /.card-header -->
-                                    <div class="card-body p-0">
-                                        <div class="table-responsive">
-                                            <table class="table m-0">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Product ID</th>
-                                                        <th>Product Name</th>
-                                                        <th>Approval</th>
-                                                        <th>Service Fee</th>
-                                                        <th>Sales Status</th>
-                                                        <th>Price</th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <?php
-         $r = $_SESSION['Username'];
- $sql="SELECT * FROM ichange_product WHERE `Username` = '$r' AND `Approved` = 'Pending'";
- $result_set=query($sql);
- while($row= mysqli_fetch_array($result_set))
- {
-  ?>
-
-                                                <tbody>
-                                                    <tr>
-                                                        <td><a href="#"><?php echo $row['Product_ID']; ?></a></td>
-                                                        <td><?php echo $row['Product_Name']; ?></td>
-                                                        <td><span
-                                                                class="badge badge-success"><?php echo $row['Approved']; ?></span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="badge badge-danger">NGN
-                                                                <?php echo $row['service_fee']; ?></span>
-                                                        </td>
-                                                        <td>
-                                                            <span
-                                                                class="badge badge-success"><?php echo $row['Sold']; ?></span>
-                                                        </td>
-                                                        <td>
-                                                            <div class="sparkbar" data-color="#00a65a" data-height="20">
-                                                                NGN <?php echo $row['Product_Price']; ?></div>
-                                                        </td>
-                                                    </tr>
-
-                                                </tbody>
-                                                <?php
-                  }
-                  ?>
-                                            </table>
-                                        </div>
-                                        <!-- /.table-responsive -->
-                                    </div>
-
-                                </div>
-                                <!-- /.card -->
-                                <!-- END timeline item -->
-
-                                <!-- END timeline item -->
-                                <!-- timeline item -->
-
-
-
-
-                            </div>
-                        </div>
-                        <!-- /.tab-pane -->
 
 
                     </div>

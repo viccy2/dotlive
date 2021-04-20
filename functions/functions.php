@@ -1423,6 +1423,191 @@ if ($date >= $expiry) {
 }
 }
 
+
+
+//universal apaerment expirty remainder
+function apt_exprem() {
+
+	//check for expired apartment
+	$sql = "SELECT * FROM rent WHERE `status` = 'rented'";
+	$rsl = query($sql);
+
+	if (row_count($rsl) <= 0) {	
+	
+	} else {
+	while($row = mysqli_fetch_array($rsl)) {
+	
+	//check if apartment is due for expiry
+	$expiry   = date('Y-m-d', strtotime($row['expiry']));
+	$date     = date('Y-m-d');
+	
+	$idid     = $row['apt'];
+	$price    = $row['price'];
+	$tmail    = $row['tenantmail'];
+	$lndlrd   = $row['uploader'];
+
+	$datep    = $row['paydate'];
+	
+
+	
+	
+	if ($date >= $expiry) {	
+
+	//set apartment to active
+	$sls = "UPDATE apartment SET `status` = 'available' WHERE `apt` = '$idid'";
+	$fdr = query($sls);
+	
+	//delete apatment
+	$ssk = "DELETE FROM rent WHERE `apt` = '$idid'";
+	$rsk = query($ssk);
+
+	//notify user about the update
+	$ref = "DSPR-".rand(0, 99999);
+	$msg = "Hi there, <br> your rented apartment with Suite_No :- <b>$idid</b> has expired. Kindly check your Apartment Tab for details.";
+
+	$sqln = "INSERT INTO support_reply(`sn`, `ref`, `usname`, `msg`, `date`, `status`)";
+	$sqln.= " VALUES('1', '$ref', '$tmail', '$msg', '$date', 'unread')";
+	$resultn = query($sqln);
+	
+	
+	//notify lanlord about the update
+	$refl = "DSPR-".rand(0, 99999);
+	$msgl = "Hi there, <br> your apartment with Suite_No :- <b>$idid</b> is now available for rent. Kindly check your Apartment Tab for details.";
+
+	$sqlnl = "INSERT INTO support_reply(`sn`, `ref`, `usname`, `msg`, `date`, `status`)";
+	$sqlnl.= " VALUES('1', '$ref', '$lndlrd', '$msg', '$date', 'unread')";
+	$resultnl = query($sqlnl);
+
+
+	//notify user via email
+	$to         = $tmail;
+	$from 		= "noreply@dotlive.com.ng";
+    $cmessage 	= "Best Regards<br/> <i>Team DotLive</i>";
+
+	$headers  = "From: " . $from . "\r\n";
+	$headers .= "Reply-To: ". $from . "\r\n";
+	$headers .= "MIME-Version: 1.0\r\n";
+    $headers .= "Content-Type: text/html; charset=\"iso-8859-1\"\n";
+    $headers .= "X-Priority: 1 (Highest)\n";
+    $headers .= "X-MSMail-Priority: High\n";
+    $headers .= "Importance: High\n";
+
+    $subject = "Your Rented Apartment Has Expired";
+
+    $logo = 'https://dotlive.com.ng/assets/img/logo/2.png';
+    $url  = 'https://dotlive.com.ng';
+    $link = 'https://dotlive.com.ng/./dashboard/./myapartments';
+
+	$body = "<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><title>DotLive from DotEightPlus</title></head><link rel='stylesheet' href='https://dotlive.com.ng/assets/css/bootstrap.min.css'><body style='text-align: center;'>";
+	$body .= "<section style='margin: 30px; margin-top: 50px ; background: #000000; color: white;'>";
+	$body .= "<img style='margin-top: 35px' src='{$logo}' alt='DotLive'>";
+	$body .= "<h1 style='margin-top: 45px; color: #fbb710'>Your Rented Apartment Has Expired</h1>
+		<br/>";
+	$body .= "<p style='margin-left: 45px; margin-top: 34px; text-align: left; font-size: 17px;'>Hi there! <br/> Your rented apartment has expired. Below are <br/> details about the apartment expired ;</p>
+		<br/>";
+	$body .= '<table class="text-center" style="width:90%; margin-left: 45px; color: white; border: 1px solid #f9f9ff;">
+   <tr>
+    <th style="border: 1px solid #f9f9ff;">Suite</th>
+    <th style="border: 1px solid #f9f9ff;">Amount Paid</th>
+    <th style="border: 1px solid #f9f9ff;">Date Paid</th>
+    <th style="border: 1px solid #f9f9ff;">Due Date</th>
+  </tr>
+  <tr style="border: 1px solid #f9f9ff;">
+    <td style="border: 1px solid #f9f9ff;">'.$ididi.'</td>
+    <td style="border: 1px solid #f9f9ff;">NGN '.number_format($price).'</td>
+    <td style="border: 1px solid #f9f9ff;">'.date('D, M d, Y', strtotime($datep)).'</td>
+    <td style="border: 1px solid #f9f9ff;">'.date('D, M d, Y', strtotime($expy)).'</td>
+  </tr>
+</table><br/>';
+	$body .= "<p style='margin-left: 45px; text-align: left;'><a target='_blank' href='{$link}' style='background: white; color: #ff0000; text-decoration: none;'> Click here to visit your apartment center</span> </a></p>
+		<br/>";
+	$body .= "<p style='margin-left: 45px; padding-bottom: 80px; text-align: left;'>Do not bother replying this email. This is a virtual email</p>";	
+    $body .= "<p text-align: center;'><a href='https://doteightplus.com/contact'><img src='https://dotlive.com.ng/assets/img/icon/5.png'></a>";
+    $body .= "<p style='text-align: center;'>Email.: <span style='color: #fbb710'>support@dotlive.com.ng</span></p>";	
+	$body .= "<p style='text-align: center;'>Call/Chat.: <span style='color: #fbb710'>+234(0) 810 317 1902</span></p>";	
+	$body .= "<p style='text-align: center; padding-bottom: 50px;'>DotLive from DotEightPlus</p>";	
+	$body .= "<script src='https://dotlive.com.ng/assets/js/bootstrap.min.js'></script>";
+	$body .= "</section>";	
+	$body .= "</body></html>";
+	$send = mail($to, $subject, $body, $headers);
+	}
+}
+}
+}
+
+
+//-- universal check for apartment expiry --//
+function apt_exp() {
+
+	//check for expired pending apartment
+	$sql = "SELECT * FROM rent WHERE `status` = 'pending'";
+	$rsl = query($sql);
+
+	if (row_count($rsl) <= 0) {	
+	
+	} else {
+	while($row = mysqli_fetch_array($rsl)) {
+	
+	//check if apartment is due for expiry
+	$expiry   = date('Y-m-d', strtotime($row['pendlimit']));
+	$date     = date('Y-m-d');
+	$idid     = $row['apt'];
+	$price    = $row['price'];
+	$tmail    = $row['tenantmail'];
+	$lndlrd   = $row['uploader'];
+	
+	if ($date >= $expiry) {
+
+	//retrieve user record
+	$userl = "SELECT * FROM user WHERE `email` = '$tmail'";
+	$rrr   = query($userl);
+
+	$rww   = mysqli_fetch_array($rrr);
+
+
+	//sum up prices to wallet balance
+	$prc  = $rww['wallet'] + $price;
+	
+
+	//if yes, set apartment to active
+	$ssl = "UPDATE apartment SET `status` = 'available' WHERE `apt` = '$idid'";
+	$frl = query($ssl);
+	
+	//credit the user and update ledger balance
+	$upd = "UPDATE user SET `wallet` = '$prc', `tempwallet` = 0 WHERE `email` = '$tmail'";
+	$updl = query($upd);
+
+	//insert details into transactions history
+	$tran = "DLAPT-".rand(0, 99999);
+
+	$sll = "INSERT INTO wallet_his(`transref`, `user`, `amt`, `date`, `details`, `status`, `mode`, `type`)";
+	$sll.= "VALUES('$tran', '$tmail', '$price', '$date', 'Rent Reversal', 'Reversed', 'Automated', 'Credit')";
+	$rll = query($sll);
+
+	//notify user about the update
+	$ref = "DSPR-".rand(0, 99999);
+	$msg = "Hi there, <br> your rented apartment with Suite_No :- <b>$idid</b> was reversed due to a pending verification limit which has expired. Kindly check your Transaction History for details.";
+
+	$sqln = "INSERT INTO support_reply(`sn`, `ref`, `usname`, `msg`, `date`, `status`)";
+	$sqln.= " VALUES('1', '$ref', '$tmail', '$msg', '$date', 'unread')";
+	$resultn = query($sqln);
+	
+	
+	//notify lanlord about the update
+	$refl = "DSPR-".rand(0, 99999);
+	$msgl = "Hi there, <br> your apartment with Suite_No :- <b>$idid</b> was reversed due to a pending verification limit which has expired. Kindly check your Apartment Tab for details.";
+
+	$sqlnl = "INSERT INTO support_reply(`sn`, `ref`, `usname`, `msg`, `date`, `status`)";
+	$sqlnl.= " VALUES('1', '$ref', '$lndlrd', '$msg', '$date', 'unread')";
+	$resultnl = query($sqlnl);
+	}
+}
+	}
+}
+
+
+
+
 //verify apartent in love
 if(isset($_POST['love']) && isset($_POST['lvpr'])){
 
@@ -1442,12 +1627,5 @@ if(isset($_POST['love']) && isset($_POST['lvpr'])){
 	$sqln.= " VALUES('1', '$ref', '$username', '$msg', '$date', 'unread')";
 	$resultn = query($sqln);
 
-}
-
-
-//-- universal check for apartment expiry --//
-function apt_exp() {
-
-	
 }
 ?>

@@ -7,5 +7,6 @@ include("db.php");
 include("functions.php");
 
 adsexpp();
-apt_exp()
+apt_exp();
+apt_exprem()
 ?>

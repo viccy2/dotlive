@@ -81,6 +81,10 @@
                                                     $res = query($sql);
 
                                                     $row = mysqli_fetch_array($res);
+                                                    if(row_count($res) == '') {
+                                                        session_destroy();
+                                                        redirect("./");
+                                                    }
                                                 ?>
                                                 <li><a style="color: #ff0000; text-transform: capitalize;"
                                                         href="dashboard/./">Welcome <?php echo $row['name']; ?></a>

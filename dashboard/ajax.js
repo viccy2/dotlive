@@ -252,24 +252,20 @@ $(document).ready(function () {
     $("#ModalCenter").modal();
   });
 
-
-
-
   //verify apartment functions
 
   //love apartment
   $("#lovebtn").click(function () {
-
     var love = $("#lover").text();
     var lvpr = $("#lvpr").text();
 
     $.ajax({
       type: "post",
       url: "../functions/init.php",
-      data: {love:love,lvpr:lvpr},
+      data: { love: love, lvpr: lvpr },
       success: function (data) {
         $("#msg").html(data);
       },
-      });
+    });
   });
 });
