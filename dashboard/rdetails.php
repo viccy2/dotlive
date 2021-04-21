@@ -64,11 +64,11 @@ $data = $_GET['id'];
                             data-target="#modal-lg"> 💗
                         </button>
 
-                        <button title="Real, No Love" type="button" data-toggle="modal" data-target="#modal-lg"
+                        <button title="Real, No Love" type="button" data-toggle="modal" data-target="#modal-unlike"
                             class="btn btn-default btn-lg btn-flat"> 👎
                         </button>
 
-                        <button title="Not Real" type="button" data-toggle="modal" data-target="#modal-lg"
+                        <button title="Not Real" type="button" data-toggle="modal" data-target="#modal-hate"
                             class="btn btn-default btn-lg btn-flat"> ❌
                         </button>
                     </div>
@@ -115,10 +115,12 @@ $data = $_GET['id'];
                 </p>
             </div>
             <div class="modal-footer justify-content-between">
-                <button type="button" class="btn  btn-danger" data-dismiss="modal">No</button>
+                <button type="button" class="btn  btn-danger" data-dismiss="modal">No, Cancel</button>
                 <p id="lover" hidden><?php echo $data; ?></p>
                 <p id="lvpr" hidden><?php echo $row['price']; ?></p>
-                <button type="button" id="lovebtn" class="btn btn-default">Yes</button></a>
+                <p id="uprl" hidden><?php echo $row['uploader'] ?></p>
+                <p id="msg"></p>
+                <button type="button" id="lovebtn" class="btn btn-default">Yes, Accept</button></a>
                 </thead>
 
             </div>
@@ -148,9 +150,14 @@ $data = $_GET['id'];
                     This process is not reversible. <br /><br /> Are you sure you love this apartment?
                 </p>
             </div>
+            <p id="lover" hidden><?php echo $data; ?></p>
+            <p id="lvpr" hidden><?php echo $row['price']; ?></p>
+            <p id="uprl" hidden><?php echo $row['uploader'] ?></p>
+            <p id="msg"></p>
             <div class="modal-footer justify-content-between">
-                <button type="button" class="btn  btn-danger" data-dismiss="modal">No</button>
-                <a href="./love?id=<?php echo $data; ?>"><button type="button" class="btn btn-default">Yes</button></a>
+
+                <button type="button" class="btn  btn-danger" data-dismiss="modal">No, Cancel</button>
+                <button type="button" id="unliked" class="btn btn-default">Yes, Accept</button></a>
                 </thead>
 
             </div>
@@ -181,8 +188,12 @@ $data = $_GET['id'];
                 </p>
             </div>
             <div class="modal-footer justify-content-between">
+                <p id="lover" hidden><?php echo $data; ?></p>
+                <p id="lvpr" hidden><?php echo $row['price']; ?></p>
+                <p id="uprl" hidden><?php echo $row['uploader'] ?></p>
+                <p id="msg"></p>
                 <button type="button" class="btn  btn-danger" data-dismiss="modal">No</button>
-                <a href="./love?id=<?php echo $data; ?>"><button type="button" class="btn btn-default">Yes</button></a>
+                <button type="button" id="hated" class="btn btn-default">Yes</button></a>
                 </thead>
 
             </div>

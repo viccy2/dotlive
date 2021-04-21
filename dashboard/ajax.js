@@ -258,11 +258,16 @@ $(document).ready(function () {
   $("#lovebtn").click(function () {
     var love = $("#lover").text();
     var lvpr = $("#lvpr").text();
+    var uprl = $("#uprl").text();
 
     $.ajax({
       type: "post",
       url: "../functions/init.php",
-      data: { love: love, lvpr: lvpr },
+      data: {
+        love: love,
+        lvpr: lvpr,
+        uprl: uprl,
+      },
       success: function (data) {
         $("#msg").html(data);
       },

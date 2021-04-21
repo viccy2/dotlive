@@ -44,21 +44,21 @@ include("include/top.php");
   ?>
                                 <a href="./apartment" class="btn btn-primary btn-block"><b>Upload Apartment</b></a>
 
-
-                                <?php
- }
- ?>
                                 <a href="#activity" data-toggle="tab" class="btn btn-primary btn-block"><b>All
                                         Apartment(s)<sup> <span
                                                 class="badge badge-danger right"><?php echo $_SESSION['new'];?></span></sup></b></a>
+                                <?php
+ }
+ ?>
+
 
                                 <?php
  $r = $_SESSION['Username'];
- $sql="SELECT SUM(sn) AS rent from apartment WHERE `uploader` = '$r' AND `status` = 'rented'";
+ $sql="SELECT SUM(sn) AS renst from rent WHERE `tenantmail` = '$r' AND `status` = 'rented'";
  $result_set=query($sql);
  while($row= mysqli_fetch_array($result_set))
  {
-    $a = $row['rent'];
+    $a = $row['renst'];
  
     
   ?>
@@ -70,7 +70,7 @@ include("include/top.php");
               ?>
                                 <?php
    $r = $_SESSION['Username'];
- $sql="SELECT SUM(sn) AS prod from rent WHERE `tenantmail` = '$r' AND `status` = 'rented'";
+ $sql="SELECT SUM(sn) AS prod from rent WHERE `tenantmail` = '$r' AND `status` = 'pending'";
  $result_set=query($sql);
  while($row= mysqli_fetch_array($result_set))
  {
@@ -121,6 +121,7 @@ include("include/top.php");
                                                     <th style="width: 15%;">Suite_No.</th>
                                                     <th style="width: 15%;">Image</th>
                                                     <th style="width: 15%;">Apartment Type</th>
+                                                    <th style="width: 15%;">Status</th>
                                                     <th style="width: 15%;">Water Type</th>
                                                     <th style="width: 15%;">Power Source</th>
                                                     <th style="width: 15%;">Price</th>
@@ -143,6 +144,7 @@ include("include/top.php");
  <td><img style= "width: 50px; height: 50px;" src= "../upload/apartment/'.$row['pix'].'"  alt="product picture"></td>';
  ?>
                                                     <td><?php echo $row['apartment']; ?></td>
+                                                    <td><?php echo $row['status']; ?></td>
                                                     <td><?php echo $row['water']; ?></td>
                                                     <td><?php echo $row['power']; ?></td>
                                                     <td>
@@ -222,15 +224,19 @@ include("include/top.php");
                                                                 </td>
                                                                 <?php          
                     echo '
- <td><img style= "width: 100px; height: 100px;" src= "../upload/product/'.$row['pix'].'"  alt="product picture"></td>';
+ <td><img style= "width: 50px; height: 50px;" src= "../upload/apartment/'.$row['pix'].'"  alt="product picture"></td>';
  ?>
-                                                                <td>
-                                                                <td><?php echo $row['paydate']; ?></td>
+
+                                                                <td><?php echo date('D, M d, Y', strtotime($row['paydate'])); ?>
+                                                                </td>
+                                                                <td><?php echo date('D, M d, Y', strtotime($row['expiry'])); ?>
+                                                                </td>
                                                                 <td><?php echo $row['tenanttel']; ?></td>
                                                                 <td>
                                                                     <div class="sparkbar" data-color="#00a65a"
                                                                         data-height="20">NGN
-                                                                        <?php echo $row['price']; ?></div>
+                                                                        <?php echo number_format($row['price']); ?>
+                                                                    </div>
                                                                 </td>
                                                                 <td><a
                                                                         href="./chat?id=<?php echo $row['tenantmail'] ?>">

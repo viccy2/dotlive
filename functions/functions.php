@@ -136,8 +136,8 @@ function register_user($name, $email, $gender, $upword, $tel) {
 	$id                 = "DotL".rand(0, 999);
 
 
-$sql = "INSERT INTO user(`id`, `name`, `email`, `gender`, `pword`, `tel`, `active`, `category`)";
-$sql.= " VALUES('$id', '$name', '$email', '$gender', '$upword', '$tel', '0', 'user')";
+$sql = "INSERT INTO user(`id`, `name`, `email`, `gender`, `pword`, `tel`, `active`, `category`, `wallet`, `tempwallet`)";
+$sql.= " VALUES('$id', '$name', '$email', '$gender', '$upword', '$tel', '0', 'user', '0', '0')";
 $result = query($sql);
 confirm($result);
 
@@ -193,8 +193,8 @@ function register_lnd($lname, $lemail, $lgender, $lpword, $ltel, $lbank, $lacct,
 	$id                 = "DotLnd".rand(0, 999);
 
 
-$sql = "INSERT INTO user(`id`, `name`, `email`, `gender`, `pword`, `tel`, `active`, `category`, `bank`, `acct`, `nin`)";
-$sql.= " VALUES('$id', '$lnam', '$lemai', '$lgend', '$lpwor', '$ltel', '0', 'landlord', '$lbnk', '$lact', '$lni')";
+$sql = "INSERT INTO user(`id`, `name`, `email`, `gender`, `pword`, `tel`, `active`, `category`, `bank`, `acct`, `nin`, `wallet`, `tempwallet`)";
+$sql.= " VALUES('$id', '$lnam', '$lemai', '$lgend', '$lpwor', '$ltel', '0', 'landlord', '$lbnk', '$lact', '$lni', '0', '0')";
 $result = query($sql);
 confirm($result);
 
@@ -250,8 +250,8 @@ function register_agt($aname, $aemail, $agender, $apword, $atel, $abank, $aacct,
 	$id                 = "DotAgt".rand(0, 999);
 
 
-$sql = "INSERT INTO user(`id`, `agtbiz`, `name`, `email`, `gender`, `pword`, `tel`, `active`, `category`, `bank`, `acct`, `nin`)";
-$sql.= " VALUES('$id', '$agtbn', '$anam', '$aemai', '$agend', '$apwor', '$atel', '0', 'agent', '$abnk', '$aact', '$ani')";
+$sql = "INSERT INTO user(`id`, `agtbiz`, `name`, `email`, `gender`, `pword`, `tel`, `active`, `category`, `bank`, `acct`, `nin`, `wallet`, `tempwallet`)";
+$sql.= " VALUES('$id', '$agtbn', '$anam', '$aemai', '$agend', '$apwor', '$atel', '0', 'agent', '$abnk', '$aact', '$ani', '0', '0')";
 $result = query($sql);
 confirm($result);
 
@@ -1609,23 +1609,76 @@ function apt_exp() {
 
 
 //verify apartent in love
-if(isset($_POST['love']) && isset($_POST['lvpr'])){
+if(isset($_POST['love']) && isset($_POST['lvpr']) && isset($_POST['uprl'])){
 
 	$aptlove = $_POST['love'];
-	$aptpr   = $_POST['aptpr'];
+	$aptpr   = $_POST['lvpr'];
+	$uplr    = $_POST['uprl'];
+
+	$date     = date("y-m-d");
+	$username = $_SESSION['Username'];
+	$ref      = "DSPR-".rand(0, 99999);
+
+	$msg      = "Hi there, <br> your apartment with Suite_No :- <b>$aptlove</b> has been rented. Kindly check your Apartment and Transaction History Tab for details.";
+
+	//get user previous ledger balance and deduct new balnc
+	$lrd = "SELECT * FROM user WHERE `email` = '$username'";
+	$sqw = query($lrd);
+	$dwe = mysqli_fetch_array($sqw);
+
+	if($dwe['tempwallet'] == 0) {
+
+		$tempbal = 0;
+	} else {
+
+	$tempbal = $dwe['tempwallet'] - $aptpr;
+	}
+
+	//get uploader previous waller balance and add up
+	$red  = "SELECT * FROM user WHERE `email` = '$uplr'";
+	$reds = query($red);
+	$tre  = mysqli_fetch_array($reds);
+
+	$tres = $tre['wallet'] + $aptpr;
 
 	//update rent detials
-	$sql 	 = "UPDATE rent SET `status` = 'rented' WHERE `apt` = '$aptlove' AND `price` = '$aptpr'";
+	$sql 	 = "UPDATE rent SET `status` = 'rented' WHERE `apt` = '$aptlove'";
 	$rrr     = query($sql);
 
 	//update apartment details
-	$ssl    = "UPDATE apartment SET `status` = 'rented' WHERE `apt` = '$aptlove' AND `price` = '$aptpr'";
-	$rsl    = query($sql);
+	$ssl    = "UPDATE apartment SET `status` = 'rented' WHERE `apt` = '$aptlove'";
+	$rsl    = query($ssl);
+
 
 	//credit agent or landlord
+	$frde   = "UPDATE user SET `wallet` = '$tres' WHERE `email` = '$uplr'";
+	$dds    = query($frde);
+
+	//insert wallet hsitory
+	$tran = "DLAPT-".rand(0, 99999);
+
+	$slml = "INSERT INTO wallet_his(`transref`, `user`, `amt`, `date`, `details`, `status`, `mode`, `type`)";
+	$slml.= "VALUES('$tran', '$uplr', '$tres', '$date', 'Rent Paid', 'Paid', 'Automated', 'Credit')";
+	$rlml = query($slml);
+	
+
+	//deduct the user ledger bal
+	$sdr = "UPDATE user SET `tempwallet` = '$tempbal' WHERE `email` = '$username'";
+	$fdd = query($sdr);
+
+	//update wallet history
+	$tran = "DLAPT-".rand(0, 99999);
+
+	$slml = "INSERT INTO wallet_his(`transref`, `user`, `amt`, `date`, `details`, `status`, `mode`, `type`)";
+	$slml.= "VALUES('$tran', '$username', '$tempbal', '$date', 'Rent Paid', 'Paid', 'Ledger Balance', 'Debit')";
+	$rlml = query($slml);
+
+	//notify landlord
 	$sqln = "INSERT INTO support_reply(`sn`, `ref`, `usname`, `msg`, `date`, `status`)";
-	$sqln.= " VALUES('1', '$ref', '$username', '$msg', '$date', 'unread')";
+	$sqln.= " VALUES('1', '$ref', '$uplr', '$msg', '$date', 'unread')";
 	$resultn = query($sqln);
+
+	echo '<script>window.location.href ="./myapartments"</script>';
 
 }
 ?>

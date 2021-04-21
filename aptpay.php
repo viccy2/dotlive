@@ -6,6 +6,9 @@ redirect("./apartment");
 
 } else {
 
+
+
+
 //constants
 $email   = $_SESSION['Username'];
 $upl     = $_POST['upl'];
@@ -16,6 +19,13 @@ $drt     = $_POST['drt'];
 $_SESSION['upl'] = $upl;
 $_SESSION['all'] = $all;
 $_SESSION['drt'] = $drt;
+
+
+if ($upl == $email) {
+ 
+  redirect("./error");
+ 
+} else {
 
 
 $tranref = "DLAPT-".date("Y").rand(0, 99999999);
@@ -69,5 +79,6 @@ if(!$transaction->data && !$transaction->data->link){
 // redirect to page so User can pay
 // uncomment this line to allow the user redirect to the payment page
 header('Location: ' . $transaction->data->link);
+}
 }
 ?>

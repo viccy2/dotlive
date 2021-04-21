@@ -30,7 +30,7 @@
                                 <span class="info-box-text">Rented Apartment(s)</span>
                                 <?php
  $r = $_SESSION['Username'];
- $sql="SELECT SUM(sn) AS cart from rent WHERE `status` = 'rented' OR `status` = 'pending' AND `tenantmail` = '$r'";
+ $sql="SELECT SUM(sn) AS cart from rent WHERE `status` = 'rented' AND `tenantmail` = '$r'";
  $result_set=query($sql);
  $row= mysqli_fetch_array($result_set);
 
@@ -170,6 +170,7 @@ if ($rwl['category'] != 'user') {
                                     <th style="width: 15%;">Suite_No.</th>
                                     <th style="width: 15%;">Image</th>
                                     <th style="width: 15%;">Apartment Type</th>
+                                    <th style="width: 15%;">Status</th>
                                     <th style="width: 15%;">Water Type</th>
                                     <th style="width: 15%;">Power Source</th>
                                     <th style="width: 15%;">Price</th>
@@ -193,6 +194,7 @@ if ($rwl['category'] != 'user') {
  <td><img style= "width: 100px; height: 100px;" src= "../upload/apartment/'.$row['pix'].'"  alt="product picture"></td>';
  ?>
                                     <td><?php echo $row['apartment']; ?></td>
+                                    <td><?php echo $row['status']; ?></td>
                                     <td><?php echo $row['water']; ?></td>
                                     <td><?php echo $row['power']; ?></td>
                                     <td>
@@ -246,7 +248,7 @@ if ($rwl['category'] != 'user') {
                             </thead>
                             <?php
  $r = $_SESSION['Username'];
- $sql="SELECT * FROM rent WHERE `tenantmail` = '$r' AND `status` = 'pending'";
+ $sql="SELECT * FROM rent WHERE `tenantmail` = '$r'  AND `status` = 'pending'";
  $result_set=query($sql);
  while($row= mysqli_fetch_array($result_set))
  {
@@ -308,6 +310,7 @@ if ($rwl['category'] != 'user') {
                                     <th style="width: 15%;">Suite_No.</th>
                                     <th style="width: 15%;">Image</th>
                                     <th style="width: 15%;">Date Paid</th>
+                                    <th style="width: 15%;">Due Date</th>
                                     <th style="width: 15%;">Tenant Tel</th>
                                     <th style="width: 15%;">Price</th>
                                     <th style="width: 15%;"></th>
@@ -315,7 +318,7 @@ if ($rwl['category'] != 'user') {
                             </thead>
                             <?php
          $r = $_SESSION['Username'];
- $sql="SELECT * FROM rent WHERE `uploader` = '$r' AND `status` = 'rented'";
+ $sql="SELECT * FROM rent WHERE `tenantmail` = '$r' AND `status` = 'rented'";
  $result_set=query($sql);
  while($row= mysqli_fetch_array($result_set))
  {
@@ -327,14 +330,15 @@ if ($rwl['category'] != 'user') {
                                     </td>
                                     <?php          
                     echo '
- <td><img style= "width: 100px; height: 100px;" src= "../upload/product/'.$row['pix'].'"  alt="product picture"></td>';
+ <td><img style= "width: 50px; height: 50px;" src= "../upload/apartment/'.$row['pix'].'"  alt="product picture"></td>';
  ?>
-                                    <td>
+
                                     <td><?php echo date('D, M d, Y', strtotime($row['paydate'])); ?></td>
+                                    <td><?php echo date('D, M d, Y', strtotime($row['expiry'])); ?></td>
                                     <td><?php echo $row['tenanttel']; ?></td>
                                     <td>
                                         <div class="sparkbar" data-color="#00a65a" data-height="20">NGN
-                                            <?php echo $row['price']; ?></div>
+                                            <?php echo number_format($row['price']); ?></div>
                                     </td>
                                     <td><a href="./chat?id=<?php echo $row['tenantmail'] ?>"> More Details</td>
                                 </tr>
@@ -456,6 +460,7 @@ if ($rwl['category'] != 'user') {
                                     <th style="width: 15%;">Suite_No.</th>
                                     <th style="width: 15%;">Image</th>
                                     <th style="width: 15%;">Date Paid</th>
+                                    <th style="width: 15%;">Due Date</th>
                                     <th style="width: 15%;">Tenant Tel</th>
                                     <th style="width: 15%;">Price</th>
                                     <th style="width: 15%;"></th>
@@ -463,7 +468,7 @@ if ($rwl['category'] != 'user') {
                             </thead>
                             <?php
          $r = $_SESSION['Username'];
- $sql="SELECT * FROM rent WHERE `uploader` = '$r' AND `status` = 'rented'";
+ $sql="SELECT * FROM rent WHERE `tenantmail` = '$r' AND `status` = 'rented'";
  $result_set=query($sql);
  while($row= mysqli_fetch_array($result_set))
  {
@@ -475,14 +480,15 @@ if ($rwl['category'] != 'user') {
                                     </td>
                                     <?php          
                     echo '
- <td><img style= "width: 100px; height: 100px;" src= "../upload/product/'.$row['pix'].'"  alt="product picture"></td>';
+ <td><img style= "width: 100px; height: 100px;" src= "../upload/apartment/'.$row['pix'].'"  alt="apartment picture"></td>';
  ?>
-                                    <td>
+
                                     <td><?php echo date('D, M d, Y', strtotime($row['paydate'])); ?></td>
+                                    <td><?php echo date('D, M d, Y', strtotime($row['expiry'])); ?></td>
                                     <td><?php echo $row['tenanttel']; ?></td>
                                     <td>
                                         <div class="sparkbar" data-color="#00a65a" data-height="20">NGN
-                                            <?php echo $row['price']; ?></div>
+                                            <?php echo number_format($row['price']); ?></div>
                                     </td>
                                     <td><a href="./chat?id=<?php echo $row['tenantmail'] ?>"> More Details</td>
                                 </tr>
