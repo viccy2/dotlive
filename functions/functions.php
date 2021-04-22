@@ -1689,7 +1689,7 @@ if(isset($_POST['love']) && isset($_POST['lvpr']) && isset($_POST['uprl'])){
 
 if(isset($_POST['loverd']) && isset($_POST['lvprd']) && isset($_POST['uprld'])){
 
-	$aptlove = $_POST['loved'];
+	$aptlove = $_POST['loverd'];
 	$aptpr   = $_POST['lvprd'];
 	$uplr    = $_POST['uprld'];
 
@@ -1744,6 +1744,6 @@ if(isset($_POST['loverd']) && isset($_POST['lvprd']) && isset($_POST['uprld'])){
 	$sqln.= " VALUES('1', '$ref', '$uplr', '$msg', '$date', 'unread')";
 	$resultn = query($sqln);
 
-	//echo '<script>window.location.href ="./myapartments"</script>';
+	echo '<script>window.location.href ="./myapartments"</script>';
 }
 ?>

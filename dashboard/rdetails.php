@@ -145,8 +145,7 @@ $data = $_GET['id'];
                 </button>
             </div>
             <div class="modal-body">
-                <p>Clicking on the accept button makes your payment for this apartment enabled and your rent
-                    activated.
+                <p>Clicking on this button 
                     This process is not reversible. <br /><br /> Are you sure you love this apartment?
                 </p>
             </div>

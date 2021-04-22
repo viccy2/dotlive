@@ -165,7 +165,7 @@
                              </thead>
         <?php
          $uu = $_SESSION['Username'];
- $sql="SELECT * FROM wallet_his WHERE `user` = '$uu' ORDER BY id asc";
+ $sql="SELECT * FROM wallet_his WHERE `user` = '$uu' ORDER BY id desc";
  $result_set=query($sql);
  while($row= mysqli_fetch_array($result_set))
  {

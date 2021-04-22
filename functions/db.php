@@ -5,7 +5,7 @@
 //$con = mysqli_connect("us-cdbr-east-03.cleardb.com","b035ecdb1188fa","53fa1a7e","heroku_5f230635e2239b6");
 
 //local db
-$con = mysqli_connect("localhost","root","","dlive");
+$con = mysqli_connect("localhost","root","","dotlive");
 
 
 //whogohost db
