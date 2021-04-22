@@ -150,14 +150,15 @@ $data = $_GET['id'];
                     This process is not reversible. <br /><br /> Are you sure you love this apartment?
                 </p>
             </div>
-            <p id="lover" hidden><?php echo $data; ?></p>
-            <p id="lvpr" hidden><?php echo $row['price']; ?></p>
-            <p id="uprl" hidden><?php echo $row['uploader'] ?></p>
-            <p id="msg"></p>
+
             <div class="modal-footer justify-content-between">
 
                 <button type="button" class="btn  btn-danger" data-dismiss="modal">No, Cancel</button>
-                <button type="button" id="unliked" class="btn btn-default">Yes, Accept</button></a>
+                <p id="loverd" hidden><?php echo $data; ?></p>
+                <p id="lvprd" hidden><?php echo $row['price']; ?></p>
+                <p id="uprld" hidden><?php echo $row['uploader'] ?></p>
+                <p id="msg"></p>
+                <button type="button" id="uncalledfr" class="btn btn-default">Yes, Accept</button></a>
                 </thead>
 
             </div>

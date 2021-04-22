@@ -1681,4 +1681,69 @@ if(isset($_POST['love']) && isset($_POST['lvpr']) && isset($_POST['uprl'])){
 	echo '<script>window.location.href ="./myapartments"</script>';
 
 }
+
+
+
+
+//verify apartment via unlike
+
+if(isset($_POST['loverd']) && isset($_POST['lvprd']) && isset($_POST['uprld'])){
+
+	$aptlove = $_POST['loved'];
+	$aptpr   = $_POST['lvprd'];
+	$uplr    = $_POST['uprld'];
+
+	$date     = date("y-m-d");
+	$username = $_SESSION['Username'];
+	$ref      = "DSPR-".rand(0, 99999);
+
+	$msg      = "Hi there, <br> your apartment with Suite_No :- <b>$aptlove</b> is available for rent. Kindly check your Apartment Tab for details.";
+
+	//get user previous ledger balance and add new balnc
+	$lrd = "SELECT * FROM user WHERE `email` = '$username'";
+	$sqw = query($lrd);
+	$dwe = mysqli_fetch_array($sqw);
+
+	if($dwe['tempwallet'] == 0) {
+
+		$tempbal = 0;
+	} else {
+
+	$tempbal = $dwe['tempwallet'] - $aptpr;
+
+	}
+
+	$avalbt  = $dwe['wallet'] + $aptpr;
+
+	//delete rent detials
+	$sql 	 = "DELETE FROM rent WHERE `apt` = '$aptlove'";
+	$rrr     = query($sql);
+
+	//update apartment details
+	$ssl    = "UPDATE apartment SET `status` = 'available' WHERE `apt` = '$aptlove'";
+	$rsl    = query($ssl);
+
+
+	//credit user wallet and update ledger balance
+	$frde   = "UPDATE user SET `wallet` = '$avalbt' WHERE `email` = '$username'";
+	$dds    = query($frde);
+
+	$dfs   = "UPDATE user SET `tempwallet` = '$tempbal' WHERE `email` = '$username'";
+	$gfr   = query($dfs);
+
+	//insert wallet hsitory
+	$tran = "DLAPT-".rand(0, 99999);
+
+	$slml = "INSERT INTO wallet_his(`transref`, `user`, `amt`, `date`, `details`, `status`, `mode`, `type`)";
+	$slml.= "VALUES('$tran', '$username', '$aptpr', '$date', 'Rent Reversal', 'Reversed', 'Ledger Balance', 'Credit')";
+	$rlml = query($slml);
+	
+
+	//notify landlord
+	$sqln = "INSERT INTO support_reply(`sn`, `ref`, `usname`, `msg`, `date`, `status`)";
+	$sqln.= " VALUES('1', '$ref', '$uplr', '$msg', '$date', 'unread')";
+	$resultn = query($sqln);
+
+	//echo '<script>window.location.href ="./myapartments"</script>';
+}
 ?>

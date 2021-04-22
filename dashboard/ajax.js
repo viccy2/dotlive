@@ -273,4 +273,25 @@ $(document).ready(function () {
       },
     });
   });
+
+
+  //unlike apartment
+  $("#uncalledfr").click(function () {
+    var loverd = $("#loverd").text();
+    var lvprd = $("#lvprd").text();
+    var uprld = $("#uprld").text();
+
+    $.ajax({
+    type: "post",
+    url: "../functions/init.php",
+    data: {
+      loverd: loverd,
+      lvprd: lvprd,
+      uprld: uprld,
+    },
+    success: function (data) {
+      $("#msg").html(data);
+    },
+  });
+  });
 });
